@@ -1,0 +1,217 @@
+body {
+    margin: 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.header-left-username {
+    font-size: 25px;
+    color: #626262;
+}
+
+.header-center-searchbox {
+    border: 0.75px solid #AAAAAA;
+    border-radius: 3px;
+    height: 44px;
+    background-color: #F1F1F1;
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 400;
+    color: #B1B1B1;
+}
+
+.header-right-btn {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-right-btn>span {
+    margin-top: 5px;
+    font-size: 11px;
+    font-weight: 400;
+    color: #494949;
+    white-space: nowrap;
+}
+
+.hm-main-panel {
+    display: flex;
+    flex-direction: 'row';
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 82px);
+    padding: 10px 50px;
+    background-color: white;
+    overflow: hidden;
+}
+
+.hm-left-panel {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 430px);
+    height: 100%;
+}
+
+.hm-right-panel {
+    width: 430px;
+    height: 100%;
+    padding: 50px 0 10px 25px;
+}
+
+.hm-status-wrapper {
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+}
+
+.hm-view-wrapper {
+    display: flex;
+    padding: 1px;
+    background-color: #D1CFCF;
+    border-radius: 15px;
+    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+}
+
+.hm-view-btn {
+    border: none;
+    border-radius: 15px;
+    background-color: transparent;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 5px 15px;
+}
+
+.hm-active {
+    background-color: white;
+}
+
+.hm-status-buttons {
+    display: flex;
+    margin-left: 30px;
+}
+
+.hm-inactive-btn {
+    height: 25px;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    padding: 0px 15px;
+    font-size: 12px;
+    background-color: transparent;
+    border: 1px solid #696969;
+    border-radius: 3px;
+}
+.hm-inactive-btn>span {
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
+    font-size: 12px;
+}
+
+.hm-forSale-btn {
+    height: 25px;
+    margin-right: 10px;
+    padding: 0px 15px;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    background-color: #45AB62;
+    border: 1px solid #45AB62;
+    border-radius: 3px;
+}
+
+.hm-forRent-btn {
+    height: 25px;
+    margin-right: 10px;
+    padding: 0px 15px;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    background-color: #4E9EE9;
+    border: 1px solid #4E9EE9;
+    border-radius: 3px;
+}
+
+.hm-sold-btn {
+    height: 25px;
+    margin-right: 10px;
+    padding: 0px 15px;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    background-color: #EA4A4A;
+    border: 1px solid #EA4A4A;
+    border-radius: 3px;
+}
+
+.hm-rented-btn {
+    height: 25px;
+    margin-right: 10px;
+    padding: 0px 15px;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    background-color: #FF9900;
+    border: 1px solid #FF9900;
+    border-radius: 3px;
+}
+
+.hm-filter-button {
+    height: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 7px;
+    background: #FFFFFF;
+    border: 1px solid #696969;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+.hm-filter-button>span {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 12px;
+    font-weight: 400;
+    color: black;
+}
+
+.hm-badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    font-size: 10px;
+}
+
+.hm-map-view {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-top: 30px;
+    background-color: #EEEEEE;
+    border-radius: 18px;
+}
+
+.hm-estate-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.hm-estate-list::-webkit-scrollbar {
+    display: none;
+}

@@ -1,0 +1,146 @@
+button:focus {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    outline: none;
+}
+
+.dt-description {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid grey
+}
+
+.dt-title {
+    font-size: 16px;
+    font-weight: bolder;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.dt-part {
+    display: 'flex';
+    flex-direction: column;
+    /* margin-top: 5px; */
+}
+
+.dt-item {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+}
+
+.dt-item-title {
+    width: 40%;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.dt-item-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.dt-show-button {
+    display: inline-flex;
+    width: 40%;
+    border: none;
+    background-color: white;
+    margin-top: 10px;
+    margin-left: -5px;
+}
+
+.dt-room-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.ps-container {
+    display: flex;
+    flex-direction: column;
+    widows: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid grey;
+}
+.ps-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    widows: 100%;
+    padding: 20px;
+}
+
+.mortage-rate {
+    display: 'flex';
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 120px;
+    height: 50px;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.pf-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    border-bottom: 1px solid grey;
+}
+
+.ps-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    object-fit: cover;
+}
+
+.ps-buttons {
+    /* width: 200px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.si-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.si-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 20);
+    height: 25px;
+    background-color: #BBB;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.si-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: calc(50% - 16);
+    height: 20px;
+    background-color: white;
+    border-radius: 2px;
+    border: none;
+    /* box-shadow: none; */
+  }
