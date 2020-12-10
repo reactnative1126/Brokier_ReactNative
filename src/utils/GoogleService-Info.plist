@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>453223822262-8ee3p9lu4r6vg4qmb1ooramssperu81e.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.453223822262-8ee3p9lu4r6vg4qmb1ooramssperu81e</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCep5hkbPrVbzHAkF3vh6HM6kgYWv3Xeg8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>453223822262</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.brokier.app</string>
+	<key>PROJECT_ID</key>
+	<string>brokier-1126</string>
+	<key>STORAGE_BUCKET</key>
+	<string>brokier-1126.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:453223822262:ios:c86d17aabef7426de40717</string>
+	<key>DATABASE_URL</key>
+	<string>https://brokier-1126.firebaseio.com</string>
+</dict>
+</plist>

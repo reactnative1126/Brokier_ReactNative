@@ -1,0 +1,69 @@
+{
+  "expo": {
+    "name": "brokier",
+    "slug": "brokier",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/icons/icon.png",
+    "splash": {
+      "image": "./src/assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.brokier.app",
+      "infoPlist": {
+        "NSLocationAlwaysUsageDescription": "This app uses the location to find the Cabs near you.",
+        "NSLocationWhenInUseUsageDescription": "This app uses the location to find the Cabs near you.",
+        "NSCameraUsageDescription": "This app uses the camera to take your profile picture.",
+        "NSPhotoLibraryUsageDescription": "This app uses Photo Library for uploading your profile picture.",
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ]
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyC0xtEteZeM8hlVw-dmM1TE2JUL2ps9A88",
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.453223822262-8ee3p9lu4r6vg4qmb1ooramssperu81e"
+        }
+      },
+      "googleServicesFile": "./src/utils/GoogleService-Info.plist"
+    },
+    "android": {
+      "package": "com.brokier.app",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA_ROLL"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC0xtEteZeM8hlVw-dmM1TE2JUL2ps9A88"
+        }
+      },
+      "googleServicesFile": "./src/utils/google-services.json"
+    },
+    "facebookScheme": "fb220105416074930",
+    "facebookAppId": "220105416074930",
+    "facebookDisplayName": "Brokier",
+    "web": {
+      "favicon": "./src/assets/icons/favicon.png"
+    }
+  }
+}

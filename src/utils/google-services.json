@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "453223822262",
+    "firebase_url": "https://brokier-1126.firebaseio.com",
+    "project_id": "brokier-1126",
+    "storage_bucket": "brokier-1126.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453223822262:android:1f147ff4fb14b030e40717",
+        "android_client_info": {
+          "package_name": "com.brokier.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453223822262-h2dirgdv2uoc05b8tst9nd31fubvjg7s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhh3FKComzebK0NWhycP-JvOjZ0uetfmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453223822262-h2dirgdv2uoc05b8tst9nd31fubvjg7s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "453223822262-8ee3p9lu4r6vg4qmb1ooramssperu81e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.brokier.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
