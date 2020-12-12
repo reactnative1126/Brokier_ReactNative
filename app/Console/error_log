@@ -1,0 +1,4 @@
+[24-Nov-2020 21:39:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Console\Kernel' not found in /home/keyhan1126/public_html/prozim/app/Console/Kernel.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Console/Kernel.php on line 11

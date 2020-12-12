@@ -1,0 +1,4 @@
+[24-Nov-2020 21:40:46 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Seeder' not found in /home/keyhan1126/public_html/prozim/database/seeds/DatabaseSeeder.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/database/seeds/DatabaseSeeder.php on line 5

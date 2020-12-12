@@ -1,0 +1,56 @@
+[24-Nov-2020 21:40:23 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/keyhan1126/public_html/prozim/config/api.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/api.php on line 21
+[24-Nov-2020 21:40:24 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/keyhan1126/public_html/prozim/config/app.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/app.php on line 14
+[24-Nov-2020 21:40:25 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/keyhan1126/public_html/prozim/config/broadcasting.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/broadcasting.php on line 15
+[24-Nov-2020 21:40:26 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/keyhan1126/public_html/prozim/config/cache.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/cache.php on line 17
+[24-Nov-2020 21:40:26 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/keyhan1126/public_html/prozim/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/database.php on line 18
+[24-Nov-2020 21:40:27 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/keyhan1126/public_html/prozim/config/filesystems.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/filesystems.php on line 13
+[24-Nov-2020 21:40:28 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/keyhan1126/public_html/prozim/config/hashing.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/hashing.php on line 28
+[24-Nov-2020 21:40:28 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/keyhan1126/public_html/prozim/config/logging.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/logging.php on line 20
+[24-Nov-2020 21:40:29 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/keyhan1126/public_html/prozim/config/mail.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/mail.php on line 17
+[24-Nov-2020 21:40:30 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/keyhan1126/public_html/prozim/config/permission.php:88
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/permission.php on line 88
+[24-Nov-2020 21:40:30 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/keyhan1126/public_html/prozim/config/queue.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/queue.php on line 16
+[24-Nov-2020 21:40:31 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/keyhan1126/public_html/prozim/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/services.php on line 18
+[24-Nov-2020 21:40:32 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/keyhan1126/public_html/prozim/config/session.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/session.php on line 19
+[24-Nov-2020 21:40:32 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/keyhan1126/public_html/prozim/config/view.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/config/view.php on line 15

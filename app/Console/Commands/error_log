@@ -1,0 +1,12 @@
+[24-Nov-2020 21:39:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Console\Command' not found in /home/keyhan1126/public_html/prozim/app/Console/Commands/InstallApp.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Console/Commands/InstallApp.php on line 8
+[24-Nov-2020 21:39:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Console\Command' not found in /home/keyhan1126/public_html/prozim/app/Console/Commands/ListingsCron.php:23
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Console/Commands/ListingsCron.php on line 23
+[24-Nov-2020 21:39:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Console\Command' not found in /home/keyhan1126/public_html/prozim/app/Console/Commands/ResetDemoApp.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Console/Commands/ResetDemoApp.php on line 11

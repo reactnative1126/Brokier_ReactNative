@@ -1,0 +1,4 @@
+[24-Nov-2020 21:39:43 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Api/PingController.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Api/PingController.php on line 13

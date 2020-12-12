@@ -1,0 +1,4 @@
+[24-Nov-2020 21:41:26 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Testing\TestCase' not found in /home/keyhan1126/public_html/prozim/tests/TestCase.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/tests/TestCase.php on line 7

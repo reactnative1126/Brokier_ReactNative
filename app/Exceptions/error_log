@@ -1,0 +1,4 @@
+[24-Nov-2020 21:39:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/keyhan1126/public_html/prozim/app/Exceptions/Handler.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Exceptions/Handler.php on line 12

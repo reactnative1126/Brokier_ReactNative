@@ -1,0 +1,8 @@
+[24-Nov-2020 21:39:41 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/keyhan1126/public_html/prozim/app/Http/Controllers/ApiDocsController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Http/Controllers/ApiDocsController.php on line 8
+[24-Nov-2020 21:39:42 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Routing\Controller' not found in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Controller.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Controller.php on line 12

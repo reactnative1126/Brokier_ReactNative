@@ -1,0 +1,8 @@
+[24-Nov-2020 21:40:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Seeder' not found in /home/keyhan1126/public_html/prozim/database/seeds/Users/RoleTableSeeder.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/database/seeds/Users/RoleTableSeeder.php on line 5
+[24-Nov-2020 21:40:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Seeder' not found in /home/keyhan1126/public_html/prozim/database/seeds/Users/UsersTableSeeder.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/database/seeds/Users/UsersTableSeeder.php on line 5

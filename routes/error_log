@@ -1,0 +1,16 @@
+[24-Nov-2020 21:41:05 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function app() in /home/keyhan1126/public_html/prozim/routes/api.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/routes/api.php on line 3
+[24-Nov-2020 21:41:06 UTC] PHP Fatal error:  Uncaught Error: Class 'Broadcast' not found in /home/keyhan1126/public_html/prozim/routes/channels.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/routes/channels.php on line 14
+[24-Nov-2020 21:41:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\Facades\Artisan' not found in /home/keyhan1126/public_html/prozim/routes/console.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/routes/console.php on line 16
+[24-Nov-2020 21:41:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\Facades\Route' not found in /home/keyhan1126/public_html/prozim/routes/web.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/routes/web.php on line 5

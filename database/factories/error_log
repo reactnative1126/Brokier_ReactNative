@@ -1,0 +1,4 @@
+[24-Nov-2020 21:40:34 UTC] PHP Fatal error:  Uncaught Error: Call to a member function define() on null in /home/keyhan1126/public_html/prozim/database/factories/ModelFactory.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/database/factories/ModelFactory.php on line 17

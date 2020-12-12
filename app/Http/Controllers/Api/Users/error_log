@@ -1,0 +1,16 @@
+[24-Nov-2020 21:39:47 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Api/Users/PermissionsController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Api/Users/PermissionsController.php on line 14
+[24-Nov-2020 21:39:48 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Api/Users/ProfileController.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Api/Users/ProfileController.php on line 16
+[24-Nov-2020 21:39:49 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Api/Users/RolesController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Api/Users/RolesController.php on line 14
+[24-Nov-2020 21:39:49 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Api/Users/UsersController.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Api/Users/UsersController.php on line 16

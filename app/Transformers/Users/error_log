@@ -1,0 +1,12 @@
+[24-Nov-2020 21:40:17 UTC] PHP Fatal error:  Uncaught Error: Class 'League\Fractal\TransformerAbstract' not found in /home/keyhan1126/public_html/prozim/app/Transformers/Users/PermissionTransformer.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Transformers/Users/PermissionTransformer.php on line 11
+[24-Nov-2020 21:40:17 UTC] PHP Fatal error:  Uncaught Error: Class 'League\Fractal\TransformerAbstract' not found in /home/keyhan1126/public_html/prozim/app/Transformers/Users/RoleTransformer.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Transformers/Users/RoleTransformer.php on line 11
+[24-Nov-2020 21:40:18 UTC] PHP Fatal error:  Uncaught Error: Class 'League\Fractal\TransformerAbstract' not found in /home/keyhan1126/public_html/prozim/app/Transformers/Users/UserTransformer.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Transformers/Users/UserTransformer.php on line 11

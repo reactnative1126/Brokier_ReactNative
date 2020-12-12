@@ -1,0 +1,1 @@
+[24-Nov-2020 21:40:09 UTC] PHP Fatal error:  Interface 'App\Services\Installation\AppInstallationServiceContract' not found in /home/keyhan1126/public_html/prozim/app/Services/Installation/AppInstallationService.php on line 11

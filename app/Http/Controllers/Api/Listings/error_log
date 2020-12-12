@@ -1,0 +1,4 @@
+[24-Nov-2020 21:39:47 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Api/Listings/ListingsController.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Http/Controllers/Api/Listings/ListingsController.php on line 17

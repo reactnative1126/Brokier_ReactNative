@@ -1,0 +1,24 @@
+[24-Nov-2020 21:40:04 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/keyhan1126/public_html/prozim/app/Providers/AppServiceProvider.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Providers/AppServiceProvider.php on line 7
+[24-Nov-2020 21:40:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\AuthServiceProvider' not found in /home/keyhan1126/public_html/prozim/app/Providers/AuthServiceProvider.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Providers/AuthServiceProvider.php on line 9
+[24-Nov-2020 21:40:06 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/keyhan1126/public_html/prozim/app/Providers/BroadcastServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Providers/BroadcastServiceProvider.php on line 8
+[24-Nov-2020 21:40:06 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/keyhan1126/public_html/prozim/app/Providers/ErrorHandlerServiceProvider.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Providers/ErrorHandlerServiceProvider.php on line 13
+[24-Nov-2020 21:40:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\EventServiceProvider' not found in /home/keyhan1126/public_html/prozim/app/Providers/EventServiceProvider.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Providers/EventServiceProvider.php on line 10
+[24-Nov-2020 21:40:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\RouteServiceProvider' not found in /home/keyhan1126/public_html/prozim/app/Providers/RouteServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/keyhan1126/public_html/prozim/app/Providers/RouteServiceProvider.php on line 8
