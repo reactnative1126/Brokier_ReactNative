@@ -17,45 +17,47 @@ class Header extends React.Component {
 		return (
 			<PageSettings.Consumer>
 				{({ toggleRightSidebar, pageTwoSidebar }) => (
-					<div id="header" className="header navbar-default flex-around vertical-center">
+					<div className='header-wrapper'>
+					<div id="header" className="header navbar-default">
 						<div className="navbar-header">
-							<Link to="/" className="navbar-brand"><span className='header-left-username'>Johnson Agent / User Name</span></Link>
+							<Link to="/home" className="navbar-brand"><span className='header-left-username'>Brokier</span></Link>
 						</div>
-						<ul className="navbar-center">
+						<div className="navbar-center">
 							<input type='text' className='header-center-searchbox' placeholder='Search' />
-						</ul>
-						<ul className="navbar-nav navbar-right" style={{ display: 'flex', justifyContent: 'center', paddingLeft: '20px', paddingRight: '20px'}}>
+						</div>
+						<ul className="navbar-nav navbar-right" style={{ display: 'flex', justifyContent: 'center'}}>
 							<li>
-								<Link to="/" className='header-right-btn'>
-									<i className='far fa-map f-s-26'></i>
+								<Link to="/home" className='header-right-btn'>
+									<i className='far fa-map f-s-16'></i>
 									<span>Find Homes</span>
 								</Link>
 							</li>
 							<li>
 								<Link to="/" className='header-right-btn'>
-									<i className='fas fa-heart f-s-26'></i>
+									<i className='far fa-heart f-s-16'></i>
 									<span>Saved</span>
 								</Link>
 							</li>
 							<li>
 								<Link to="/" className='header-right-btn'>
-									<i className='fas fa-dollar-sign f-s-26'></i>
+									<i className='fas fa-dollar-sign f-s-16'></i>
 									<span>Mortgage</span>
 								</Link>
 							</li>
 							<li>
 								<Link to="/" className='header-right-btn'>
-									<i className='fas fa-chart-bar f-s-26'></i>
+									<i className='fas fa-chart-bar f-s-16'></i>
 									<span>Market stats</span>
 								</Link>
 							</li>
 							<li>
 								<Link to="/" className='header-right-btn'>
-									<i className='fas fa-user f-s-26'></i>
+									<i className='far fa-user f-s-16'></i>
 									<span>Profile</span>
 								</Link>
 							</li>
 						</ul>
+					</div>
 					</div>
 				)}
 			</PageSettings.Consumer>

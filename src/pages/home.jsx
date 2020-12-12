@@ -1,5 +1,6 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
+import { Route, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { setLikes } from '../modules/redux/lists/actions';
@@ -60,7 +61,7 @@ class Home extends React.Component {
             images: [],
             imageIndex: 0,
         };
-        this.cancelTokenSource = axios.CancelToken.source();
+        this.cancelTokenSource = axios.CancelToken.source("Operation canceled due to new request.");
     }
 
     componentDidMount() {
@@ -92,7 +93,7 @@ class Home extends React.Component {
                 se_latitude: bounds[2],
                 se_longitude: bounds[3]
             }
-            this.props.setLoading(true);
+            // this.props.setLoading(true);
             this.setState({ region: window.region }, () => {
                 this.cancelTokenSource.cancel();
                 this.onStatus(window.filters);
@@ -122,7 +123,7 @@ class Home extends React.Component {
     }
 
     async loadData(filters, refresh, offset) {
-        this.props.setLoading(true);
+        // this.props.setLoading(true);
         if (this.state.isLoading) return;
 
         if (refresh) {
@@ -149,7 +150,7 @@ class Home extends React.Component {
         } catch (error) {
             console.log(error.message);
         } finally {
-            this.props.setLoading(false);
+            // this.props.setLoading(false);
             this.setState({ isLoading: false, loadingMore: false, refreshing: false, filter: false });
         }
     }
@@ -298,7 +299,7 @@ class Home extends React.Component {
                         </div>
                     </div>
                     <div className='hm-map-view'>
-                        {/* <GoogleMapReact
+                        <GoogleMapReact
                             bootstrapURLKeys={{
                                 key: 'AIzaSyDoi0kDoetjxsvsctCrRb99I5lu1GJMj_8',
                                 language: 'en',
@@ -307,7 +308,7 @@ class Home extends React.Component {
                             options={{
                                 scrollwheel: this.state.scrollwheel
                             }}
-                            defaultZoom={15}
+                            // defaultZoom={15}
                             zoom={17}
                             // center={this.state.region}
                             defaultCenter={this.state.region}
@@ -376,7 +377,7 @@ class Home extends React.Component {
                                     />
                                 )
                             }
-                        </GoogleMapReact> */}
+                        </GoogleMapReact>
 
                     </div>
                 </div>
@@ -396,6 +397,7 @@ class Home extends React.Component {
                     visible={this.state.visible}
                     listing={this.state.detail}
                     onClose={() => this.setState({ visible: false })}
+                    onDetail={(id)=>this.props.history.push(`/detail/${id}`)}
                     onImage={(images, index) => {
                         this.setState({ images, imageIndex: index }, () => {
                             this.setState({ imageVisible: true });
@@ -433,4 +435,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

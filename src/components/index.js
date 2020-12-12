@@ -7,6 +7,7 @@ import PropertyDescription from './property/PropertyDescription';
 import PropertyPrices from './property/PropertyPrices';
 import PropertyProfile from './property/PropertyProfile';
 import PropertySimilar from './property/PropertySimilar';
+import SimilarDetail from './property/SimilarDetail';
 
 import MarkerDetail from './marker/MarkerDetail';
 import MarkerCircle from './marker/MarkerCircle';
@@ -24,5 +25,6 @@ export {
     PropertyDescription,
     PropertyPrices,
     PropertyProfile,
-    PropertySimilar
+    PropertySimilar,
+    SimilarDetail
 }

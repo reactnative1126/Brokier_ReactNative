@@ -9,7 +9,7 @@ import { getDetailHistories, getDetailSimilars, getDetailRooms } from '../../mod
 import { isEmpty } from "../../utils/functions";
 import configs from "../../constants/configs";
 
-const PropertyModal = ({ visible, listing, onClose, onImage }) => {
+const PropertyModal = ({ visible, listing, onClose, onImage, onDetail }) => {
 	const dispatch = useDispatch();
 
 	const [school, setSchool] = useState('All');
@@ -59,7 +59,7 @@ const PropertyModal = ({ visible, listing, onClose, onImage }) => {
 			<a className='pr-property-modal'>
 				<div className='pr-modal-main'>
 					<div className='pr-modal-top-buttons'>
-						<button className='pr-modal-expand-button' onClick={() => alert('OKNM')}>
+						<button className='pr-modal-expand-button' onClick={() => onDetail(listing.id)}>
 							<span className='pr-modal-expand-text'>Expand</span>
 							<i className='fas fa-expand f-s-12'></i>
 						</button>
@@ -111,11 +111,12 @@ const PropertyModal = ({ visible, listing, onClose, onImage }) => {
 					</div>
 					<PropertyDescription listing={listing} />
 					<PropertyPrices listing={listing} />
-					<PropertyProfile />
+					<PropertyProfile className='pf-container'/>
 					<PropertySimilar
 						similar={similar}
 						onSimilar={(similar) => setSimilar(similar)}
 						similars={similars}
+						onDetail={(id) => onDetail(id)}
 					/>
 				</div>
 			</a>

@@ -10,7 +10,7 @@ import Loading from './components/loading/loading.jsx';
 
 window.listings = [];
 window.details = [];
-window.zoom = 5;
+window.zoom = 10;
 window.region = {
 	lat: configs.lat,
 	lng: configs.lng,
@@ -18,10 +18,10 @@ window.region = {
 	longitudeDelta: configs.longitudeDelta
 };
 window.bounds = {
-	nw_latitude: 33.13096178538518,
-	nw_longitude: -98.65725553125,
-	se_latitude: 28.435862071961836,
-	se_longitude: -62.05081021875
+	nw_latitude: 43.64399267241754,
+	nw_longitude: -79.39300811380005,
+	se_latitude: 43.63767257590533,
+	se_longitude: -79.38032662957764
 }
 window.locations = null;
 window.coordinates = [];
