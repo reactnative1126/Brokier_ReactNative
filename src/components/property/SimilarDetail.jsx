@@ -12,8 +12,8 @@ const SimilarDetail = ({ listing, onClick }) => {
 				<img className='sd-image' src={configs.resURL + listing.images.split('#')[0]} alt={listing.images.split('#')[0]} />
 				<div className='sd-details'>
 					<div className='sd-details-top'>
-						<span className={(listing.lastStatus == 'Sld' || listing.lastStatus == 'Lsd') ? 'sd-details-title' : 'sd-details-title-line'}>{isCurrency(listing.listPrice).split('.')[0]}</span>
-						{isCurrency(listing.soldPrice).split('.')[0] != '$0' ? <span className='sd-details-sold'>{isCurrency(listing.soldPrice).split('.')[0]}</span> : null}
+						<span className={(listing.lastStatus === 'Sld' || listing.lastStatus === 'Lsd') ? 'sd-details-title' : 'sd-details-title-line'}>{isCurrency(listing.listPrice).split('.')[0]}</span>
+						{isCurrency(listing.soldPrice).split('.')[0] !== '$0' ? <span className='sd-details-sold'>{isCurrency(listing.soldPrice).split('.')[0]}</span> : null}
 						<span style={{ fontSize: 8, fontWeight: "normal" }}>{listing.daysOnMarket} Days on Market</span>
 					</div>
 					<span className='sd-status'>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix.replace('St', 'Street')} {!isEmpty(listing.unitNumber) && `#${listing.unitNumber}`}</span>

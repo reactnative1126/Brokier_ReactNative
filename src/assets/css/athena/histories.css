@@ -56,6 +56,11 @@
     height: 200px;
 }
 
+.hi-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
 .hi-item {
     display: flex;
     justify-content: space-between;

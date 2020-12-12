@@ -62,6 +62,24 @@ body {
     padding: 50px 0 10px 25px;
 }
 
+.hm-load-more-wrapper {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hm-load-more-button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: rgba(119, 133, 123, 0.39);
+    border: 1px solid #494949;
+    box-shadow: 0 2px 5px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02) !important;
+}
+
 .hm-status-wrapper {
     display: flex;
     align-items: center;

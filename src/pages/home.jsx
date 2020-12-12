@@ -150,7 +150,7 @@ class Home extends React.Component {
         } catch (error) {
             console.log(error.message);
         } finally {
-            // this.props.setLoading(false);
+            this.props.setLoading(false);
             this.setState({ isLoading: false, loadingMore: false, refreshing: false, filter: false });
         }
     }
@@ -391,13 +391,21 @@ class Home extends React.Component {
                                 onClick={(item) => this.onDetail(item.id)}
                             />
                         ))}
+                        {!isEmpty(this.state.listings2) && (<div className='hm-load-more-wrapper'>
+                            <button className='hm-load-more-button' onClick={() => {
+                                this.setState({ offset: this.state.offset + 1 }, () => {
+                                    this.props.setLoading(true);
+                                    this.loadData(window.filters, false, this.state.offset);
+                                })
+                            }}><span>Load more</span></button>
+                        </div>)}
                     </div>
                 </div>
                 <PropertyModal
                     visible={this.state.visible}
                     listing={this.state.detail}
                     onClose={() => this.setState({ visible: false })}
-                    onDetail={(id)=>this.props.history.push(`/detail/${id}`)}
+                    onDetail={(id) => this.props.history.push(`/detail/${id}`)}
                     onImage={(images, index) => {
                         this.setState({ images, imageIndex: index }, () => {
                             this.setState({ imageVisible: true });

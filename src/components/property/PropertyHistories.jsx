@@ -4,7 +4,7 @@ import moment from 'moment';
 import { isEmpty, isCurrency } from "../../utils/functions";
 
 const PropertyHistories = ({ histories }) => {
-  var historiesItemClass = 'hi-item ';
+  var historiesItemClass = 'hi-wrapper ';
   if (histories.length > 5) {
     historiesItemClass += 'hi-200'
   }

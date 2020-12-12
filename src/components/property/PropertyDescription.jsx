@@ -7,13 +7,13 @@ import { isEmpty, isCurrency } from '../../utils/functions';
 
 const PropertyDescription = ({ listing, onClick }) => {
     const dispatch = useDispatch();
-    
+
     const [detail, setDetail] = useState(false);
     const [description, setDescription] = useState(false);
     const [rooms, setRooms] = useState([]);
 
-    useEffect(()=>{
-        if(description) {
+    useEffect(() => {
+        if (description) {
             dispatch(setLoading(true));
             getDetailRooms(listing.mlsNumber)
                 .then((rooms) => {
@@ -24,7 +24,7 @@ const PropertyDescription = ({ listing, onClick }) => {
                     dispatch(setLoading(false));
                 });
         }
-    },[description]);
+    }, [description]);
 
     return (
         <div key={listing.id} className='dt-description'>

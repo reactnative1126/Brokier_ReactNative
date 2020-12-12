@@ -130,9 +130,11 @@ const Detail = (props) => {
 						</div>
 					) : null}
 				</div>
-				<div className='de-right-panel'>
-					<PropertyProfile className='de-profile'/>
-				</div>
+				{!isEmpty(listing) ? (
+					<div className='de-right-panel'>
+						<PropertyProfile className='de-profile' />
+					</div>
+				) : null}
 			</div>
 			<PropertyImage
 				visible={visible}
