@@ -9,7 +9,7 @@ import { MapStore } from '../modules/stores';
 import { getListingsMap, getListingsList, getLike, getListingDetail } from '../modules/services/ListingsService';
 import { MapService } from '../modules/services';
 import { isEmpty, isCurrency } from '../utils/functions';
-import { PropertyItem, PropertyModal, PropertyImage, MarkerDetail, MarkerCircle, MarkerMain } from '../components';
+import { PropertyItem, PropertyModal, PropertyImage, PropertyFilter, MarkerDetail, MarkerCircle, MarkerMain } from '../components';
 import configs from '../constants/configs';
 import axios from '../utils/axios';
 
@@ -102,6 +102,16 @@ class Home extends React.Component {
         }
     }
 
+    async onAppleFilters(filters, close) {
+        window.badge = await MapStore.getBadge(filters);
+        this.setState({ badge: window.badge, loading: true }, () => {
+            // this.state.tab ? this.onStatus(filters) : this.loadData(filters, true, 0);
+            this.onStatus(filters);
+            this.loadData(filters, true, 0)
+        });
+        this.setState({ filter: !close ? true : false });
+    }
+
     async onStatus(filters) {
         filters.type = this.state.view ? this.state.forSale ? "Sale" : null : this.state.forRent ? "Lease" : null;
         filters.lastStatus = this.state.view ? this.state.sold ? "Sld" : null : this.state.rented ? "Lsd" : null;
@@ -153,6 +163,15 @@ class Home extends React.Component {
             this.props.setLoading(false);
             this.setState({ isLoading: false, loadingMore: false, refreshing: false, filter: false });
         }
+    }
+
+    async onDetail(id) {
+        this.props.setLoading(true);
+        var listing = await getListingDetail(id);
+        this.setState({ detail: listing }, () => {
+            this.props.setLoading(false);
+            this.setState({ visible: true });
+        });
     }
 
     onView() {
@@ -254,15 +273,6 @@ class Home extends React.Component {
         }
     }
 
-    async onDetail(id) {
-        this.props.setLoading(true);
-        var listing = await getListingDetail(id);
-        this.setState({ detail: listing }, () => {
-            this.props.setLoading(false);
-            this.setState({ visible: true });
-        });
-    }
-
     render() {
         return (
             <div className='hm-main-panel'>
@@ -283,7 +293,7 @@ class Home extends React.Component {
                                 :
                                 <button className={this.state.rented ? 'hm-rented-btn' : 'hm-inactive-btn'} onClick={() => this.onRented()}>RENTED</button>
                             }
-                            <button className='hm-inactive-btn'>
+                            <button className='hm-inactive-btn' onClick={() => this.setState({ filter: true })}>
                                 <i className='fas fa-angle-down f-s-16'></i>
                                 <span>Filters</span>
                                 <div className='hm-badge'>1</div>
@@ -418,6 +428,15 @@ class Home extends React.Component {
                     index={this.state.imageIndex}
                     onClose={() => this.setState({ imageVisible: false })}
                 />
+                {this.state.filter && (
+                    <PropertyFilter
+                        view={this.state.view}
+                        onView={() => this.onView()}
+                        onAppleFilters={(filters, close) => this.onAppleFilters(filters, close)}
+                        onClearFilters={(filters, close) => this.onAppleFilters(filters, close)}
+                        onClose={() => this.setState({ filter: false })}
+                    />
+                )}
             </div>
         )
     }

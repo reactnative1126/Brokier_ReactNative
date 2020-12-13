@@ -1,0 +1,26 @@
+button:focus {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    outline: none;
+}
+
+.ft-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+}
+
+.ft-container {
+    position: absolute;
+    left: 250px;
+    top: 90px;
+    width: 400px;
+    height: calc(100vh - 90px);
+    z-index: 1200;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+    overflow-y: scroll
+}
