@@ -1,6 +1,9 @@
 import React, { useState, useEffect, Fragment } from "react";
 
 import { isEmpty, isCurrency, isNumber } from "../../utils/functions";
+import { Range } from 'rc-slider';
+import 'rc-slider/assets/index.css';
+import Select from 'react-select';
 
 const days = [
   { value: 0, label: 'Any' },
@@ -25,6 +28,26 @@ const questions = [
   { question: "As is" },
   { question: "Fully renovated" },
 ]
+
+const colourStyles = {
+  control: styles => ({ ...styles, backgroundColor: 'white' }),
+  option: (styles, { isDisabled, isFocused, isSelected }) => {
+    return {
+      ...styles,
+      backgroundColor: 'white',
+      color: isFocused ? 'black' : isSelected ? 'blue' : 'grey',
+      cursor: isDisabled ? 'not-allowed' : 'default',
+
+      ':active': {
+        ...styles[':active'],
+        backgroundColor: 'white',
+      },
+    };
+  },
+  input: styles => ({ ...styles, width: 100 }),
+  placeholder: styles => ({ ...styles, }),
+  singleValue: (styles) => ({ ...styles }),
+};
 
 const PropertyFilter = (props) => {
 
@@ -67,453 +90,469 @@ const PropertyFilter = (props) => {
     <Fragment>
       <div className='ft-wrapper' onClick={() => props.onClose()} />
       <div id='filter-container' className='ft-container'>
-        {/* <div style={styles.header}>
-          <div />
-          <div style={styles.searchBar}>
-            <span style={{ fontWeight: '500' }}>Filter Listings</span>
-          </div>
-          <Icon name="close" type="antdesign" size={25} onPress={() => {
-            Alert.alert(
-              'Discard changes and leave search filters?',
-              'Your filter changes have not been applied yet.',
-              [
-                {
-                  span: 'Cancel',
-                  style: 'Cancel'
-                },
-                {
-                  span: 'Discard',
-                  onPress: props.onClose
-                }
-              ], { cancelable: false }
-            )
-          }} />
-        </div> */}
         <div style={{ height: '100%', backgroundColor: 'white' }}>
-          <div contentContainerStyle={{ marginTop: 10 }}>
-            {/* <div index={11} style={{ width: wp('100%') - 20, marginLeft: 10 }}>
-            <div style={styles.toggleButton}>
-              <button onPress={props.ondiv}
-                style={[styles.oneButton, { backgroundColor: props.div ? colors.WHITE : colors.GREY.PRIMARY }]}>
-                <span>For Sale Listings</span>
-              </button>
-              <button onPress={props.ondiv}
-                style={[styles.oneButton, { backgroundColor: !props.div ? colors.WHITE : colors.GREY.PRIMARY }]}>
-                <span>Rent Listings</span>
-              </button>
-            </div>
-          </div> */}
-
-            {/* <div index={12} style={{ width: wp('100%') - 20, marginLeft: 10 }}>
-            <div style={styles.propertyType}>
-              <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Property Type</span>
-              <div style={styles.types}>
-                <button style={[styles.typeItem, { borderColor: allTypes ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
-                  setAllTypes(!allTypes);
-                  setDetached(false);
-                  setSemiDetached(false);
-                  setFreeholdTown(false);
-                  setCondoTown(false);
-                  setCondoApartment(false);
-                  setDuplex(false);
-                  setMultiFamily(false);
-                  setLand(false);
-                }}>
-                  <span style={{ fontSize: 12 }}>All Types</span>
-                </button>
-                <button style={[styles.typeItem, { borderColor: detached ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
-                  setAllTypes(false);
-                  setDetached(!detached);
-                }}>
-                  <span style={{ fontSize: 12 }}>Detached</span>
-                </button>
-                <button style={[styles.typeItem, { borderColor: semiDetached ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
-                  setAllTypes(false);
-                  setSemiDetached(!semiDetached);
-                }}>
-                  <span style={{ fontSize: 12 }}>Semi-Detached</span>
-                </button>
-              </div>
-              <div style={styles.types}>
-                <button style={[styles.typeItem, { borderColor: freeholdTown ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
-                  setAllTypes(false);
-                  setFreeholdTown(!freeholdTown);
-                }}>
-                  <span style={{ fontSize: 12, spanAlign: 'center' }}>Row/{'\n'}Freehold Town</span>
-                </button>
-                <button style={[styles.typeItem, { borderColor: condoTown ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
-                  setAllTypes(false);
-                  setCondoTown(!condoTown);
-                }}>
-                  <span style={{ fontSize: 12 }}>Condo Town</span>
-                </button>
-                <button style={[styles.typeItem, { borderColor: condoApartment ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
-                  setAllTypes(false);
-                  setCondoApartment(!condoApartment);
-                }}>
-                  <span style={{ fontSize: 12 }}>Condo Apartment</span>
-                </button>
-              </div>
-              <div style={styles.types}>
-                <button style={[styles.typeItem, { borderColor: duplex ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
-                  setAllTypes(false);
-                  setDuplex(!duplex);
-                }}>
-                  <span style={{ fontSize: 12 }}>Duplex</span>
-                </button>
-                <button style={[styles.typeItem, { borderColor: multiFamily ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
-                  setAllTypes(false);
-                  setMultiFamily(!multiFamily);
-                }}>
-                  <span style={{ fontSize: 12 }}>Multi-Family</span>
-                </button>
-                <button style={[styles.typeItem, { borderColor: land ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
-                  setAllTypes(false);
-                  setLand(!land);
-                }}>
-                  <span style={{ fontSize: 12 }}>Land</span>
-                </button>
-              </div>
-            </div>
-          </div> */}
-
-            {/* <div index={13} style={{ width: wp('100%') - 20, marginLeft: 10 }}>
-            <div style={styles.propertyType}>
-              <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Price Range</span>
-              <div style={styles.range}>
-                <div style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: 12 }}>{isCurrency(minPrice).split('.')[0]}</span>
-                  <span style={{ fontSize: 12 }}>{isCurrency(maxPrice).split('.')[0]}{maxPrice == 5000000 && '+'}</span>
+          <div style={{ marginTop: 10 }}>
+            <div index={12} className='ft-card'>
+              <div className='ft-property-type'>
+                <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Property Type</span>
+                <div className='ft-types'>
+                  <button className='ft-type-item' style={{ borderColor: allTypes ? 'black' : '#aaa' }} onClick={() => {
+                    setAllTypes(!allTypes);
+                    setDetached(false);
+                    setSemiDetached(false);
+                    setFreeholdTown(false);
+                    setCondoTown(false);
+                    setCondoApartment(false);
+                    setDuplex(false);
+                    setMultiFamily(false);
+                    setLand(false);
+                  }}>
+                    <span style={{ fontSize: 12 }}>All Types</span>
+                  </button>
+                  <button className='ft-type-item' style={{ borderColor: detached ? 'black' : '#aaa' }} onClick={() => {
+                    setAllTypes(false);
+                    setDetached(!detached);
+                  }}>
+                    <span style={{ fontSize: 12 }}>Detached</span>
+                  </button>
+                  <button className='ft-type-item' style={{ borderColor: semiDetached ? 'black' : '#aaa' }} onClick={() => {
+                    setAllTypes(false);
+                    setSemiDetached(!semiDetached);
+                  }}>
+                    <span style={{ fontSize: 12 }}>Semi-Detached</span>
+                  </button>
                 </div>
-                <div style={{ marginTop: -15, height: 50 }}>
-                  <RangeSelector
-                    min={0}
-                    max={5000000}
-                    defaultMin={minPrice}
-                    defaultMax={maxPrice}
-                    onMoveChange={({ min, max }) => {
-                      setMinPrice(min);
-                      setMaxPrice(max);
-                    }}
-                    backgroundBarStyle={{
-                      backgroundColor: colors.GREY.SECONDARY,
-                      height: 8
-                    }}
-                    frontBarStyle={{
-                      backgroundColor: '#00000090',
-                      height: 8
-                    }}
-                    getSlider={() => {
-                      return (
-                        <div style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: colors.WHITE, borderWidth: 1, borderColor: colors.BLACK }} />
-                      )
-                    }}
+                <div className='ft-types'>
+                  <button className='ft-type-item' style={{ borderColor: freeholdTown ? 'black' : '#aaa' }} onClick={() => {
+                    setAllTypes(false);
+                    setFreeholdTown(!freeholdTown);
+                  }}>
+                    <span style={{ fontSize: 12, spanAlign: 'center' }}>Row/<br />Freehold Town</span>
+                  </button>
+                  <button className='ft-type-item' style={{ borderColor: condoTown ? 'black' : '#aaa' }} onClick={() => {
+                    setAllTypes(false);
+                    setCondoTown(!condoTown);
+                  }}>
+                    <span style={{ fontSize: 12 }}>Condo Town</span>
+                  </button>
+                  <button className='ft-type-item' style={{ borderColor: condoApartment ? 'black' : '#aaa' }} onClick={() => {
+                    setAllTypes(false);
+                    setCondoApartment(!condoApartment);
+                  }}>
+                    <span style={{ fontSize: 12 }}>Condo Apartment</span>
+                  </button>
+                </div>
+                <div className='ft-types'>
+                  <button className='ft-type-item' style={{ borderColor: duplex ? 'black' : '#aaa' }} onClick={() => {
+                    setAllTypes(false);
+                    setDuplex(!duplex);
+                  }}>
+                    <span style={{ fontSize: 12 }}>Duplex</span>
+                  </button>
+                  <button className='ft-type-item' style={{ borderColor: multiFamily ? 'black' : '#aaa' }} onClick={() => {
+                    setAllTypes(false);
+                    setMultiFamily(!multiFamily);
+                  }}>
+                    <span style={{ fontSize: 12 }}>Multi-Family</span>
+                  </button>
+                  <button className='ft-type-item' style={{ borderColor: land ? 'black' : '#aaa' }} onClick={() => {
+                    setAllTypes(false);
+                    setLand(!land);
+                  }}>
+                    <span style={{ fontSize: 12 }}>Land</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div index={13} className='ft-card'>
+              <div className='ft-property-type'>
+                <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Price Range</span>
+                <div className='ft-range'>
+                  <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: 12 }}>{isCurrency(minPrice).split('.')[0]}</span>
+                    <span style={{ fontSize: 12 }}>{isCurrency(maxPrice).split('.')[0]}{maxPrice == 5000000 && '+'}</span>
+                  </div>
+                  <div style={{ marginTop: 15, height: 30, paddingRight: 10 }}>
+                    <Range
+                      min={0}
+                      max={5000000}
+                      defaultValue={[minPrice, maxPrice]}
+                      value={[minPrice, maxPrice]}
+                      onChange={(value) => {
+                        setMinPrice(value[0]);
+                        setMaxPrice(value[1]);
+                      }}
+                      handleStyle={[
+                        {
+                          top: 3,
+                          backgroundColor: 'white',
+                          width: 20,
+                          height: 20,
+                          borderRadius: 10,
+                          borderWidth: 2,
+                          borderColor: 'black'
+                        },
+                        {
+                          top: 3,
+                          backgroundColor: 'white',
+                          width: 20,
+                          height: 20,
+                          borderRadius: 10,
+                          borderWidth: 2,
+                          borderColor: 'black'
+                        }
+                      ]}
+                      trackStyle={[{
+                        backgroundColor: 'grey'
+                      }, {
+                        backgroundColor: '#bbb'
+                      }]}
+                      railStyle={{
+                        backgroundColor: '#bbb'
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div index={14} className='ft-card'>
+              <div className='ft-picker'>
+                <div className='ft-picker-one'>
+                  <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Days listings is on market:</span>
+                  <Select
+                    value={daysOnMarket}
+                    onChange={(value) => setDaysOnMarket(value)}
+                    options={days}
+                    styles={colourStyles}
+                  />
+                </div>
+                <div className='ft-picker-one'>
+                  <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Sold in the last:</span>
+                  <Select
+                    value={soldInLast}
+                    onChange={(value) => setSoldInLast(value)}
+                    options={solds}
+                    styles={colourStyles}
                   />
                 </div>
               </div>
             </div>
-          </div> */}
 
-            {/* <div index={14} style={{ width: wp('100%') - 20, marginLeft: 10 }}>
-            <div style={styles.picker}>
-              <div>
-                <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Days listings is on market:</span>
-                <div style={styles.range1}>
-                  <button style={styles.inputdiv} onPress={() => setDayStatus(true)}>
-                    <div />
-                    <span style={{ fontSize: 12 }}>{daysOnMarket.label}</span>
-                    <Icon name='down' type='antdesign' size={14} color={colors.BLACK} />
-                  </button>
-                </div>
-              </div>
-              <div style={{ width: wp('40%') }}>
-                <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Sold in the last:</span>
-                <div style={styles.range1}>
-                  <button style={styles.inputdiv} onPress={() => setSoldStatus(true)}>
-                    <div />
-                    <span style={{ fontSize: 12 }}>{soldInLast.label}</span>
-                    <Icon name='down' type='antdesign' size={14} color={colors.BLACK} />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div> */}
-
-            {/* <div index={15} style={{ width: wp('100%') - 20, marginLeft: 10 }}>
-            <div style={styles.propertyType}>
-              <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Beds, Baths, Parking</span>
-              <div style={styles.parking}>
-                <div style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: wp('60%') }}>
-                  <span style={{ width: 50 }}>Beds</span>
-                  <button style={styles.roundButton} onPress={() => bed != 0 && setBed(bed - 1)}>
-                    <Icon name="minus-a" type="fontisto" size={10} /></button>
-                  <span>{bed}+</span>
-                  <button style={styles.roundButton} onPress={() => setBed(bed + 1)}>
-                    <Icon name="plus-a" type="fontisto" size={10} /></button>
-                </div>
-                <div style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: wp('60%'), marginTop: 5 }}>
-                  <span style={{ width: 50 }}>Baths</span>
-                  <button style={styles.roundButton} onPress={() => bath != 0 && setBath(bath - 1)}>
-                    <Icon name="minus-a" type="fontisto" size={10} /></button>
-                  <span>{bath}+</span>
-                  <button style={styles.roundButton} onPress={() => setBath(bath + 1)}>
-                    <Icon name="plus-a" type="fontisto" size={10} /></button>
-                </div>
-                <div style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: wp('60%'), marginTop: 5 }}>
-                  <span style={{ width: 50 }}>Parking</span>
-                  <button style={styles.roundButton} onPress={() => parking != 0 && setParking(parking - 1)}>
-                    <Icon name="minus-a" type="fontisto" size={10} /></button>
-                  <span>{parking}+</span>
-                  <button style={styles.roundButton} onPress={() => setParking(parking + 1)}>
-                    <Icon name="plus-a" type="fontisto" size={10} /></button>
-                </div>
-                <div style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: wp('60%'), marginTop: 5 }}>
-                  <span style={{ width: 50 }}>Garage</span>
-                  <button style={styles.roundButton} onPress={() => garage != 0 && setGarage(garage - 1)}>
-                    <Icon name="minus-a" type="fontisto" size={10} /></button>
-                  <span>{garage}+</span>
-                  <button style={styles.roundButton} onPress={() => setGarage(garage + 1)}>
-                    <Icon name="plus-a" type="fontisto" size={10} /></button>
+            <div index={15} className='ft-card'>
+              <div className='ft-property-type'>
+                <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Beds, Baths, Parking</span>
+                <div className='ft-parking'>
+                  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '60%' }}>
+                    <span style={{ width: 50 }}>Beds</span>
+                    <button className='ft-round-button' onClick={() => bed != 0 && setBed(bed - 1)}>
+                      <i className='fas fa-minus f-s-10'></i></button>
+                    <span>{bed}+</span>
+                    <button className='ft-round-button' onClick={() => setBed(bed + 1)}>
+                      <i className='fas fa-plus f-s-10'></i></button>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '60%', marginTop: 5 }}>
+                    <span style={{ width: 50 }}>Baths</span>
+                    <button className='ft-round-button' onClick={() => bath != 0 && setBath(bath - 1)}>
+                      <i className='fas fa-minus f-s-10'></i></button>
+                    <span>{bath}+</span>
+                    <button className='ft-round-button' onClick={() => setBath(bath + 1)}>
+                      <i className='fas fa-plus f-s-10'></i></button>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '60%', marginTop: 5 }}>
+                    <span style={{ width: 50 }}>Parking</span>
+                    <button className='ft-round-button' onClick={() => parking != 0 && setParking(parking - 1)}>
+                      <i className='fas fa-minus f-s-10'></i></button>
+                    <span>{parking}+</span>
+                    <button className='ft-round-button' onClick={() => setParking(parking + 1)}>
+                      <i className='fas fa-plus f-s-10'></i></button>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '60%', marginTop: 5 }}>
+                    <span style={{ width: 50 }}>Garage</span>
+                    <button className='ft-round-button' onClick={() => garage != 0 && setGarage(garage - 1)}>
+                      <i className='fas fa-minus f-s-10'></i></button>
+                    <span>{garage}+</span>
+                    <button className='ft-round-button' onClick={() => setGarage(garage + 1)}>
+                      <i className='fas fa-plus f-s-10'></i></button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div> */}
 
-            {/* <div index={16} style={{ width: wp('100%') - 20, marginLeft: 10 }}>
-            <div style={styles.propertyType}>
-              <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Size</span>
-              <div style={styles.range}>
-                <div style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: 12 }}>{minSize}Sqft</span>
-                  <span style={{ fontSize: 12 }}>{maxSize}{maxSize == 5000 && '+'}Sqft</span>
-                </div>
-                <div style={{ marginTop: -10, height: 50 }}>
-                  <RangeSelector
-                    min={0}
-                    max={5000}
-                    defaultMin={minSize}
-                    defaultMax={maxSize}
-                    onMoveChange={({ min, max }) => {
-                      setMinSize(parseInt(min));
-                      setMaxSize(parseInt(max));
-                    }}
-                    backgroundBarStyle={{
-                      backgroundColor: colors.GREY.SECONDARY,
-                      height: 8
-                    }}
-                    frontBarStyle={{
-                      backgroundColor: '#00000090',
-                      height: 8
-                    }}
-                    getSlider={() => {
-                      return (
-                        <div style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: colors.WHITE, borderWidth: 1, borderColor: colors.BLACK }} />
-                      )
-                    }}
-                  />
+            <div index={16} className='ft-card'>
+              <div className='ft-property-type'>
+                <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Size</span>
+                <div className='ft-range'>
+                  <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: 12 }}>{minSize}Sqft</span>
+                    <span style={{ fontSize: 12 }}>{maxSize}{maxSize == 5000 && '+'}Sqft</span>
+                  </div>
+                  <div style={{ marginTop: 15, height: 30, paddingRight: 10 }}>
+                    <Range
+                      min={0}
+                      max={5000}
+                      defaultValue={[minSize, maxSize]}
+                      value={[minSize, maxSize]}
+                      onChange={(value) => {
+                        setMinSize(value[0]);
+                        setMaxSize(value[1]);
+                      }}
+                      handleStyle={[
+                        {
+                          top: 3,
+                          backgroundColor: 'white',
+                          width: 20,
+                          height: 20,
+                          borderRadius: 10,
+                          borderWidth: 2,
+                          borderColor: 'black'
+                        },
+                        {
+                          top: 3,
+                          backgroundColor: 'white',
+                          width: 20,
+                          height: 20,
+                          borderRadius: 10,
+                          borderWidth: 2,
+                          borderColor: 'black'
+                        }
+                      ]}
+                      trackStyle={[{
+                        backgroundColor: 'grey'
+                      }, {
+                        backgroundColor: '#bbb'
+                      }]}
+                      railStyle={{
+                        backgroundColor: '#bbb'
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div> */}
 
-
-            {/* <div index={17} style={{ width: wp('100%') - 20, marginLeft: 10 }}>
-            <div style={styles.propertyType}>
-              <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Age</span>
-              <div style={styles.range}>
-                <div style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: 12 }}>{minAge < 5 ? 'New Construction' : minAge + ' years old'}</span>
-                  <span style={{ fontSize: 12 }}>{maxAge} years old</span>
-                </div>
-                <div style={{ marginTop: -10, height: 50 }}>
-                  <RangeSelector
-                    min={0}
-                    max={100}
-                    defaultMin={minAge}
-                    defaultMax={maxAge}
-                    onMoveChange={({ min, max }) => {
-                      setMinAge(min);
-                      setMaxAge(max);
-                    }}
-                    backgroundBarStyle={{
-                      backgroundColor: colors.GREY.SECONDARY,
-                      height: 8
-                    }}
-                    frontBarStyle={{
-                      backgroundColor: '#00000090',
-                      height: 8
-                    }}
-                    getSlider={() => {
-                      return (
-                        <div style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: colors.WHITE, borderWidth: 1, borderColor: colors.BLACK }} />
-                      )
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div> */}
-
-            {/* <div index={18} style={{ width: wp('100%') - 20, marginLeft: 10 }}>
-            <div style={styles.propertyType}>
-              {props.div && <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Condo Filters</span>}
-              <div style={styles.range}>
-                {props.div &&
-                  <React.Fragment>
-                    <div style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
-                      <span style={{ fontSize: 12 }}>{isCurrency(minCondo).split('.')[0]}</span>
-                      <span style={{ fontSize: 12 }}>Max HOA / Maintenance Fees</span>
-                      <span style={{ fontSize: 12 }}>{isCurrency(maxCondo).split('.')[0]}{maxCondo == 5000 && '+'}</span>
-                    </div>
-                    <div style={{ marginTop: -10, height: 50 }}>
-                      <RangeSelector
-                        min={0}
-                        max={5000}
-                        defaultMin={minCondo}
-                        defaultMax={maxCondo}
-                        onMoveChange={({ min, max }) => {
-                          setMinCondo(min);
-                          setMaxCondo(max);
-                        }}
-                        backgroundBarStyle={{
-                          backgroundColor: colors.GREY.SECONDARY,
-                          height: 8
-                        }}
-                        frontBarStyle={{
-                          backgroundColor: '#00000090',
-                          height: 8
-                        }}
-                        getSlider={() => {
-                          return (
-                            <div style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: colors.WHITE, borderWidth: 1, borderColor: colors.BLACK }} />
-                          )
-                        }}
-                      />
-                    </div>
-                  </React.Fragment>}
-                <span style={{ width: '100%', spanAlign: 'center', marginBottom: 5 }}>Locker / Storage</span>
-                <div style={[styles.toggleButton, { marginBottom: 0, marginLeft: -35 }]}>
-                  <button onPress={() => setLocker('Any')}
-                    style={[styles.oneButton, { width: wp('30%'), backgroundColor: locker === 'Any' ? colors.WHITE : colors.GREY.PRIMARY }]}>
-                    <span>Any</span>
-                  </button>
-                  <button onPress={() => setLocker('Yes')}
-                    style={[styles.oneButton, { width: wp('30%'), backgroundColor: locker === 'Yes' ? colors.WHITE : colors.GREY.PRIMARY }]}>
-                    <span>Yes</span>
-                  </button>
-                  <button onPress={() => setLocker('No')}
-                    style={[styles.oneButton, { width: wp('30%'), backgroundColor: locker === 'No' ? colors.WHITE : colors.GREY.PRIMARY }]}>
-                    <span>No</span>
-                  </button>
+            <div index={17} className='ft-card'>
+              <div className='ft-property-type'>
+                <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Age</span>
+                <div className='ft-range'>
+                  <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: 12 }}>{minAge < 5 ? 'New Construction' : minAge + ' years old'}</span>
+                    <span style={{ fontSize: 12 }}>{maxAge} years old</span>
+                  </div>
+                  <div style={{ marginTop: 15, height: 30, paddingRight: 10 }}>
+                    <Range
+                      min={0}
+                      max={100}
+                      defaultValue={[minAge, maxAge]}
+                      value={[minAge, maxAge]}
+                      onChange={(value) => {
+                        setMinAge(value[0]);
+                        setMaxAge(value[1]);
+                      }}
+                      handleStyle={[
+                        {
+                          top: 3,
+                          backgroundColor: 'white',
+                          width: 20,
+                          height: 20,
+                          borderRadius: 10,
+                          borderWidth: 2,
+                          borderColor: 'black'
+                        },
+                        {
+                          top: 3,
+                          backgroundColor: 'white',
+                          width: 20,
+                          height: 20,
+                          borderRadius: 10,
+                          borderWidth: 2,
+                          borderColor: 'black'
+                        }
+                      ]}
+                      trackStyle={[{
+                        backgroundColor: 'grey'
+                      }, {
+                        backgroundColor: '#bbb'
+                      }]}
+                      railStyle={{
+                        backgroundColor: '#bbb'
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div> */}
+
+            <div index={17} className='ft-card'>
+              <div className='ft-property-type'>
+                {props.view && <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Condo Filters</span>}
+                <div className='ft-range'>
+                  {props.view &&
+                    <React.Fragment>
+                      <div style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+                        <span style={{ fontSize: 12 }}>{isCurrency(minCondo).split('.')[0]}</span>
+                        <span style={{ fontSize: 12 }}>Max HOA / Maintenance Fees</span>
+                        <span style={{ fontSize: 12 }}>{isCurrency(maxCondo).split('.')[0]}{maxCondo == 5000 && '+'}</span>
+                      </div>
+                      <div style={{ marginTop: 15, height: 30, paddingRight: 10 }}>
+                        <Range
+                          min={0}
+                          max={100}
+                          defaultValue={[minCondo, maxCondo]}
+                          value={[minCondo, maxCondo]}
+                          onChange={(value) => {
+                            setMinCondo(value[0]);
+                            setMaxCondo(value[1]);
+                          }}
+                          handleStyle={[
+                            {
+                              top: 3,
+                              backgroundColor: 'white',
+                              width: 20,
+                              height: 20,
+                              borderRadius: 10,
+                              borderWidth: 2,
+                              borderColor: 'black'
+                            },
+                            {
+                              top: 3,
+                              backgroundColor: 'white',
+                              width: 20,
+                              height: 20,
+                              borderRadius: 10,
+                              borderWidth: 2,
+                              borderColor: 'black'
+                            }
+                          ]}
+                          trackStyle={[{
+                            backgroundColor: 'grey'
+                          }, {
+                            backgroundColor: '#bbb'
+                          }]}
+                          railStyle={{
+                            backgroundColor: '#bbb'
+                          }}
+                        />
+                      </div>
+                    </React.Fragment>}
+                </div>
+                <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <span style={{ textAlign: 'center', marginBottom: 5 }}>Locker / Storage</span>
+                  <div className='ft-toggle-button' style={{ marginBottom: 0 }}>
+                    <button onClick={() => setLocker('Any')} className='ft-one-button'
+                      style={{ width: '30%', backgroundColor: locker === 'Any' ? 'white' : '#E8E8E8' }}>
+                      <span>Any</span>
+                    </button>
+                    <button onClick={() => setLocker('Yes')} className='ft-one-button'
+                      style={{ width: '30%', backgroundColor: locker === 'Yes' ? 'white' : '#E8E8E8' }}>
+                      <span>Yes</span>
+                    </button>
+                    <button onClick={() => setLocker('No')} className='ft-one-button'
+                      style={{ width: '30%', backgroundColor: locker === 'No' ? 'white' : '#E8E8E8' }}>
+                      <span>No</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
             {/* <PropertyQuestions
             title="Keywords in Description"
             questions={questions} />
           <div style={{ height: 100 }} /> */}
           </div>
         </div>
-        {/* <div style={styles.bottomButtons}>
-        <button
-          style={styles.clearButton}
-          onPress={() => props.onClearFilters({
-            type: null,
-            lastStatus: null,
-            propertyType: {
-              allTypes: false,
-              condoApartment: false,
-              condoTown: false,
-              detached: false,
-              duplex: false,
-              freeholdTown: false,
-              land: false,
-              multiFamily: false,
-              semiDetached: false,
-            },
-            price: {
-              minPrice: 0,
-              maxPrice: 5000000,
-            },
-            daysOnMarket: 0,
-            soldInLast: 90,
-            rooms: {
-              bed: 0,
-              bath: 0,
-              garage: 0,
-              parking: 0,
-            },
-            size: {
-              minSize: 0,
-              maxSize: 5000,
-            },
-            age: {
-              minAge: 0,
-              maxAge: 100,
-            },
-            condo: {
-              minCondo: 0,
-              maxCondo: 5000
-            }
-          }, false)}
-        >
-          <span style={{ fontSize: 20, fontWeight: 'bold', color: colors.WHITE }}>CLEAR</span>
-        </button>
-        <button
-          style={styles.applyButton}
-          onPress={() => props.onAppleFilters({
-            type: null,
-            lastStatus: null,
-            propertyType: {
-              allTypes: allTypes,
-              detached: detached,
-              semiDetached: semiDetached,
-              freeholdTown: freeholdTown,
-              condoTown: condoTown,
-              condoApartment: condoApartment,
-              duplex: duplex,
-              multiFamily: multiFamily,
-              land: land
-            },
-            price: {
-              minPrice: minPrice,
-              maxPrice: maxPrice
-            },
-            daysOnMarket: daysOnMarket.value,
-            soldInLast: soldInLast.value,
-            rooms: {
-              bed: bed,
-              bath: bath,
-              parking: parking,
-              garage: garage
-            },
-            size: {
-              minSize: minSize,
-              maxSize: maxSize
-            },
-            age: {
-              minAge: minAge,
-              maxAge: maxAge
-            },
-            condo: {
-              minCondo: minCondo,
-              maxCondo: maxCondo
-            }
-          }, true)}
-        >
-          <span style={{ fontSize: 20, fontWeight: 'bold', color: colors.WHITE }}>APPLY FILTERS</span>
-        </button>
-      </div> */}
-        {/* <button style={{ backgroundColor: '#00000050', width: wp('100%'), height: hp('100%') }} onPress={props.onClose} /> */}
-        {/* {dayStatus ? <PickerButton data={days} one={daysOnMarket} onSelect={(item) => {
-        setDaysOnMarket(item);
-        setDayStatus(false);
-      }} /> : null}
-      {soldStatus ? <PickerButton data={solds} one={soldInLast} onSelect={(item) => {
-        setSoldInLast(item);
-        setSoldStatus(false);
-      }} /> : null} */}
+        <div style={{ height: 50 }} />
+        <div className='ft-bottom-buttons'>
+          <button
+          className='ft-clear-button'
+            onClick={() => props.onClearFilters({
+              type: null,
+              lastStatus: null,
+              propertyType: {
+                allTypes: false,
+                condoApartment: false,
+                condoTown: false,
+                detached: false,
+                duplex: false,
+                freeholdTown: false,
+                land: false,
+                multiFamily: false,
+                semiDetached: false,
+              },
+              price: {
+                minPrice: 0,
+                maxPrice: 5000000,
+              },
+              daysOnMarket: 0,
+              soldInLast: 90,
+              rooms: {
+                bed: 0,
+                bath: 0,
+                garage: 0,
+                parking: 0,
+              },
+              size: {
+                minSize: 0,
+                maxSize: 5000,
+              },
+              age: {
+                minAge: 0,
+                maxAge: 100,
+              },
+              condo: {
+                minCondo: 0,
+                maxCondo: 5000
+              }
+            }, false)}
+          >
+            <span style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>CLEAR</span>
+          </button>
+          <button
+          className='ft-apply-button'
+            onClick={() => props.onAppleFilters({
+              type: null,
+              lastStatus: null,
+              propertyType: {
+                allTypes: allTypes,
+                detached: detached,
+                semiDetached: semiDetached,
+                freeholdTown: freeholdTown,
+                condoTown: condoTown,
+                condoApartment: condoApartment,
+                duplex: duplex,
+                multiFamily: multiFamily,
+                land: land
+              },
+              price: {
+                minPrice: minPrice,
+                maxPrice: maxPrice
+              },
+              daysOnMarket: daysOnMarket.value,
+              soldInLast: soldInLast.value,
+              rooms: {
+                bed: bed,
+                bath: bath,
+                parking: parking,
+                garage: garage
+              },
+              size: {
+                minSize: minSize,
+                maxSize: maxSize
+              },
+              age: {
+                minAge: minAge,
+                maxAge: maxAge
+              },
+              condo: {
+                minCondo: minCondo,
+                maxCondo: maxCondo
+              }
+            }, true)}
+          >
+            <span style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>APPLY FILTERS</span>
+          </button>
+        </div>
       </div>
     </Fragment>
   );

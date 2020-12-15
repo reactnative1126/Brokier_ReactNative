@@ -24,3 +24,136 @@ button:focus {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
     overflow-y: scroll
 }
+
+.ft-toggle-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 20px);
+    height: 25px;
+    background-color: #E8E8E8;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.ft-one-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: calc(50% - 16px);
+    height: 20px;
+    background-color: white;
+    border-radius: 2px;
+    border: none;
+}
+
+.ft-card {
+    width: calc(100% - 20px);
+    margin-left: 10px;
+}
+
+.ft-property-type {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* width: calc(100% - 10px); */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.ft-types {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.ft-type-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 40px / 3);
+    height: 35px;
+    border: 1px solid grey;
+    background-color: white;
+    margin: 0px 2px;
+}
+
+.ft-range {
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+.ft-picker {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* width: calc(100% - 20px); */
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.ft-picker-one {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    width: 48%;
+}
+
+.ft-parking {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ft-round-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
+    border: 0.5px solid black;
+    background-color: white;
+}
+
+.ft-bottom-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+
+.ft-clear-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 50px;
+    background-color: #BCBCBC;
+    border: none;
+}
+
+.ft-apply-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 50px;
+    background-color: #DC4646;
+    border: none;
+}

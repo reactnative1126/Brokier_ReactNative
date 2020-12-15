@@ -1,7 +1,7 @@
 export default {
     // apiURL: "http://brokier.com/api",
     apiURL: "https://prozim.kwikbookings.com/api",
-    resURL: "https:cdn.repliers.io/",
+    resURL: "https://cdn.repliers.io/",
 
     // google_map_key: 'AIzaSyAU54vgtYyzf4gUDXFALWt5vYTJsnGZraM', AIzaSyDoi0kDoetjxsvsctCrRb99I5lu1GJMj_8
     google_map_key: 'AIzaSyAeJJDLz3XwOJcU7gwzBp0756V5j3d_YqM',
