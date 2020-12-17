@@ -1,7 +1,7 @@
 import axios from '../../utils/axios.js';
 
 export const getListingsMap = async (cancelTokenSource) => {
-    return await axios.get(`/listings/map`, {
+    return axios.get(`/listings/map`, {
         params: {
             zoom: window.zoom,
             nw_latitude: window.bounds.nw_latitude,
@@ -18,7 +18,7 @@ export const getListingsMap = async (cancelTokenSource) => {
 };
 
 export const getListingsList = async (cancelTokenSource, region, offset, sort) => {
-    return await axios.get(`/listings/list`, {
+    return axios.get(`/listings/list`, {
         params: {
             offset: offset,
             sort: sort,
@@ -36,7 +36,7 @@ export const getListingsList = async (cancelTokenSource, region, offset, sort) =
 };
 
 export const getListingDetail = async (id) => {
-    return await axios.get(`/listings/detail`, {
+    return axios.get(`/listings/detail`, {
         params: {
             id: id
         }
@@ -46,7 +46,7 @@ export const getListingDetail = async (id) => {
 };
 
 export const getDetailHistories = async (streetNumber, streetName, streetSuffix, unitNumber) => {
-    return await axios.get(`/listings/histories`, {
+    return axios.get(`/listings/histories`, {
         params: {
             streetNumber,
             streetName,
@@ -59,7 +59,7 @@ export const getDetailHistories = async (streetNumber, streetName, streetSuffix,
 };
 
 export const getDetailSimilars = async (latitude, longitude, status, type, lastStatus, propertyType, numBedrooms) => {
-    return await axios.get(`/listings/similars`, {
+    return axios.get(`/listings/similars`, {
         params: {
             latitude,
             longitude,
@@ -75,7 +75,7 @@ export const getDetailSimilars = async (latitude, longitude, status, type, lastS
 };
 
 export const getDetailRooms = async (mlsNumber) => {
-    return await axios.get(`/listings/rooms`, {
+    return axios.get(`/listings/rooms`, {
         params: {
             mlsNumber
         }
@@ -85,18 +85,20 @@ export const getDetailRooms = async (mlsNumber) => {
     });
 };
 
-export const getSearch = async (search) => {
-    return await axios.get(`/listings/search`, {
+export const getSearch = async (search, cancelToken) => {
+    return axios.get(`/listings/search`, {
         params: {
             search: search
         }
+    }, {
+        cancelToken: cancelToken.token
     }).then((response) => {
         return response.data.listings;
     });
 };
 
 export const setSearches = async (name, coordinates, userId) => {
-    return await axios.post(`/listings/searches`, {
+    return axios.post(`/listings/searches`, {
         name,
         userId,
         region: window.region,
@@ -110,7 +112,7 @@ export const setSearches = async (name, coordinates, userId) => {
 };
 
 export const getSearches = async (userId) => {
-    return await axios.get(`/listings/searches`, {
+    return axios.get(`/listings/searches`, {
         params: {
             userId
         }
@@ -120,7 +122,7 @@ export const getSearches = async (userId) => {
 };
 
 export const setLike = async (userId, listingId) => {
-    return await axios.post(`/listings/like`, {
+    return axios.post(`/listings/like`, {
         userId: userId,
         listingId: listingId
     }).then((response) => {
@@ -129,7 +131,7 @@ export const setLike = async (userId, listingId) => {
 };
 
 export const getLike = async (userId) => {
-    return await axios.get(`/listings/like`, {
+    return axios.get(`/listings/like`, {
         params: {
             userId: userId
         }
@@ -139,7 +141,7 @@ export const getLike = async (userId) => {
 };
 
 export const getFavoriteList = async (userId, offset) => {
-    return await axios.get(`/listings/favorite`, {
+    return axios.get(`/listings/favorite`, {
         params: {
             userId: userId,
             offset: offset

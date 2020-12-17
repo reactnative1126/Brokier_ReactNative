@@ -66,12 +66,12 @@ const PropertyFilter = (props) => {
   const [dayStatus, setDayStatus] = useState(false);
   const [daysOnMarket, setDaysOnMarket] = useState({
     value: window.filters.daysOnMarket,
-    label: window.filters.daysOnMarket == 0 ? 'Any' : window.filters.daysOnMarket == 1 ? '1 Day' : window.filters.daysOnMarket == 3 ? '3 Days' : window.filters.daysOnMarket == 7 ? '7 Days' : window.filters.daysOnMarket == 14 ? '14 Days' : window.filters.daysOnMarket == 30 ? '30 Days' : '30+ Days'
+    label: window.filters.daysOnMarket === 0 ? 'Any' : window.filters.daysOnMarket === 1 ? '1 Day' : window.filters.daysOnMarket === 3 ? '3 Days' : window.filters.daysOnMarket === 7 ? '7 Days' : window.filters.daysOnMarket === 14 ? '14 Days' : window.filters.daysOnMarket === 30 ? '30 Days' : '30+ Days'
   });
   const [soldStatus, setSoldStatus] = useState(false);
   const [soldInLast, setSoldInLast] = useState({
     value: window.filters.soldInLast,
-    label: window.filters.soldInLast == 60 ? 'Any' : window.filters.soldInLast == 1 ? '1 Day' : window.filters.soldInLast == 7 ? '7 Days' : window.filters.soldInLast == 30 ? '30 Days' : window.filters.soldInLast == 90 ? '3 Months' : window.filters.soldInLast == 180 ? '6 Months' : window.filters.soldInLast == 365 ? '1 Year' : '2 Years'
+    label: window.filters.soldInLast === 60 ? 'Any' : window.filters.soldInLast === 1 ? '1 Day' : window.filters.soldInLast === 7 ? '7 Days' : window.filters.soldInLast === 30 ? '30 Days' : window.filters.soldInLast === 90 ? '3 Months' : window.filters.soldInLast === 180 ? '6 Months' : window.filters.soldInLast === 365 ? '1 Year' : '2 Years'
   });
   const [bed, setBed] = useState(window.filters.rooms.bed);
   const [bath, setBath] = useState(window.filters.rooms.bath);
@@ -171,7 +171,7 @@ const PropertyFilter = (props) => {
                 <div className='ft-range'>
                   <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
                     <span style={{ fontSize: 12 }}>{isCurrency(minPrice).split('.')[0]}</span>
-                    <span style={{ fontSize: 12 }}>{isCurrency(maxPrice).split('.')[0]}{maxPrice == 5000000 && '+'}</span>
+                    <span style={{ fontSize: 12 }}>{isCurrency(maxPrice).split('.')[0]}{maxPrice === 5000000 && '+'}</span>
                   </div>
                   <div style={{ marginTop: 15, height: 30, paddingRight: 10 }}>
                     <Range
@@ -246,7 +246,7 @@ const PropertyFilter = (props) => {
                 <div className='ft-parking'>
                   <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '60%' }}>
                     <span style={{ width: 50 }}>Beds</span>
-                    <button className='ft-round-button' onClick={() => bed != 0 && setBed(bed - 1)}>
+                    <button className='ft-round-button' onClick={() => bed !== 0 && setBed(bed - 1)}>
                       <i className='fas fa-minus f-s-10'></i></button>
                     <span>{bed}+</span>
                     <button className='ft-round-button' onClick={() => setBed(bed + 1)}>
@@ -254,7 +254,7 @@ const PropertyFilter = (props) => {
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '60%', marginTop: 5 }}>
                     <span style={{ width: 50 }}>Baths</span>
-                    <button className='ft-round-button' onClick={() => bath != 0 && setBath(bath - 1)}>
+                    <button className='ft-round-button' onClick={() => bath !== 0 && setBath(bath - 1)}>
                       <i className='fas fa-minus f-s-10'></i></button>
                     <span>{bath}+</span>
                     <button className='ft-round-button' onClick={() => setBath(bath + 1)}>
@@ -262,7 +262,7 @@ const PropertyFilter = (props) => {
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '60%', marginTop: 5 }}>
                     <span style={{ width: 50 }}>Parking</span>
-                    <button className='ft-round-button' onClick={() => parking != 0 && setParking(parking - 1)}>
+                    <button className='ft-round-button' onClick={() => parking !== 0 && setParking(parking - 1)}>
                       <i className='fas fa-minus f-s-10'></i></button>
                     <span>{parking}+</span>
                     <button className='ft-round-button' onClick={() => setParking(parking + 1)}>
@@ -270,7 +270,7 @@ const PropertyFilter = (props) => {
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '60%', marginTop: 5 }}>
                     <span style={{ width: 50 }}>Garage</span>
-                    <button className='ft-round-button' onClick={() => garage != 0 && setGarage(garage - 1)}>
+                    <button className='ft-round-button' onClick={() => garage !== 0 && setGarage(garage - 1)}>
                       <i className='fas fa-minus f-s-10'></i></button>
                     <span>{garage}+</span>
                     <button className='ft-round-button' onClick={() => setGarage(garage + 1)}>
@@ -286,7 +286,7 @@ const PropertyFilter = (props) => {
                 <div className='ft-range'>
                   <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
                     <span style={{ fontSize: 12 }}>{minSize}Sqft</span>
-                    <span style={{ fontSize: 12 }}>{maxSize}{maxSize == 5000 && '+'}Sqft</span>
+                    <span style={{ fontSize: 12 }}>{maxSize}{maxSize === 5000 && '+'}Sqft</span>
                   </div>
                   <div style={{ marginTop: 15, height: 30, paddingRight: 10 }}>
                     <Range
@@ -393,7 +393,7 @@ const PropertyFilter = (props) => {
                       <div style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
                         <span style={{ fontSize: 12 }}>{isCurrency(minCondo).split('.')[0]}</span>
                         <span style={{ fontSize: 12 }}>Max HOA / Maintenance Fees</span>
-                        <span style={{ fontSize: 12 }}>{isCurrency(maxCondo).split('.')[0]}{maxCondo == 5000 && '+'}</span>
+                        <span style={{ fontSize: 12 }}>{isCurrency(maxCondo).split('.')[0]}{maxCondo === 5000 && '+'}</span>
                       </div>
                       <div style={{ marginTop: 15, height: 30, paddingRight: 10 }}>
                         <Range

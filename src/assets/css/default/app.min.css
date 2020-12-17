@@ -26786,7 +26786,7 @@ a:focus {
     max-width: 975px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     height: 50px;
     z-index: 1020;
     margin-bottom: 0;
@@ -26865,6 +26865,7 @@ a:focus {
     display: flex;
     -ms-flex-align: center;
     align-items: center;
+    height: 100%;
 }
 
 .header .navbar-header:after,
@@ -27042,6 +27043,8 @@ a:focus {
 }
 
 .header .navbar-nav.navbar-right {
+    height: 100%;
+    align-items: center;
     padding: 0 10px;
     /* margin-left: auto */
 }

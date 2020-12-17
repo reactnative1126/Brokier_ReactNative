@@ -37,7 +37,8 @@
 
 .navbar-center {
     list-style-type: none;
-    margin: 0;
+    margin-top: 10px;
+    
 }
 
 .loading-overlay {
@@ -50,4 +51,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.hd-search-view {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    /* border: 1px solid black; */
+    top: 50px;
+    margin-top: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+    overflow-y: scroll
 }

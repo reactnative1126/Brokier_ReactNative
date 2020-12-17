@@ -7,7 +7,7 @@ import { setLikes } from '../modules/redux/lists/actions';
 import { setLoading } from '../modules/redux/auth/actions';
 import { MapStore } from '../modules/stores';
 import { getListingsMap, getListingsList, getLike, getListingDetail } from '../modules/services/ListingsService';
-import { MapService } from '../modules/services';
+import { getGeoCode } from '../modules/services/MapService';
 import { isEmpty, isCurrency } from '../utils/functions';
 import { PropertyItem, PropertyModal, PropertyImage, PropertyFilter, MarkerDetail, MarkerCircle, MarkerMain } from '../components';
 import configs from '../constants/configs';
@@ -243,7 +243,7 @@ class Home extends React.Component {
                 } else {
                     var region = await MapStore.getRegion(this.state.coordinates);
                     window.region = region;
-                    var address = await MapService.getGeoCode(window.region);
+                    var address = await getGeoCode(window.region);
                     window.location = address.results[0].formatted_address;
                     window.description = 'Property Type: ';
                     window.description += window.filters.propertyType.detached ? 'Detached, ' : '';
