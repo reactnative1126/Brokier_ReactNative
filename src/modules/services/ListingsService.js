@@ -85,13 +85,11 @@ export const getDetailRooms = async (mlsNumber) => {
     });
 };
 
-export const getSearch = async (search, cancelToken) => {
+export const getSearch = async (search) => {
     return axios.get(`/listings/search`, {
         params: {
             search: search
         }
-    }, {
-        cancelToken: cancelToken.token
     }).then((response) => {
         return response.data.listings;
     });

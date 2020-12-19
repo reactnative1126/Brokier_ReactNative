@@ -90,7 +90,7 @@ const PropertyFilter = (props) => {
     <Fragment>
       <div className='ft-wrapper' onClick={() => props.onClose()} />
       <div id='filter-container' className='ft-container'>
-        <div style={{ height: '100%', backgroundColor: 'white' }}>
+        <div style={{ backgroundColor: 'white' }}>
           <div style={{ marginTop: 10 }}>
             <div index={12} className='ft-card'>
               <div className='ft-property-type'>
@@ -177,6 +177,7 @@ const PropertyFilter = (props) => {
                     <Range
                       min={0}
                       max={5000000}
+                      allowCross={false}
                       defaultValue={[minPrice, maxPrice]}
                       value={[minPrice, maxPrice]}
                       onChange={(value) => {
@@ -292,6 +293,7 @@ const PropertyFilter = (props) => {
                     <Range
                       min={0}
                       max={5000}
+                      allowCross={false}
                       defaultValue={[minSize, maxSize]}
                       value={[minSize, maxSize]}
                       onChange={(value) => {
@@ -344,6 +346,7 @@ const PropertyFilter = (props) => {
                     <Range
                       min={0}
                       max={100}
+                      allowCross={false}
                       defaultValue={[minAge, maxAge]}
                       value={[minAge, maxAge]}
                       onChange={(value) => {
@@ -399,6 +402,7 @@ const PropertyFilter = (props) => {
                         <Range
                           min={0}
                           max={100}
+                          allowCross={false}
                           defaultValue={[minCondo, maxCondo]}
                           value={[minCondo, maxCondo]}
                           onChange={(value) => {
@@ -462,7 +466,6 @@ const PropertyFilter = (props) => {
           <div style={{ height: 100 }} /> */}
           </div>
         </div>
-        <div style={{ height: 50 }} />
         <div className='ft-bottom-buttons'>
           <button
           className='ft-clear-button'
