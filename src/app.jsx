@@ -7,10 +7,11 @@ import configs from './constants/configs';
 import Header from './components/header/header.jsx';
 import Content from './components/content/content.jsx';
 import Loading from './components/loading/loading.jsx';
+import Auth from './components/auth/auth.jsx';
 
 window.listings = [];
 window.details = [];
-window.zoom = 10;
+window.zoom = 15;
 window.region = {
 	lat: configs.lat,
 	lng: configs.lng,
@@ -427,6 +428,7 @@ class App extends React.Component {
 		return (
 			<PageSettings.Provider value={this.state}>
 				<Loading loading={this.props.loading} />
+				<Auth visible={this.props.visible} />
 				<Header />
 				<Content />
 			</PageSettings.Provider>
@@ -437,6 +439,7 @@ class App extends React.Component {
 const mapStateToProps = state => {
 	return {
 		loading: state.auth.loading,
+		visible: state.auth.visible
 	}
 }
 

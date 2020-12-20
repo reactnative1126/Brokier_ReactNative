@@ -146,15 +146,15 @@ class Store {
 
   _isInPolygon = (point, polygonArray) => {
 
-    let x = point.latitude
-    let y = point.longitude
+    let x = point.lat
+    let y = point.lng
 
     let inside = false
     for (let i = 0, j = polygonArray.length - 1; i < polygonArray.length; j = i++) {
-      let xLat = polygonArray[i].latitude
-      let yLat = polygonArray[i].longitude
-      let xLon = polygonArray[j].latitude
-      let yLon = polygonArray[j].longitude
+      let xLat = polygonArray[i].lat
+      let yLat = polygonArray[i].lng
+      let xLon = polygonArray[j].lat
+      let yLon = polygonArray[j].lng
 
       let intersect = ((yLat > y) !== (yLon > y)) && (x < (xLon - xLat) * (y - yLat) / (yLon - yLat) + xLat)
       if (intersect) inside = !inside
@@ -166,8 +166,8 @@ class Store {
     var results = [];
     listings.map((listing, key) => {
       var point = {
-        latitude: type === 1 ? listing[0].latitude : listing.latitude,
-        longitude: type === 1 ? listing[0].longitude : listing.longitude
+        lat: type === 1 ? listing[0].latitude : listing.latitude,
+        lng: type === 1 ? listing[0].longitude : listing.longitude
       };
       if (this._isInPolygon(point, points)) {
         results = [...results, listing];

@@ -1,27 +1,22 @@
 import React from "react";
-import ReactSwipe from 'react-swipe';
+import { useSelector } from 'react-redux';
 import moment from 'moment';
 
 import { isEmpty, isCurrency } from "../../utils/functions";
 import configs from "../../constants/configs";
 
-const PropertyItem = ({ listing, onClick }) => {
+const PropertyItem = ({ listing, onClick, onLogin }) => {
+    const {logged} = useSelector(state => state.auth);
     return (
-        <div key={listing.id} className='pr-property-item' onClick={() => onClick(listing)}>
+        <div key={listing.id} className='pr-property-item' onClick={() => (listing.lastStatus === 'Sld' || listing.lastStatus === 'Lsd') && !logged ? onLogin() : onClick(listing)}>
             <div className='title-wrapper'>
                 <span className='title'>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix.replace('St', 'Street')} {!isEmpty(listing.unitNumber) && `#${listing.unitNumber}`}</span>
                 <span className='neighborhood'>{listing.neighborhood} {listing.city}</span>
             </div>
             <div className='image-container'>
-                <ReactSwipe
-                    swipeOptions={{ continuous: true }}
-                >
-                    {!isEmpty(listing) && listing.images.split('#').map((image, key) => {
-                        return (
-                            <img key={key} className='image' src={configs.resURL + image} alt={listing.mlsNumber} />
-                        );
-                    })}
-                </ReactSwipe>
+                {!isEmpty(listing) && (
+                    <img className='image' src={configs.resURL + listing.images.split('#')[0]} alt={listing.mlsNumber} style={{width: '100%', height: '100%'}}/>
+                )}
             </div>
             <div className='pr-detail'>
                 <div className='pr-top'>
@@ -35,7 +30,7 @@ const PropertyItem = ({ listing, onClick }) => {
                         <div className='pr-sold-price'>
                             <span className='text'>Sold:</span>
                             <span className='price'>
-                                {isCurrency(listing.soldPrice).split('.')[0]}
+                                {logged ? isCurrency(listing.soldPrice).split('.')[0] : 'Login'}
                             </span>
                         </div>
                     )}
@@ -67,7 +62,6 @@ const PropertyItem = ({ listing, onClick }) => {
                         {listing.type}</span>
                 </div>
             </div>
-            <div className='bottom-line' />
         </div>
     );
 };

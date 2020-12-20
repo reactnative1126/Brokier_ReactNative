@@ -1,6 +1,6 @@
 import axios from '../../utils/axios.js';
 
-export const getListingsMap = async (cancelTokenSource) => {
+export const getListingsMap = () => {
     return axios.get(`/listings/map`, {
         params: {
             zoom: window.zoom,
@@ -10,14 +10,12 @@ export const getListingsMap = async (cancelTokenSource) => {
             se_longitude: window.bounds.se_longitude,
             filters: window.filters
         }
-    }, {
-        cancelToken: cancelTokenSource.token
     }).then((response) => {
-        return response.data.listings;
-    });
+            return response.data.listings;
+        });
 };
 
-export const getListingsList = async (cancelTokenSource, region, offset, sort) => {
+export const getListingsList = (region, offset, sort) => {
     return axios.get(`/listings/list`, {
         params: {
             offset: offset,
@@ -28,14 +26,12 @@ export const getListingsList = async (cancelTokenSource, region, offset, sort) =
             se_longitude: window.bounds.se_longitude,
             filters: window.filters
         }
-    }, {
-        cancelToken: cancelTokenSource.token
     }).then((response) => {
-        return response.data.listings;
-    });
+            return response.data.listings;
+        });
 };
 
-export const getListingDetail = async (id) => {
+export const getListingDetail = (id) => {
     return axios.get(`/listings/detail`, {
         params: {
             id: id
@@ -45,7 +41,7 @@ export const getListingDetail = async (id) => {
     });
 };
 
-export const getDetailHistories = async (streetNumber, streetName, streetSuffix, unitNumber) => {
+export const getDetailHistories = (streetNumber, streetName, streetSuffix, unitNumber) => {
     return axios.get(`/listings/histories`, {
         params: {
             streetNumber,
@@ -58,7 +54,7 @@ export const getDetailHistories = async (streetNumber, streetName, streetSuffix,
     });
 };
 
-export const getDetailSimilars = async (latitude, longitude, status, type, lastStatus, propertyType, numBedrooms) => {
+export const getDetailSimilars = (latitude, longitude, status, type, lastStatus, propertyType, numBedrooms) => {
     return axios.get(`/listings/similars`, {
         params: {
             latitude,
@@ -74,7 +70,7 @@ export const getDetailSimilars = async (latitude, longitude, status, type, lastS
     });
 };
 
-export const getDetailRooms = async (mlsNumber) => {
+export const getDetailRooms = (mlsNumber) => {
     return axios.get(`/listings/rooms`, {
         params: {
             mlsNumber
@@ -85,7 +81,7 @@ export const getDetailRooms = async (mlsNumber) => {
     });
 };
 
-export const getSearch = async (search) => {
+export const getSearch = (search) => {
     return axios.get(`/listings/search`, {
         params: {
             search: search
@@ -95,7 +91,7 @@ export const getSearch = async (search) => {
     });
 };
 
-export const setSearches = async (name, coordinates, userId) => {
+export const setSearches = (name, coordinates, userId) => {
     return axios.post(`/listings/searches`, {
         name,
         userId,
@@ -109,7 +105,7 @@ export const setSearches = async (name, coordinates, userId) => {
     });
 };
 
-export const getSearches = async (userId) => {
+export const getSearches = (userId) => {
     return axios.get(`/listings/searches`, {
         params: {
             userId
@@ -119,7 +115,7 @@ export const getSearches = async (userId) => {
     });
 };
 
-export const setLike = async (userId, listingId) => {
+export const setLike = (userId, listingId) => {
     return axios.post(`/listings/like`, {
         userId: userId,
         listingId: listingId
@@ -128,7 +124,7 @@ export const setLike = async (userId, listingId) => {
     });
 };
 
-export const getLike = async (userId) => {
+export const getLike = (userId) => {
     return axios.get(`/listings/like`, {
         params: {
             userId: userId
@@ -138,7 +134,7 @@ export const getLike = async (userId) => {
     });
 };
 
-export const getFavoriteList = async (userId, offset) => {
+export const getFavoriteList = (userId, offset) => {
     return axios.get(`/listings/favorite`, {
         params: {
             userId: userId,

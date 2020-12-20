@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Route, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { setLikes } from '../modules/redux/lists/actions';
-import { setLoading } from '../modules/redux/auth/actions';
+import { setLoading, setVisible } from '../modules/redux/auth/actions';
 import { MapStore } from '../modules/stores';
-import { getListingsMap, getListingsList, getLike, getListingDetail } from '../modules/services/ListingsService';
+import { getListingsMap, getListingsList, getLike, setLike, getListingDetail } from '../modules/services/ListingsService';
 import { getGeoCode } from '../modules/services/MapService';
 import { isEmpty, isCurrency } from '../utils/functions';
 import { PropertyItem, PropertyModal, PropertyImage, PropertyFilter, MarkerDetail, MarkerCircle, MarkerMain } from '../components';
 import configs from '../constants/configs';
-import axios from '../utils/axios';
 
 class Home extends React.Component {
 
@@ -60,8 +59,10 @@ class Home extends React.Component {
             imageVisible: false,
             images: [],
             imageIndex: 0,
+            google: null,
+            drawingManager: null,
+            polygonShape: null
         };
-        this.cancelTokenSource = axios.CancelToken.source("Operation canceled due to new request.");
     }
 
     componentDidMount() {
@@ -95,7 +96,6 @@ class Home extends React.Component {
             }
             // this.props.setLoading(true);
             this.setState({ region: window.region }, () => {
-                this.cancelTokenSource.cancel();
                 this.onStatus(window.filters);
                 this.loadData(window.filters, true, 0);
             });
@@ -116,7 +116,7 @@ class Home extends React.Component {
         filters.type = this.state.view ? this.state.forSale ? "Sale" : null : this.state.forRent ? "Lease" : null;
         filters.lastStatus = this.state.view ? this.state.sold ? "Sld" : null : this.state.rented ? "Lsd" : null;
         window.filters = filters;
-        var listings = await getListingsMap(this.cancelTokenSource);
+        var listings = await getListingsMap();
         listings = await MapStore.getMarkers(listings);
         var listings3 = this.state.coordinates.length < 3 ? [] : await MapStore.getRegionMarkers(1, this.state.coordinates, listings);
         var likes = await getLike(isEmpty(this.props.user) ? 0 : this.props.user.id);
@@ -149,7 +149,7 @@ class Home extends React.Component {
             var sort = this.state.sortValue === 0 ? 'Price' : this.state.forSale || this.state.forRent ? 'List' : 'Sold';
             window.filters = filters;
             var region = !this.state.drawing ? window.region : await MapStore.getRegion(this.state.coordinates);
-            var listings = await getListingsList(this.cancelTokenSource, region, offset, sort);
+            var listings = await getListingsList(region, offset, sort);
             var likes = await getLike(isEmpty(this.props.user) ? 0 : this.props.user.id);
             this.props.setLikes(likes);
             if (!this.state.drawing) {
@@ -229,6 +229,16 @@ class Home extends React.Component {
         }
     }
 
+    onApply() {
+        if (this.state.coordinates.length > 2) {
+            this.setState({ polygon: false, coordinates: [...this.state.coordinates, this.state.coordinates[0]] }, () => {
+                // console.log(this.state.coordinates);
+                this.onStatus(window.filters);
+                this.loadData(window.filters, true, 0);
+            });
+        }
+    }
+
     async onSaveSearch() {
         if (this.props.logged) {
             if (isEmpty(this.state.coordinates)) {
@@ -273,6 +283,97 @@ class Home extends React.Component {
         }
     }
 
+    _onChildClick = (key, childProps) => {
+        const center = this.state.region;
+        this.setState({
+            region: {
+                lat: childProps.lat,
+                lng: childProps.lng,
+                latitudeDelta: center.latitudeDelta,
+                longitudeDelta: center.longitudeDelta
+            }
+        });
+    }
+
+
+    async onLike(id) {
+        if (!this.props.logged) {
+            this.props.setVisible(true);
+        } else {
+            await setLike(this.props.user.id, id).then((response) => {
+                this.setState({ likes: response });
+                this.props.setLikes(response);
+            })
+        }
+    }
+
+    async onShare(listing) {
+        var listing = await getListingDetail(listing.id);
+        if (!this.props.logged) {
+            this.props.setVisible(true);
+        } else {
+            //   Share.share({
+            //     title: `Brokier - ${listing.streetNumber}`,
+            //     url: 'https://brokier.com/' + listing.mlsNumber
+            //   })
+        }
+    };
+
+    onPanDrag(e) {
+        if (this.state.drawing && this.state.polygon) {
+            this.setState({
+                coordinates: [...this.state.coordinates, {
+                    lat: e.center.lat(),
+                    lng: e.center.lng()
+                }]
+            });
+        }
+    }
+
+    handleGoogleMapApi(google) {
+        const map = google.map;
+        if (this.state.drawingManager === null) {
+            const drawingManager = new google.maps.drawing.DrawingManager({
+                drawingMode: google.maps.drawing.OverlayType.POLYGON,
+                drawingControl: true,
+                drawingControlOptions: {
+                    drawingModes: [
+                        google.maps.drawing.OverlayType.POLYGON,
+                    ]
+                },
+                markerOptions: { icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png' },
+                polygonOptions: {
+                    fillColor: 'rgba(0, 0, 200, 0.2)',
+                    fillOpacity: 1,
+                    strokeWeight: 5,
+                    strokeColor: '#140c98',
+                    clickable: false,
+                    editable: false,
+                    zIndex: 1
+                }
+            });
+            this.setState({ google, drawingManager }, () => {
+                this.state.drawingManager.setMap(this.state.drawing && this.state.polygon ? map : null);
+            });
+        } else {
+            if (this.state.drawing && this.state.polygon) {
+                this.state.drawingManager.setMap(map);
+            } else {
+                this.state.polygonShape.setMap(null);
+            }
+        }
+
+        const _this = this;
+        google.maps.event.addListener(this.state.drawingManager, 'polygoncomplete', function (polygon) {
+            console.log(polygon.getPath().Mb[0].lat());
+            var coordinates = [];
+            polygon.getPath().Mb.map(coordinate => {
+                coordinates = [...coordinates, { lat: coordinate.lat(), lng: coordinate.lng() }];
+            })
+            _this.setState({ polygonShape: polygon, coordinates });
+        });
+    }
+
     render() {
         return (
             <div className='hm-main-panel'>
@@ -294,18 +395,40 @@ class Home extends React.Component {
                                 <button className={this.state.rented ? 'hm-rented-btn' : 'hm-inactive-btn'} onClick={() => this.onRented()}>RENTED</button>
                             }
                             <button className='hm-inactive-btn' onClick={() => this.setState({ filter: true })}>
-                                <i className='fas fa-angle-down f-s-16'></i>
+                                <i className='fas fa-angle-down f-s-12 hm-padding-right'></i>
                                 <span>Filters</span>
                                 <div className='hm-badge'>1</div>
                             </button>
                             <button className='hm-inactive-btn' onClick={() => this.onSaveSearch()}>
                                 <span>Save Search</span>
-                                <i className='fas fa-heart f-s-12'></i>
+                                <i className='far fa-heart f-s-12 hm-padding-left'></i>
                             </button>
-                            <button className='hm-inactive-btn'>
-                                <i className='fas fa-heart f-s-12'></i>
-                                <span>Drawing</span>
-                            </button>
+                            {!this.state.drawing ? (
+                                <button className='hm-inactive-btn ' onClick={() => {
+                                    this.setState({ drawing: true, scrollwheel: false, polygon: true, coordinates: [], listings3: [] }, () => {
+                                        this.handleGoogleMapApi(this.state.google);
+                                    })
+                                }}>
+                                    <i className='far fa-object-ungroup f-s-12 hm-padding-right'></i>
+                                    <span>Drawing</span>
+                                </button>
+                            ) : (
+                                    <Fragment>
+                                        <button className='hm-apply-btn' onClick={() => this.onApply()}>
+                                            <i className='fas fa-check f-s-12 font-color-green'></i>
+                                            <span className='hm-apply-text'>Apply</span>
+                                        </button>
+                                        <button className='hm-cancel-btn' onClick={() => {
+                                            this.setState({ drawing: false, scrollwheel: true, polygon: false, coordinates: [], listings3: [] }, () => {
+                                                // this.setState({drawingManager: null})
+                                                this.handleGoogleMapApi(this.state.google);
+                                            });
+                                        }}>
+                                            <i className='fas fa-times f-s-12 font-color-red'></i>
+                                            <span className='hm-cancel-text'>Cancel</span>
+                                        </button>
+                                    </Fragment>
+                                )}
                         </div>
                     </div>
                     <div className='hm-map-view'>
@@ -313,17 +436,20 @@ class Home extends React.Component {
                             bootstrapURLKeys={{
                                 key: 'AIzaSyDoi0kDoetjxsvsctCrRb99I5lu1GJMj_8',
                                 language: 'en',
-                                region: 'US'
+                                region: 'US',
+                                libraries: 'drawing'
                             }}
                             options={{
-                                scrollwheel: this.state.scrollwheel
+                                scrollwheel: this.state.scrollwheel,
+                                panControl: false
                             }}
-                            // defaultZoom={15}
-                            zoom={17}
-                            // center={this.state.region}
-                            defaultCenter={this.state.region}
+                            defaultZoom={window.zoom}
+                            center={[this.state.region.lat, this.state.region.lng]}
                             onBoundsChange={(center, zoom, bounds) => this.onRegionChangeComplete(center, zoom, bounds)}
                             onClick={() => this.setState({ details: [], scrollwheel: true })}
+                            onChildClick={this._onChildClick}
+                            yesIWantToUseGoogleMapApiInternals //this is important!
+                            onGoogleApiLoaded={this.handleGoogleMapApi.bind(this)}
                         >
                             {!this.state.drawing ? (
                                 this.state.listings.map((item, key) => (
@@ -384,6 +510,7 @@ class Home extends React.Component {
                                         details={this.state.details}
                                         likes={this.state.likes}
                                         onClick={(item) => this.onDetail(item.id)}
+                                        onLogin={() => this.props.setVisible(true)}
                                     />
                                 )
                             }
@@ -399,6 +526,7 @@ class Home extends React.Component {
                                 listing={listing}
                                 likes={this.state.likes}
                                 onClick={(item) => this.onDetail(item.id)}
+                                onLogin={() => this.props.setVisible(true)}
                             />
                         ))}
                         {!isEmpty(this.state.listings2) && (<div className='hm-load-more-wrapper'>
@@ -458,6 +586,9 @@ const mapDispatchToProps = dispatch => {
         },
         setLikes: (data) => {
             dispatch(setLikes(data));
+        },
+        setVisible: (data) => {
+            dispatch(setVisible(data));
         }
     }
 }

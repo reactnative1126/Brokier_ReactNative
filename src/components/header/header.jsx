@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { connect } from "react-redux";
 import { isEmpty, isCurrency } from './../../utils/functions';
 import { PageSettings } from './../../constants/page-settings.js';
 import { getSearch, getListingDetail } from './../../modules/services/ListingsService';
 import { getPlaces, getGeometry } from './../../modules/services/MapService';
+import { setLikes } from './../../modules/redux/lists/actions';
+import { signOut } from './../../modules/redux/auth/actions';
 
 // import axios from 'axios';
 // import axios from './../../utils/axios.js';
@@ -57,6 +60,11 @@ class Header extends React.Component {
 			// }
 		}).catch(error => console.log(error)).finally(() => this.setState({ loading: false }));
 	}
+	
+	signOut() {
+		this.props.signOut();
+		this.props.setLikes([]);
+	  }
 
 	render() {
 		return (
@@ -129,7 +137,7 @@ class Header extends React.Component {
 									</Link>
 								</li>
 								<li>
-									<Link to="/" className='header-right-btn'>
+									<Link to="/" className='header-right-btn' onClick={()=>this.signOut()}>
 										<i className='far fa-user f-s-16'></i>
 										<span>Profile</span>
 									</Link>
@@ -142,5 +150,15 @@ class Header extends React.Component {
 		)
 	}
 }
+const mapDispatchToProps = dispatch => {
+  return {
+    signOut: (data) => {
+      dispatch(signOut(data))
+    },
+    setLikes: (data) => {
+      dispatch(setLikes(data));
+    }
+  }
+}
 
-export default Header;
+export default connect(undefined, mapDispatchToProps)(Header);

@@ -4,6 +4,10 @@ export const setLoading = (data) => ({
     type: types.SET_LOADING,
     payload: data,
 });
+export const setVisible = (data) => ({
+    type: types.SET_VISIBLE,
+    payload: data,
+});
 
 
 

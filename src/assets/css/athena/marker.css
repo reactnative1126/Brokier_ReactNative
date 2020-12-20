@@ -5,6 +5,10 @@
     margin-bottom: 20px; 
 }
 
+.mk-default-marker:hover {
+    cursor: pointer;
+}
+
 .mk-marker-wrapper {
     display: flex;
     flex-direction: column;

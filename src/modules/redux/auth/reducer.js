@@ -2,6 +2,7 @@ import types from './types';
 
 const initialState = {
     loading: false,
+    visible: false,
     logged: false,
     user_info: null
 };
@@ -12,6 +13,11 @@ export default function authReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: action.payload
+            };
+        case types.SET_VISIBLE:
+            return {
+                ...state,
+                visible: action.payload
             };
 
         case types.SET_USER:

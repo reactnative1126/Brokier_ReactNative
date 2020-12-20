@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import { isEmpty, isCurrency } from "../../utils/functions";
 
-const PropertyHistories = ({ histories }) => {
+const PropertyHistories = ({ histories, onDetail }) => {
   var historiesItemClass = 'hi-wrapper ';
   if (histories.length > 5) {
     historiesItemClass += 'hi-200'
@@ -56,7 +56,7 @@ const PropertyHistories = ({ histories }) => {
                   <span>{isCurrency(listing.soldPrice) === '$0.00' ? '' : isCurrency(listing.soldPrice).split('.')[0]}</span>
                 </div>
                 <div className='hi-price'>
-                    <span style={{ fontSize: 12, fontWeight: '500', color: '#4E9EE9', textDecorationLine: 'none', marginLeft: 10, cursor: 'pointer' }} onClick={() => alert(listing.id)}>{listing.mlsNumber}</span>
+                    <span style={{ fontSize: 12, fontWeight: '500', color: '#4E9EE9', textDecorationLine: 'none', marginLeft: 10, cursor: 'pointer' }} onClick={() => onDetail(listing.id)}>{listing.mlsNumber}</span>
                 </div>
               </div>
             );
