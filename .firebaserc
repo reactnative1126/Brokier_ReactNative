@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "brokier"
+    "default": "brokier",
+    "brokier": "brokier-0926"
   }
 }
