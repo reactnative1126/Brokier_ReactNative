@@ -339,7 +339,7 @@ class PropertiesHome extends Component {
   }
 
   async onShare(listing) {
-    var listing = await ListingsService.getListingDetail(id);
+    var listing = await ListingsService.getListingDetail(listing.id);
     console.log(listing);
     if (!this.props.logged) {
       this.props.navigation.push("Auth");
@@ -434,7 +434,7 @@ class PropertiesHome extends Component {
               clusterColor={"#140c98"}
               spiderLineColor={"#140c98"}
               onPanDrag={(e) => this.onPanDrag(e)}
-              onMarkerDragEnd={() => alert("OK")}
+              // onMarkerDragEnd={() => alert("OK")}
             >
               {/* {(this.state.drawing && !isEmpty(this.state.coordinates)) ? (
                 this.state.coordinates.map((marker, key) => (
