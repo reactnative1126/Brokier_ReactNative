@@ -9,6 +9,7 @@ import PropertyProfile from './property/PropertyProfile';
 import PropertySimilar from './property/PropertySimilar';
 import SimilarDetail from './property/SimilarDetail';
 import PropertyFilter from './property/PropertyFilter';
+import PropertySave from './property/PropertySave';
 
 import MarkerDetail from './marker/MarkerDetail';
 import MarkerCircle from './marker/MarkerCircle';
@@ -28,5 +29,6 @@ export {
     PropertyProfile,
     PropertySimilar,
     SimilarDetail,
-    PropertyFilter
+    PropertyFilter,
+    PropertySave
 }

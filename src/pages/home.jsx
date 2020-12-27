@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import { setLikes } from '../modules/redux/lists/actions';
 import { setLoading, setVisible } from '../modules/redux/auth/actions';
 import { MapStore } from '../modules/stores';
-import { getListingsMap, getListingsList, getLike, setLike, getListingDetail } from '../modules/services/ListingsService';
+import { getListingsMap, getListingsList, getLike, setLike, getListingDetail, setSearches } from '../modules/services/ListingsService';
 import { getGeoCode } from '../modules/services/MapService';
 import { isEmpty, isCurrency } from '../utils/functions';
-import { PropertyItem, PropertyModal, PropertyImage, PropertyFilter, MarkerDetail, MarkerCircle, MarkerMain } from '../components';
+import { PropertyItem, PropertyModal, PropertyImage, PropertyFilter, MarkerDetail, MarkerCircle, MarkerMain, PropertySave } from '../components';
 import configs from '../constants/configs';
 
 class Home extends React.Component {
@@ -229,72 +229,6 @@ class Home extends React.Component {
         }
     }
 
-    onApply() {
-        if (this.state.coordinates.length > 2) {
-            this.setState({ polygon: false, coordinates: [...this.state.coordinates, this.state.coordinates[0]] }, () => {
-                // console.log(this.state.coordinates);
-                this.onStatus(window.filters);
-                this.loadData(window.filters, true, 0);
-            });
-        }
-    }
-
-    async onSaveSearch() {
-        if (this.props.logged) {
-            if (isEmpty(this.state.coordinates)) {
-                this.setState({ drawing: true, polygon: true, coordinates: [], listings3: [] }, () => {
-                    alert('Select search area');
-                });
-            } else {
-                if (this.state.coordinates.length < 3) {
-                    this.setState({ drawing: true, polygon: true }, () => {
-                        alert('Select 2+ points at least');
-                    });
-                } else {
-                    var region = await MapStore.getRegion(this.state.coordinates);
-                    window.region = region;
-                    var address = await getGeoCode(window.region);
-                    window.location = address.results[0].formatted_address;
-                    window.description = 'Property Type: ';
-                    window.description += window.filters.propertyType.detached ? 'Detached, ' : '';
-                    window.description += window.filters.propertyType.semiDetached ? 'Semi-Detached, ' : '';
-                    window.description += window.filters.propertyType.freeholdTown ? 'Row/Freehold Town, ' : '';
-                    window.description += window.filters.propertyType.condoTown ? 'Condo Town, ' : '';
-                    window.description += window.filters.propertyType.condoApartment ? 'Condo Apartment, ' : '';
-                    window.description += window.filters.propertyType.duplex ? 'Duplex, ' : '';
-                    window.description += window.filters.propertyType.multiFamily ? 'Multi Family, ' : '';
-                    window.description += window.filters.propertyType.land ? 'Land, ' : '';
-                    window.description += (!window.filters.propertyType.detached && !window.filters.propertyType.semiDetached && !window.filters.propertyType.freeholdTown && !window.filters.propertyType.condoTown && !window.filters.propertyType.condoApartment && !window.filters.propertyType.duplex && !window.filters.propertyType.multiFamily && !window.filters.propertyType.land) ? 'Any, ' : '';
-                    window.description += parseFloat(window.filters.price.minPrice) > 0 ? 'MinPrice: ' + isCurrency(window.filters.price.minPrice).split('.')[0] + ', ' : '';
-                    window.description += parseFloat(window.filters.price.maxPrice) < 5000000 ? 'MaxPrice: ' + isCurrency(window.filters.price.maxPrice).split('.')[0] + ', ' : '';
-                    window.description += parseFloat(window.filters.rooms.bed) > 0 ? 'BedRooms: ' + window.filters.rooms.bed + '+, ' : '';
-                    window.description += parseFloat(window.filters.rooms.bath) > 0 ? 'BathRooms: ' + window.filters.rooms.bath + '+, ' : '';
-                    window.description += parseFloat(window.filters.rooms.garage) > 0 ? 'Garage: ' + window.filters.rooms.garage + '+, ' : '';
-                    window.description += parseFloat(window.filters.rooms.parking) > 0 ? 'Parking: ' + window.filters.rooms.parking + '+, ' : '';
-                    window.description += parseFloat(window.filters.size.minSize) > 0 ? 'MinSize: ' + window.filters.size.minSize + ', ' : '';
-                    window.description += parseFloat(window.filters.size.maxSize) < 5000 ? 'MaxSize: ' + window.filters.size.maxSize + ', ' : '';
-                    window.description += parseFloat(window.filters.condo.minCondo) > 0 ? 'MinCondo: ' + isCurrency(window.filters.condo.minCondo).split('.')[0] + ', ' : '';
-                    window.description += parseFloat(window.filters.condo.maxCondo) < 5000 ? 'MaxCondo: ' + isCurrency(window.filters.condo.maxCondo).split('.')[0] + ', ' : '';
-                    this.setState({ saveSearches: true, polygon: false });
-                }
-            }
-        } else {
-            // this.props.navigation.push("Auth");
-        }
-    }
-
-    _onChildClick = (key, childProps) => {
-        const center = this.state.region;
-        this.setState({
-            region: {
-                lat: childProps.lat,
-                lng: childProps.lng,
-                latitudeDelta: center.latitudeDelta,
-                longitudeDelta: center.longitudeDelta
-            }
-        });
-    }
-
 
     async onLike(id) {
         if (!this.props.logged) {
@@ -319,20 +253,10 @@ class Home extends React.Component {
         }
     };
 
-    onPanDrag(e) {
-        if (this.state.drawing && this.state.polygon) {
-            this.setState({
-                coordinates: [...this.state.coordinates, {
-                    lat: e.center.lat(),
-                    lng: e.center.lng()
-                }]
-            });
-        }
-    }
-
     handleGoogleMapApi(google) {
         const map = google.map;
-        if (this.state.drawingManager === null) {
+        if (this.state.google === null) this.setState({ google });
+        if (this.state.drawing) {
             const drawingManager = new google.maps.drawing.DrawingManager({
                 drawingMode: google.maps.drawing.OverlayType.POLYGON,
                 drawingControl: true,
@@ -352,25 +276,114 @@ class Home extends React.Component {
                     zIndex: 1
                 }
             });
-            this.setState({ google, drawingManager }, () => {
-                this.state.drawingManager.setMap(this.state.drawing && this.state.polygon ? map : null);
+            this.setState({ drawingManager }, () => {
+                drawingManager.setMap(map);
+
+                const _this = this;
+                google.maps.event.addListener(this.state.drawingManager, 'polygoncomplete', function (polygon) {
+                    var coordinates = [];
+                    polygon.getPath().Mb.map(coordinate => {
+                        console.log(coordinate);
+                        coordinates = [...coordinates, { lat: coordinate.lat(), lng: coordinate.lng() }];
+                    })
+                    if (_this.state.polygonShape !== null) _this.state.polygonShape.setMap(null);
+                    _this.setState({ polygonShape: polygon, coordinates, polygon: false });
+                });
             });
         } else {
-            if (this.state.drawing && this.state.polygon) {
-                this.state.drawingManager.setMap(map);
-            } else {
-                this.state.polygonShape.setMap(null);
-            }
+            if (this.state.drawingManager !== null) this.state.drawingManager.setMap(null);
+            if (this.state.polygonShape !== null) this.state.polygonShape.setMap(null);
+            this.setState({ drawingManager: null, polygonShape: null, coordinates: [] });
         }
+    }
 
-        const _this = this;
-        google.maps.event.addListener(this.state.drawingManager, 'polygoncomplete', function (polygon) {
-            console.log(polygon.getPath().Mb[0].lat());
-            var coordinates = [];
-            polygon.getPath().Mb.map(coordinate => {
-                coordinates = [...coordinates, { lat: coordinate.lat(), lng: coordinate.lng() }];
+    _onChildClick = (key, childProps) => {
+        const center = this.state.region;
+        this.setState({
+            region: {
+                lat: childProps.lat,
+                lng: childProps.lng,
+                latitudeDelta: center.latitudeDelta,
+                longitudeDelta: center.longitudeDelta
+            }
+        });
+    }
+
+    onApply() {
+        if (this.state.coordinates.length > 2) {
+            this.setState({ polygon: false, coordinates: [...this.state.coordinates, this.state.coordinates[0]] }, () => {
+                // console.log(this.state.coordinates);
+                if (this.state.drawingManager !== null) this.state.drawingManager.setMap(null);
+                this.setState({ drawingManager: null });
+                this.onStatus(window.filters);
+                this.loadData(window.filters, true, 0);
+            });
+        }
+    }
+
+    async onSaveSearch() {
+        if (this.props.logged) {
+            if (isEmpty(this.state.coordinates)) {
+                this.setState({ drawing: true, scrollwheel: false, polygon: true, coordinates: [], listings3: [] }, () => {
+                    alert('Select search area');
+                    this.handleGoogleMapApi(this.state.google);
+                })
+            } else {
+                if (this.state.coordinates.length < 3) {
+                    this.setState({ drawing: true, polygon: true, scrollwheel: false }, () => {
+                        alert('Select 2+ points at least');
+                        if (this.state.drawingManager !== null) this.state.drawingManager.setMap(null);
+                        if (this.state.polygonShape !== null) this.state.polygonShape.setMap(null);
+                        this.handleGoogleMapApi(this.state.google);
+                    });
+                } else {
+                    var region = await MapStore.getRegion(this.state.coordinates);
+                    window.region = region;
+                    // var address = await getGeoCode(window.region);
+                    // window.locations = address.results[0].formatted_address;
+                    window.locations = 'address';
+                    window.description = 'Property Type: ';
+                    window.description += window.filters.propertyType.detached ? 'Detached, ' : '';
+                    window.description += window.filters.propertyType.semiDetached ? 'Semi-Detached, ' : '';
+                    window.description += window.filters.propertyType.freeholdTown ? 'Row/Freehold Town, ' : '';
+                    window.description += window.filters.propertyType.condoTown ? 'Condo Town, ' : '';
+                    window.description += window.filters.propertyType.condoApartment ? 'Condo Apartment, ' : '';
+                    window.description += window.filters.propertyType.duplex ? 'Duplex, ' : '';
+                    window.description += window.filters.propertyType.multiFamily ? 'Multi Family, ' : '';
+                    window.description += window.filters.propertyType.land ? 'Land, ' : '';
+                    window.description += (!window.filters.propertyType.detached && !window.filters.propertyType.semiDetached && !window.filters.propertyType.freeholdTown && !window.filters.propertyType.condoTown && !window.filters.propertyType.condoApartment && !window.filters.propertyType.duplex && !window.filters.propertyType.multiFamily && !window.filters.propertyType.land) ? 'Any, ' : '';
+                    window.description += parseFloat(window.filters.price.minPrice) > 0 ? 'MinPrice: ' + isCurrency(window.filters.price.minPrice).split('.')[0] + ', ' : '';
+                    window.description += parseFloat(window.filters.price.maxPrice) < 5000000 ? 'MaxPrice: ' + isCurrency(window.filters.price.maxPrice).split('.')[0] + ', ' : '';
+                    window.description += parseFloat(window.filters.rooms.bed) > 0 ? 'BedRooms: ' + window.filters.rooms.bed + '+, ' : '';
+                    window.description += parseFloat(window.filters.rooms.bath) > 0 ? 'BathRooms: ' + window.filters.rooms.bath + '+, ' : '';
+                    window.description += parseFloat(window.filters.rooms.garage) > 0 ? 'Garage: ' + window.filters.rooms.garage + '+, ' : '';
+                    window.description += parseFloat(window.filters.rooms.parking) > 0 ? 'Parking: ' + window.filters.rooms.parking + '+, ' : '';
+                    window.description += parseFloat(window.filters.size.minSize) > 0 ? 'MinSize: ' + window.filters.size.minSize + ', ' : '';
+                    window.description += parseFloat(window.filters.size.maxSize) < 5000 ? 'MaxSize: ' + window.filters.size.maxSize + ', ' : '';
+                    window.description += parseFloat(window.filters.condo.minCondo) > 0 ? 'MinCondo: ' + isCurrency(window.filters.condo.minCondo).split('.')[0] + ', ' : '';
+                    window.description += parseFloat(window.filters.condo.maxCondo) < 5000 ? 'MaxCondo: ' + isCurrency(window.filters.condo.maxCondo).split('.')[0] + ', ' : '';
+                    this.setState({ saveSearches: true, polygon: false });
+                    if (this.state.drawingManager !== null) this.state.drawingManager.setMap(null);
+                }
+            }
+        } else {
+            this.props.setVisible(true);
+        }
+    }
+
+    async onSave(name) {
+        var coordinates = [];
+        this.state.coordinates.map((coor, key) => {
+            coordinates.push({
+                latitude: coor.lat,
+                longitude: coor.lng,
+                latitudeDelta: configs.latitudeDelta,
+                longitudeDelta: configs.longitudeDelta
             })
-            _this.setState({ polygonShape: polygon, coordinates });
+        })
+        await setSearches(name, coordinates, this.props.user.id);
+        this.setState({ loading: true, saveSearches: false, drawing: false, polygon: false, coordinates: [], listings3: [] }, () => {
+            this.handleGoogleMapApi(this.state.google);
         });
     }
 
@@ -397,7 +410,7 @@ class Home extends React.Component {
                             <button className='hm-inactive-btn' onClick={() => this.setState({ filter: true })}>
                                 <i className='fas fa-angle-down f-s-12 hm-padding-right'></i>
                                 <span>Filters</span>
-                                <div className='hm-badge'>1</div>
+                                {this.state.badge > 0 ? <div className='hm-badge'>{window.badge}</div> : <div style={{ width: 10 }} />}
                             </button>
                             <button className='hm-inactive-btn' onClick={() => this.onSaveSearch()}>
                                 <span>Save Search</span>
@@ -420,7 +433,6 @@ class Home extends React.Component {
                                         </button>
                                         <button className='hm-cancel-btn' onClick={() => {
                                             this.setState({ drawing: false, scrollwheel: true, polygon: false, coordinates: [], listings3: [] }, () => {
-                                                // this.setState({drawingManager: null})
                                                 this.handleGoogleMapApi(this.state.google);
                                             });
                                         }}>
@@ -563,6 +575,12 @@ class Home extends React.Component {
                         onAppleFilters={(filters, close) => this.onAppleFilters(filters, close)}
                         onClearFilters={(filters, close) => this.onAppleFilters(filters, close)}
                         onClose={() => this.setState({ filter: false })}
+                    />
+                )}
+                {this.state.saveSearches && (
+                    <PropertySave
+                        onSave={(name) => this.onSave(name)}
+                        onClose={() => this.setState({ saveSearches: false })}
                     />
                 )}
             </div>

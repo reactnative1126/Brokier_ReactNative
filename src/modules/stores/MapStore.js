@@ -118,17 +118,17 @@ class Store {
   getRegion(points) {
     let minX, maxX, minY, maxY;
     ((point) => {
-      minX = point.latitude;
-      maxX = point.latitude;
-      minY = point.longitude;
-      maxY = point.longitude;
+      minX = point.lat;
+      maxX = point.lat;
+      minY = point.lng;
+      maxY = point.lng;
     })(points[0]);
 
     points.map((point) => {
-      minX = Math.min(minX, point.latitude);
-      maxX = Math.max(maxX, point.latitude);
-      minY = Math.min(minY, point.longitude);
-      maxY = Math.max(maxY, point.longitude);
+      minX = Math.min(minX, point.lat);
+      maxX = Math.max(maxX, point.lat);
+      minY = Math.min(minY, point.lng);
+      maxY = Math.max(maxY, point.lng);
     });
 
     const midX = (minX + maxX) / 2;
@@ -137,8 +137,8 @@ class Store {
     const deltaY = (maxY - minY);
 
     return {
-      latitude: midX,
-      longitude: midY,
+      lat: midX,
+      lng: midY,
       latitudeDelta: deltaX,
       longitudeDelta: deltaY
     };

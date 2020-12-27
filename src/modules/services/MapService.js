@@ -22,7 +22,7 @@ export const getGeometry = async (address) => {
 };
 
 export const getGeoCode = async (region) => {
-    let endpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${region.latitude},${region.longitude}&key=${configs.google_map_key}`;
+    let endpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${region.lat},${region.lng}&key=${configs.google_map_key}`;
     setAccess();
     return axios.get(endpoint)
         .then((response) => {
