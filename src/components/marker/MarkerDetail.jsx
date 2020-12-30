@@ -6,11 +6,11 @@ import { isEmpty, isCurrency } from "../../utils/functions";
 import configs from "../../constants/configs";
 
 const MarkerDetail = ({ details, onClick, onLogin }) => {
-    const {logged} = useSelector(state => state.auth);
+	const { logged } = useSelector(state => state.auth);
 	return (
 		<div key='overMarker' className={details.length > 2 ? 'pr-marker-detail3' : details.length === 2 ? 'pr-marker-detail2' : 'pr-marker-detail1'} style={{ overflowY: details.length <= 2 ? 'hidden' : 'scroll' }}>
 			{details.map((listing, key) => (
-				<div key={listing.id} className='pr-detail-item' style={{borderBottom: '1px dotted black'}} onClick={() => (listing.lastStatus === 'Sld' || listing.lastStatus === 'Lsd') && !logged ? onLogin() : onClick(listing)}>
+				<div key={listing.id} className='pr-detail-item' style={{ borderBottom: '1px dotted black' }} onClick={() => (listing.lastStatus === 'Sld' || listing.lastStatus === 'Lsd') && !logged ? onLogin() : onClick(listing)}>
 					<div className='title-wrapper'>
 						<span className='title'>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix.replace('St', 'Street')} {!isEmpty(listing.unitNumber) && `#${listing.unitNumber}`}</span>
 						<span className='pr-day-text'>{listing.daysOnMarket} Days on Market</span>
@@ -31,7 +31,7 @@ const MarkerDetail = ({ details, onClick, onLogin }) => {
 									<div className='pr-sold-price'>
 										<span className='text'>Sold:</span>
 										<span className='price'>
-                                {logged ? isCurrency(listing.soldPrice).split('.')[0] : 'Login'}
+											{logged ? isCurrency(listing.soldPrice).split('.')[0] : 'Login'}
 										</span>
 									</div>
 								)}

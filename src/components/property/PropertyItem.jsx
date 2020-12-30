@@ -5,17 +5,22 @@ import moment from 'moment';
 import { isEmpty, isCurrency } from "../../utils/functions";
 import configs from "../../constants/configs";
 
-const PropertyItem = ({ listing, onClick, onLogin }) => {
-    const {logged} = useSelector(state => state.auth);
+const PropertyItem = ({ listing, onClick, onLogin, onLike }) => {
+    const { logged } = useSelector(state => state.auth);
     return (
         <div key={listing.id} className='pr-property-item' onClick={() => (listing.lastStatus === 'Sld' || listing.lastStatus === 'Lsd') && !logged ? onLogin() : onClick(listing)}>
-            <div className='title-wrapper'>
-                <span className='title'>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix.replace('St', 'Street')} {!isEmpty(listing.unitNumber) && `#${listing.unitNumber}`}</span>
-                <span className='neighborhood'>{listing.neighborhood} {listing.city}</span>
+            <div className='title-main'>
+                <div className='title-wrapper'>
+                    <span className='title'>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix.replace('St', 'Street')} {!isEmpty(listing.unitNumber) && `#${listing.unitNumber}`}</span>
+                    <span className='neighborhood'>{listing.neighborhood} {listing.city}</span>
+                </div>
+                <div className='title-like'>
+                <i className='far fa-heart f-s-20'></i>
+                </div>
             </div>
             <div className='image-container'>
                 {!isEmpty(listing) && (
-                    <img className='image' src={configs.resURL + listing.images.split('#')[0]} alt={listing.mlsNumber} style={{width: '100%', height: '100%'}}/>
+                    <img className='image' src={configs.resURL + listing.images.split('#')[0]} alt={listing.mlsNumber} style={{ width: '100%', height: '100%' }} />
                 )}
             </div>
             <div className='pr-detail'>

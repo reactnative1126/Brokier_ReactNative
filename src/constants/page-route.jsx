@@ -2,6 +2,7 @@ import React from 'react';
 
 import Home from '../pages/home';
 import Detail from '../pages/detail';
+import Saved from '../pages/saved';
 
 const routes = [
   {
@@ -16,8 +17,13 @@ const routes = [
   },
   {
     path: '/detail/:id',
-    exact: true,
+    exact: false,
     component: () => <Detail />
+  },
+  {
+    path: '/saved',
+    exact: false,
+    component: () => <Saved />
   }
 ];
 

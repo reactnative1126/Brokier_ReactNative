@@ -555,7 +555,11 @@ class Home extends React.Component {
                     visible={this.state.visible}
                     listing={this.state.detail}
                     onClose={() => this.setState({ visible: false })}
-                    onDetail={(id) => this.props.history.push(`/detail/${id}`)}
+                    // onDetail={(id) => this.props.history.push(`/detail/${id}`)}
+                    onDetail={(id) => {
+                        const win = window.open(`/detail/${id}`, '_blank');
+                        win.focus();
+                    }}
                     onImage={(images, index) => {
                         this.setState({ images, imageIndex: index }, () => {
                             this.setState({ imageVisible: true });

@@ -6,8 +6,8 @@ import { isEmpty, isCurrency } from './../../utils/functions';
 import { PageSettings } from './../../constants/page-settings.js';
 import { getSearch, getListingDetail } from './../../modules/services/ListingsService';
 import { getPlaces, getGeometry } from './../../modules/services/MapService';
+import { signOut, setVisible } from './../../modules/redux/auth/actions';
 import { setLikes } from './../../modules/redux/lists/actions';
-import { signOut } from './../../modules/redux/auth/actions';
 
 // import axios from 'axios';
 // import axios from './../../utils/axios.js';
@@ -60,11 +60,11 @@ class Header extends React.Component {
 			// }
 		}).catch(error => console.log(error)).finally(() => this.setState({ loading: false }));
 	}
-	
+
 	signOut() {
 		this.props.signOut();
 		this.props.setLikes([]);
-	  }
+	}
 
 	render() {
 		return (
@@ -73,7 +73,7 @@ class Header extends React.Component {
 					<div className='header-wrapper'>
 						<div id="header" className="header navbar-default">
 							<div className="navbar-header">
-								<Link to="/home" className="navbar-brand"><span className='header-left-username'>Brokier</span></Link>
+								<Link to="/" className="navbar-brand"><span className='header-left-username'>Brokier</span></Link>
 							</div>
 							<div className="navbar-center">
 								<input type='text' className='header-center-searchbox' placeholder='Search' onChange={(e) => this.autoComplete(e)} />
@@ -85,15 +85,15 @@ class Header extends React.Component {
 												{!isEmpty(this.state.listings) && this.state.listings.map((listing, key) => {
 													return (
 														<div key={key} className='hd-search-item' onClick={() => document.location.href = `/detail/${listing.id}`}>
-															<div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-																<span style={{fontWeight: 'bold'}}>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix}</span>
+															<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+																<span style={{ fontWeight: 'bold' }}>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix}</span>
 																<div style={{ width: 80, alignItems: 'center' }}>
 																	<div style={{ color: listing.lastStatus === 'Sus' ? 'black' : listing.lastStatus === 'Exp' ? 'black' : listing.lastStatus === 'Sld' ? 'red' : listing.lastStatus === 'Ter' ? 'black' : listing.lastStatus === 'Dft' ? 'green' : listing.lastStatus === 'Lsd' ? 'red' : listing.lastStatus === 'Sc' ? 'blue' : listing.lastStatus === 'Lc' ? 'blue' : listing.lastStatus === 'Pc' ? 'green' : listing.lastStatus === 'Ext' ? 'green' : listing.lastStatus === 'New' ? 'green' : 'black' }}>
 																		{isCurrency(parseInt(listing.listPrice)).split('.')[0]}
 																	</div>
 																</div>
 															</div>
-															<div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+															<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 																<div>{listing.city} {listing.state}</div>
 																<div style={{ justifyContent: 'center', alignItems: 'center', width: 80, borderWidth: 1, borderColor: listing.lastStatus === 'Sus' ? 'black' : listing.lastStatus === 'Exp' ? 'black' : listing.lastStatus === 'Sld' ? 'red' : listing.lastStatus === 'Ter' ? 'black' : listing.lastStatus === 'Dft' ? 'green' : listing.lastStatus === 'Lsd' ? 'red' : listing.lastStatus === 'Sc' ? 'blue' : listing.lastStatus === 'Lc' ? 'blue' : listing.lastStatus === 'Pc' ? 'green' : listing.lastStatus === 'Ext' ? 'green' : listing.lastStatus === 'New' ? 'green' : 'black' }}>
 																	<div style={{ color: listing.lastStatus === 'Sus' ? 'black' : listing.lastStatus === 'Exp' ? 'black' : listing.lastStatus === 'Sld' ? 'red' : listing.lastStatus === 'Ter' ? 'black' : listing.lastStatus === 'Dft' ? 'green' : listing.lastStatus === 'Lsd' ? 'red' : listing.lastStatus === 'Sc' ? 'blue' : listing.lastStatus === 'Lc' ? 'blue' : listing.lastStatus === 'Pc' ? 'green' : listing.lastStatus === 'Ext' ? 'green' : listing.lastStatus === 'New' ? 'green' : 'black' }}>
@@ -119,7 +119,7 @@ class Header extends React.Component {
 									</Link>
 								</li>
 								<li>
-									<Link to="/" className='header-right-btn'>
+									<Link className='header-right-btn' onClick={() => this.props.logged ? document.location.href = `/saved` : this.props.setVisible(true)}>
 										<i className='far fa-heart f-s-16'></i>
 										<span>Saved</span>
 									</Link>
@@ -137,7 +137,7 @@ class Header extends React.Component {
 									</Link>
 								</li>
 								<li>
-									<Link to="/" className='header-right-btn' onClick={()=>this.signOut()}>
+									<Link className='header-right-btn' onClick={() => this.props.logged ? this.signOut() : this.props.setVisible(true)}>
 										<i className='far fa-user f-s-16'></i>
 										<span>Profile</span>
 									</Link>
@@ -150,15 +150,24 @@ class Header extends React.Component {
 		)
 	}
 }
+
+const mapStateToProps = state => {
+	return {
+		logged: state.auth.logged
+	}
+}
 const mapDispatchToProps = dispatch => {
-  return {
-    signOut: (data) => {
-      dispatch(signOut(data))
-    },
-    setLikes: (data) => {
-      dispatch(setLikes(data));
-    }
-  }
+	return {
+		signOut: (data) => {
+			dispatch(signOut(data))
+		},
+		setLikes: (data) => {
+			dispatch(setLikes(data));
+		},
+		setVisible: (data) => {
+			dispatch(setVisible(data));
+		}
+	}
 }
 
-export default connect(undefined, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
