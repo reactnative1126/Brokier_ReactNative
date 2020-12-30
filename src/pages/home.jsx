@@ -537,6 +537,7 @@ class Home extends React.Component {
                                 key={key}
                                 listing={listing}
                                 likes={this.state.likes}
+                                onLike={(id) => this.onLike(id)}
                                 onClick={(item) => this.onDetail(item.id)}
                                 onLogin={() => this.props.setVisible(true)}
                             />

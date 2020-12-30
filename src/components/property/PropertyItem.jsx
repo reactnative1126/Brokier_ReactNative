@@ -5,7 +5,7 @@ import moment from 'moment';
 import { isEmpty, isCurrency } from "../../utils/functions";
 import configs from "../../constants/configs";
 
-const PropertyItem = ({ listing, onClick, onLogin, onLike }) => {
+const PropertyItem = ({ listing, likes, onClick, onLogin, onLike }) => {
     const { logged } = useSelector(state => state.auth);
     return (
         <div key={listing.id} className='pr-property-item' onClick={() => (listing.lastStatus === 'Sld' || listing.lastStatus === 'Lsd') && !logged ? onLogin() : onClick(listing)}>
@@ -14,8 +14,15 @@ const PropertyItem = ({ listing, onClick, onLogin, onLike }) => {
                     <span className='title'>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix.replace('St', 'Street')} {!isEmpty(listing.unitNumber) && `#${listing.unitNumber}`}</span>
                     <span className='neighborhood'>{listing.neighborhood} {listing.city}</span>
                 </div>
-                <div className='title-like'>
-                <i className='far fa-heart f-s-20'></i>
+                <div className='title-like' onClick={(e) => {
+                    onLike(listing.id);
+                    e.stopPropagation();
+                }}>
+                    {likes.indexOf(listing.id) > -1 ? (
+                        <i className='fas fa-heart f-s-20'></i>
+                    ) : (
+                            <i className='far fa-heart f-s-20'></i>
+                        )}
                 </div>
             </div>
             <div className='image-container'>
