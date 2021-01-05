@@ -13,7 +13,9 @@ const MarkerDetail = ({ details, onClick, onLogin }) => {
 				<div key={listing.id} className='pr-detail-item' style={{ borderBottom: '1px dotted black' }} onClick={() => (listing.lastStatus === 'Sld' || listing.lastStatus === 'Lsd') && !logged ? onLogin() : onClick(listing)}>
 					<div className='title-wrapper'>
 						<span className='title'>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix.replace('St', 'Street')} {!isEmpty(listing.unitNumber) && `#${listing.unitNumber}`}</span>
-						<span className='pr-day-text'>{listing.daysOnMarket} Days on Market</span>
+						<div>
+							<span className='pr-day-text'>{listing.daysOnMarket} Days on Market</span>
+						</div>
 					</div>
 					<div className='pr-main-wrapper'>
 						{!isEmpty(listing) && (

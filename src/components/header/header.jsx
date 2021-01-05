@@ -119,7 +119,7 @@ class Header extends React.Component {
 									</Link>
 								</li>
 								<li>
-									<Link className='header-right-btn' onClick={() => this.props.logged ? document.location.href = `/saved` : this.props.setVisible(true)}>
+									<Link to="" className='header-right-btn' onClick={() => this.props.logged ? document.location.href = `/saved` : this.props.setVisible(true)}>
 										<i className='far fa-heart f-s-16'></i>
 										<span>Saved</span>
 									</Link>
@@ -137,7 +137,7 @@ class Header extends React.Component {
 									</Link>
 								</li>
 								<li>
-									<Link className='header-right-btn' onClick={() => this.props.logged ? this.signOut() : this.props.setVisible(true)}>
+									<Link to="" className='header-right-btn' onClick={() => this.props.logged ? this.signOut() : this.props.setVisible(true)}>
 										<i className='far fa-user f-s-16'></i>
 										<span>Profile</span>
 									</Link>

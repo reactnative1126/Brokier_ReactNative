@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Route, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import RBCarousel from "react-bootstrap-carousel";
 import GoogleMapReact from 'google-map-react';
 
@@ -14,12 +14,12 @@ const Detail = (props) => {
 	const dispatch = useDispatch();
 
 	const [listing, setListing] = useState([]);
-	const [school, setSchool] = useState('All');
+	// const [school, setSchool] = useState('All');
 	const [histories, setHistories] = useState([]);
 	const [similar, setSimilar] = useState('For Sale');
 	const [similars, setSimilars] = useState([]);
 	const [images, setImages] = useState([]);
-	const [rooms, setRooms] = useState([]);
+	// const [rooms, setRooms] = useState([]);
 	const [visible, setVisible] = useState(false);
 	const [index, setIndex] = useState(0);
 
@@ -61,11 +61,11 @@ const Detail = (props) => {
 				.then((response) => {
 					setSimilars(response)
 				});
-			getDetailRooms(listing.mlsNumber)
-				.then((rooms) => {
-					// dispatch(setLoading(false));
-					setRooms(rooms);
-				});
+			// getDetailRooms(listing.mlsNumber)
+			// 	.then((rooms) => {
+			// 		// dispatch(setLoading(false));
+			// 		setRooms(rooms);
+			// 	});
 		}
 	}, [listing, similar]);
 

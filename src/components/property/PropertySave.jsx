@@ -1,6 +1,5 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 
-import { isEmpty, isCurrency, isNumber } from "../../utils/functions";
 import 'rc-slider/assets/index.css';
 
 const PropertySave = (props) => {

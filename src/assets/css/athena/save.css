@@ -178,3 +178,56 @@ button:focus {
     background-color: #DC4646;
     border: none;
 }
+
+/* .sv-left-panel {
+    width: 670px;
+    height: 100%;
+    padding: 30px 0 0 0;
+} */
+.sv-top-panel {
+    width: 700px;
+    height: 40px;
+    /* border: 1px solid black; */
+    padding: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #EAEAEA;
+}
+.sv-top-panel>button {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    border: none;
+    border-radius: 3px;
+}
+.sv-top-panel>button.active {
+    background: white;
+}
+.sv-left-panel {
+    width: 700px;
+    height: calc(100vh - 52px);
+    border-left: 1px solid #bbb;
+    border-right: 1px solid #bbb;
+    /* padding: 0 0 10px 0; */
+}
+.sv-estate-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 3%;
+    padding: 5px 5px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.sv-right-panel {
+    display: flex;
+    justify-content: flex-start;
+    /* width: 300px; */
+    height: calc(100vh - 51px);
+    /* padding: 50px 0 10px 25px; */
+}

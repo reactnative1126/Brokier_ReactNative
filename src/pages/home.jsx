@@ -1,13 +1,12 @@
 import React, { Fragment } from 'react';
 import GoogleMapReact from 'google-map-react';
-import { Route, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { setLikes } from '../modules/redux/lists/actions';
 import { setLoading, setVisible } from '../modules/redux/auth/actions';
 import { MapStore } from '../modules/stores';
 import { getListingsMap, getListingsList, getLike, setLike, getListingDetail, setSearches } from '../modules/services/ListingsService';
-import { getGeoCode } from '../modules/services/MapService';
 import { isEmpty, isCurrency } from '../utils/functions';
 import { PropertyItem, PropertyModal, PropertyImage, PropertyFilter, MarkerDetail, MarkerCircle, MarkerMain, PropertySave } from '../components';
 import configs from '../constants/configs';
@@ -229,7 +228,6 @@ class Home extends React.Component {
         }
     }
 
-
     async onLike(id) {
         if (!this.props.logged) {
             this.props.setVisible(true);
@@ -242,7 +240,7 @@ class Home extends React.Component {
     }
 
     async onShare(listing) {
-        var listing = await getListingDetail(listing.id);
+        // var list = await getListingDetail(listing.id);
         if (!this.props.logged) {
             this.props.setVisible(true);
         } else {
@@ -283,7 +281,7 @@ class Home extends React.Component {
                 google.maps.event.addListener(this.state.drawingManager, 'polygoncomplete', function (polygon) {
                     var coordinates = [];
                     polygon.getPath().Mb.map(coordinate => {
-                        console.log(coordinate);
+                        // console.log(coordinate);
                         coordinates = [...coordinates, { lat: coordinate.lat(), lng: coordinate.lng() }];
                     })
                     if (_this.state.polygonShape !== null) _this.state.polygonShape.setMap(null);

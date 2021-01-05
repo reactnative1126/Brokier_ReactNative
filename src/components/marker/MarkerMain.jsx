@@ -17,7 +17,7 @@ const MarkerMain = ({ item, details, onClick }) => {
     } else if (item[0].status === 'A' && item[0].type === 'Lease') {
         markerName += 'bb4';
         triangleName += 'br4';
-    } else if (item[0].status = 'U' && item[0].lastStatus === 'Lsd') {
+    } else if (item[0].status === 'U' && item[0].lastStatus === 'Lsd') {
         markerName += 'bb5';
         triangleName += 'br5';
     }

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 
-import { isEmpty, isCurrency, isNumber } from "../../utils/functions";
+import { isCurrency } from "../../utils/functions";
 import { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Select from 'react-select';
@@ -23,11 +23,11 @@ const solds = [
   { value: 365, label: '1 Year' },
   { value: 730, label: '2 Years' },
 ];
-const questions = [
-  { question: "Investors" },
-  { question: "As is" },
-  { question: "Fully renovated" },
-]
+// const questions = [
+//   { question: "Investors" },
+//   { question: "As is" },
+//   { question: "Fully renovated" },
+// ]
 
 const colourStyles = {
   control: styles => ({ ...styles, backgroundColor: 'white' }),

@@ -21,7 +21,8 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(peresistConfig, rootReducer);
 
-const store = createStore(persistedReducer, applyMiddleware(createLogger()));
+const store = createStore(persistedReducer, applyMiddleware());
+// const store = createStore(persistedReducer, applyMiddleware(createLogger()));
 
 let persistor = persistStore(store);
 

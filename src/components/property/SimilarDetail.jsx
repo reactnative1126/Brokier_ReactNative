@@ -1,5 +1,4 @@
 import React from 'react';
-import RBCarousel from "react-bootstrap-carousel";
 
 import { isEmpty, isCurrency } from "../../utils/functions";
 import configs from "../../constants/configs";
