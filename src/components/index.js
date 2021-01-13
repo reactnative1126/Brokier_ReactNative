@@ -1,4 +1,5 @@
 import PropertyItem from './property/PropertyItem';
+import PropertyItem1 from './property/PropertyItem1';
 import PropertyModal from './property/PropertyModal';
 import PropertyImage from './property/PropertyImage';
 import PropertyDetail from './property/PropertyDetail';
@@ -17,6 +18,7 @@ import MarkerMain from './marker/MarkerMain';
 
 export {
     PropertyItem,
+    PropertyItem1,
     PropertyModal,
     MarkerDetail,
     MarkerCircle,

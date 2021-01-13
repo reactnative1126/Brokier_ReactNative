@@ -59,7 +59,7 @@ const PropertyModal = ({ visible, listing, onClose, onImage, onDetail }) => {
 			<a className='pr-property-modal'>
 				<div className='pr-modal-main'>
 					<div className='pr-modal-top-buttons'>
-						<button className='pr-modal-expand-button' onClick={() => onDetail(listing.id)}>
+						<button className='pr-modal-expand-button mb-none' onClick={() => onDetail(listing.id)}>
 							<span className='pr-modal-expand-text'>Expand</span>
 							<i className='fas fa-expand f-s-12'></i>
 						</button>

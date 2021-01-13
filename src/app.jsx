@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setLoading } from './modules/redux/auth/actions';
+import { setTabs, setMobile } from './modules/redux/lists/actions';
 
 import { PageSettings } from './constants/page-settings.js';
 import configs from './constants/configs';
 import Header from './components/header/header.jsx';
+import MobileTab from './components/mobile/mobile-tab.jsx';
 import Content from './components/content/content.jsx';
 import Loading from './components/loading/loading.jsx';
 import Auth from './components/auth/auth.jsx';
@@ -397,11 +399,21 @@ class App extends React.Component {
 			handleSetBodyWhiteBg: this.handleSetBodyWhiteBg,
 			handleSetPageBoxedLayout: this.handleSetPageBoxedLayout
 		};
+		this.windowResize = this.windowResize.bind(this);
 	}
 
 	componentDidMount() {
 		this.props.setLoading(false);
-		window.addEventListener('scroll', this.handleScroll)
+		window.addEventListener('scroll', this.handleScroll);
+		window.onresize = this.windowResize;
+	}
+	windowResize() {
+		if (window.screen.width > 750) {
+			this.props.setTabs(true);
+			this.props.setMobile(false);
+		} else {
+			this.props.setMobile(true);
+		}
 	}
 
 	componentWillUnmount() {
@@ -431,6 +443,7 @@ class App extends React.Component {
 				<Auth visible={this.props.visible} />
 				<Header />
 				<Content />
+				<MobileTab />
 			</PageSettings.Provider>
 		)
 	}
@@ -447,6 +460,12 @@ const mapDispatchToProps = dispatch => {
 	return {
 		setLoading: (data) => {
 			dispatch(setLoading(data));
+		},
+		setTabs: (data) => {
+			dispatch(setTabs(data));
+		},
+		setMobile: (data) => {
+			dispatch(setMobile(data));
 		}
 	}
 }

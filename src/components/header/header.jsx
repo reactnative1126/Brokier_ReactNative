@@ -7,7 +7,7 @@ import { PageSettings } from './../../constants/page-settings.js';
 import { getSearch, getListingDetail } from './../../modules/services/ListingsService';
 import { getPlaces, getGeometry } from './../../modules/services/MapService';
 import { signOut, setVisible } from './../../modules/redux/auth/actions';
-import { setLikes } from './../../modules/redux/lists/actions';
+import { setLikes, setTabs } from './../../modules/redux/lists/actions';
 
 // import axios from 'axios';
 // import axios from './../../utils/axios.js';
@@ -20,7 +20,8 @@ class Header extends React.Component {
 			collapseMegaMenu: false,
 			search: '',
 			listings: null,
-			locations: null
+			locations: null,
+			tab: true
 		};
 	}
 
@@ -39,11 +40,6 @@ class Header extends React.Component {
 		// await getPlaces(search).then(result => {
 		// 	this.setState({ locations: result.predictions });
 		// }).catch(error => console.log(error)).finally(() => this.setState({ loading: false }));
-
-		// if (typeof this.listingCancelToken !== typeof undefined) {
-		// 	this.listingCancelToken.cancel('Operation canceled due to new request.');
-		// }
-		// this.listingCancelToken = axios.CancelToken.source();
 		await getSearch(search).then(listings => {
 			this.setState({ listings });
 		}).catch(error => console.log(error)).finally(() => this.setState({ loading: false }));
@@ -72,11 +68,14 @@ class Header extends React.Component {
 				{({ toggleRightSidebar, pageTwoSidebar }) => (
 					<div className='header-wrapper'>
 						<div id="header" className="header navbar-default">
-							<div className="navbar-header">
+							<div className="navbar-header mb-none">
 								<Link to="/" className="navbar-brand"><span className='header-left-username'>Brokier</span></Link>
 							</div>
 							<div className="navbar-center">
 								<input type='text' className='header-center-searchbox' placeholder='Search' onChange={(e) => this.autoComplete(e)} />
+								<button className='mb-map-list-button' onClick={() => this.props.setTabs(!this.props.tabs)}>
+									{this.props.tabs ? 'List' : 'Map'}
+								</button>
 								{!isEmpty(this.state.search) && (
 									!isEmpty(this.state.listings) ? (
 										<div className='hd-search-view'>
@@ -111,7 +110,7 @@ class Header extends React.Component {
 								)
 								}
 							</div>
-							<ul className="navbar-nav navbar-right" style={{ display: 'flex', justifyContent: 'center' }}>
+							<ul className="navbar-nav navbar-right mb-none" style={{ display: 'flex', justifyContent: 'center' }}>
 								<li>
 									<Link to="/home" className='header-right-btn'>
 										<i className='far fa-map f-s-16'></i>
@@ -153,7 +152,8 @@ class Header extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-		logged: state.auth.logged
+		logged: state.auth.logged,
+		tabs: state.lists.tabs
 	}
 }
 const mapDispatchToProps = dispatch => {
@@ -166,7 +166,10 @@ const mapDispatchToProps = dispatch => {
 		},
 		setVisible: (data) => {
 			dispatch(setVisible(data));
-		}
+		},
+		setTabs: (data) => {
+			dispatch(setTabs(data));
+		},
 	}
 }
 

@@ -153,7 +153,7 @@ const PropertyDescription = ({ listing, onClick }) => {
                 : null}
             <button className='dt-show-button' onClick={() => setDetail(!detail)}>
                 <span style={{ fontSize: 14, color: '#4E9EE9' }}>
-                    {detail ? 'Show Less Details' : 'Show More Details'}
+                    {detail ? 'Show Less' : 'Show More'}
                 </span>
             </button>
             <span className='dt-title'>Property Description:</span>

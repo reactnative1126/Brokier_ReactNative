@@ -3,10 +3,10 @@ import React from 'react';
 import { isEmpty, isCurrency } from "../../utils/functions";
 import configs from "../../constants/configs";
 
-const SimilarDetail = ({ listing, onClick }) => {
+const SimilarDetail = ({ index, listing, onClick }) => {
 
 	return (
-		<div className='sd-wrapper' key={listing.id.toString()}>
+		<div key={`sim${index}`} className='sd-wrapper' key={listing.id.toString()}>
 			<button className='sd-button' onClick={() => onClick(listing.id)}>
 				<img className='sd-image' src={configs.resURL + listing.images.split('#')[0]} alt={listing.images.split('#')[0]} />
 				<div className='sd-details'>

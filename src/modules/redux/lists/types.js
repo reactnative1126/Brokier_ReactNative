@@ -1,3 +1,5 @@
 export default {
-    SET_LIKES: 'SET_LIKES'
+    SET_TABS: 'SET_TABS',
+    SET_LIKES: 'SET_LIKES',
+    SET_MOBILE: 'SET_MOBILE'
 }

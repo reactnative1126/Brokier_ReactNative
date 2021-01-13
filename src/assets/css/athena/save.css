@@ -185,8 +185,8 @@ button:focus {
     padding: 30px 0 0 0;
 } */
 .sv-top-panel {
-    width: 700px;
-    height: 40px;
+    width: 600px;
+    height: 35px;
     /* border: 1px solid black; */
     padding: 3px;
     display: flex;
@@ -219,15 +219,44 @@ button:focus {
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 3%;
-    padding: 5px 5px;
+    padding: 10px 5px;
     width: 100%;
     height: 100%;
     overflow: auto;
 }
+.sv-searches-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 3%;
+    padding: 10px 5px;
+    width: 100%;
+    /* height: 100%; */
+    overflow: auto;
+}
+.sv-search-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 10px;
+    border-bottom: 1px solid #DEDEDE;
+}
+.sv-search-item:hover {
+    cursor: pointer;
+}
+
 .sv-right-panel {
     display: flex;
     justify-content: flex-start;
     /* width: 300px; */
     height: calc(100vh - 51px);
     /* padding: 50px 0 10px 25px; */
+}
+.sv-modal-main {
+    width: 600px;
+    height: calc(100vh - 52px);
+    background-color: white;
+    /* overflow-y: scroll; */
+    /* overflow-x: hidden; */
+    /* padding: 5px 0px; */
 }

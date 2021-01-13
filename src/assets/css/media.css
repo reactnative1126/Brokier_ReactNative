@@ -22,4 +22,200 @@
         text-align: center;
         z-index: 993;
     }
+    .mb-none {
+      display: none!important;
+    }
+    
+    .header-center-searchbox {
+      margin-left: 10px;
+    }
+    .hd-empty-view {
+      width: 100vw;
+      height: calc(100vh - 45px);
+    }
+    .hd-search-view {
+      width: 100vw;
+      height: calc(100vh - 45px);
+    }
+    .mb-map-list-button {
+        display: inline-block;
+        margin-left: 5px;    
+        border: 0.75px solid #AAAAAA;
+        border-radius: 3px;
+        height: 30px;
+    }
+
+    /* .hm-left-panel {
+      width: 100%;
+    } */
+    .mb-tab-map {
+      width: 100%;
+    }
+    .mb-tab-list {
+      width: 0;
+    }
+    .hm-right-panel {
+      padding: 0 0 0 0;
+    }
+    .hm-estate-list {
+      margin-top: 10px;
+    }
+
+    .hm-status-wrapper {
+      padding-left: 0px;
+    }
+    .hm-status-buttons {
+      margin-left: 0px;
+    }
+    .hm-view-wrapper {
+      /* display: none; */
+      position: fixed;
+      bottom: 80px;
+      left: calc(50vw - 60px);
+      z-index: 2000;
+    }
+    .hm-main-panel {
+      height: calc(100vh - 102px);
+    }
+
+    .ft-container {
+      width: 100%;
+      height: 100vh;
+      top: 0px;
+      left: 0px;
+    }
+    .sv-container {
+      width: 100%;
+      /* height: 100vh; */
+      top: 90px;
+      left: 0px;
+      z-index: 2001;
+    }
+    .mb-filter-back {
+      display: flex;
+      padding-left: 10px;
+    }
+    .mb-filter-back-button {
+      border: none;
+    }
+    .mb-drawing {
+      /* display: none; */
+      position: fixed;
+      background-color: white;
+      top: 100px;
+      right: 10px;
+      z-index: 2000;
+    }
+    .mb-apply {
+      /* display: none; */
+      position: fixed;
+      background-color: white;
+      top: 100px;
+      right: 80px;
+      z-index: 2000;
+    }
+    .mb-cancel {
+      /* display: none; */
+      position: fixed;
+      background-color: white;
+      top: 100px;
+      right: 10px;
+      z-index: 2000;
+    }
+
+    .mb-tab {
+      display: block;
+    }
+
+    .cm-auth-modal {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      max-height: 100vh;
+      border-radius: 0;
+    }
+
+
+    .de-main-panel1 {
+      display: flex;
+      flex-direction: 'row';
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: calc(100vh - 101px);
+      /* padding: 10px 10px; */
+      background-color: white;
+      overflow: hidden;
+    }
+    .de-wrapper1 {
+        max-width: 100%;
+        width: 100%;
+        height: calc(100vh - 102px);
+        padding: 0;
+        /* display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0; */
+        /* padding-left: 10px;
+        padding-right: 10px; */
+        /* flex-grow: 1;
+        -webkit-transition: box-shadow .2s linear;
+        -moz-transition: box-shadow .2s linear;
+        -ms-transition: box-shadow .2s linear;
+        -o-transition: box-shadow .2s linear;
+        transition: box-shadow .2s linear;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1 1 auto; */
+    }
+    .de-left-panel1 {
+        display: flex;
+        flex-direction: column;
+        /* width: calc(100% - 430px); */
+        width: 100%;
+        height: 100%;
+        border-left: none;
+        border-right: none;
+    }
+    .sv-modal-main {
+        width: 100%;
+        height: calc(100vh - 52px);
+        background-color: white;
+        /* overflow-y: scroll; */
+        /* overflow-x: hidden; */
+        /* padding: 5px 0px; */
+    }
+    .sv-top-panel {
+        width: 100%;
+        height: 35px;
+        /* border: 1px solid black; */
+        padding: 3px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #EAEAEA;
+    }
+    .de-right-panel1 {
+        display: none;
+    }
+    .pr-property-item {
+        flex: 0 0 100%;
+        width: 100%;
+        margin-bottom: 10px;
+        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        overflow: hidden;
+        border: 2px dotted white;
+    }
+
+    .pr-modal-main {
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding: 5px 10px;
+    }
 }

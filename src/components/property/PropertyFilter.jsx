@@ -92,6 +92,9 @@ const PropertyFilter = (props) => {
       <div id='filter-container' className='ft-container'>
         <div style={{ backgroundColor: 'white' }}>
           <div style={{ marginTop: 10 }}>
+            <div className='mb-filter-back'>
+              <button className='mb-filter-back-button' onClick={()=>props.onClose()}><i className='fas fa-chevron-left f-s-15'></i></button>
+            </div>
             <div index={12} className='ft-card'>
               <div className='ft-property-type'>
                 <span style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Property Type</span>

@@ -388,59 +388,61 @@ class Home extends React.Component {
     render() {
         return (
             <div className='hm-main-panel'>
-                <div className='hm-left-panel'>
-                    <div className='hm-status-wrapper'>
-                        <div className='hm-view-wrapper'>
-                            <button className={'hm-view-btn' + (this.state.view ? ' hm-active' : '')} onClick={() => this.onView()}>For Sale</button>
-                            <button className={'hm-view-btn' + (!this.state.view ? ' hm-active' : '')} onClick={() => this.onView()}>For Rent</button>
-                        </div>
-                        <div className='hm-status-buttons'>
-                            {this.state.view ?
-                                <button className={this.state.forSale ? 'hm-forSale-btn' : 'hm-inactive-btn'} onClick={() => this.onForSale()}>FOR SALE</button>
-                                :
-                                <button className={this.state.forRent ? 'hm-forRent-btn' : 'hm-inactive-btn'} onClick={() => this.onForRent()}>FOR RENT</button>
-                            }
-                            {this.state.view ?
-                                <button className={this.state.sold ? 'hm-sold-btn' : 'hm-inactive-btn'} onClick={() => this.onSold()}>SOLD</button>
-                                :
-                                <button className={this.state.rented ? 'hm-rented-btn' : 'hm-inactive-btn'} onClick={() => this.onRented()}>RENTED</button>
-                            }
-                            <button className='hm-inactive-btn' onClick={() => this.setState({ filter: true })}>
-                                <i className='fas fa-angle-down f-s-12 hm-padding-right'></i>
-                                <span>Filters</span>
-                                {this.state.badge > 0 ? <div className='hm-badge'>{window.badge}</div> : <div style={{ width: 10 }} />}
-                            </button>
-                            <button className='hm-inactive-btn' onClick={() => this.onSaveSearch()}>
-                                <span>Save Search</span>
-                                <i className='far fa-heart f-s-12 hm-padding-left'></i>
-                            </button>
-                            {!this.state.drawing ? (
-                                <button className='hm-inactive-btn ' onClick={() => {
-                                    this.setState({ drawing: true, scrollwheel: false, polygon: true, coordinates: [], listings3: [] }, () => {
-                                        this.handleGoogleMapApi(this.state.google);
-                                    })
-                                }}>
-                                    <i className='far fa-object-ungroup f-s-12 hm-padding-right'></i>
-                                    <span>Drawing</span>
+                <div className={this.props.tabs ? 'hm-left-panel mb-tab-map' : 'hm-left-panel mb-tab-list'}>
+                    {this.props.tabs && (
+                        <div className='hm-status-wrapper'>
+                            <div className='hm-view-wrapper'>
+                                <button className={'hm-view-btn' + (this.state.view ? ' hm-active' : '')} onClick={() => this.onView()}>For Sale</button>
+                                <button className={'hm-view-btn' + (!this.state.view ? ' hm-active' : '')} onClick={() => this.onView()}>For Rent</button>
+                            </div>
+                            <div className='hm-status-buttons'>
+                                {this.state.view ?
+                                    <button className={this.state.forSale ? 'hm-forSale-btn' : 'hm-inactive-btn'} onClick={() => this.onForSale()}>FOR SALE</button>
+                                    :
+                                    <button className={this.state.forRent ? 'hm-forRent-btn' : 'hm-inactive-btn'} onClick={() => this.onForRent()}>FOR RENT</button>
+                                }
+                                {this.state.view ?
+                                    <button className={this.state.sold ? 'hm-sold-btn' : 'hm-inactive-btn'} onClick={() => this.onSold()}>SOLD</button>
+                                    :
+                                    <button className={this.state.rented ? 'hm-rented-btn' : 'hm-inactive-btn'} onClick={() => this.onRented()}>RENTED</button>
+                                }
+                                <button className='hm-inactive-btn' onClick={() => this.setState({ filter: true })}>
+                                    <i className='fas fa-angle-down f-s-12 hm-padding-right'></i>
+                                    <span>Filters</span>
+                                    {this.state.badge > 0 ? <div className='hm-badge'>{window.badge}</div> : <div style={{ width: 10 }} />}
                                 </button>
-                            ) : (
-                                    <Fragment>
-                                        <button className='hm-apply-btn' onClick={() => this.onApply()}>
-                                            <i className='fas fa-check f-s-12 font-color-green'></i>
-                                            <span className='hm-apply-text'>Apply</span>
-                                        </button>
-                                        <button className='hm-cancel-btn' onClick={() => {
-                                            this.setState({ drawing: false, scrollwheel: true, polygon: false, coordinates: [], listings3: [] }, () => {
-                                                this.handleGoogleMapApi(this.state.google);
-                                            });
-                                        }}>
-                                            <i className='fas fa-times f-s-12 font-color-red'></i>
-                                            <span className='hm-cancel-text'>Cancel</span>
-                                        </button>
-                                    </Fragment>
-                                )}
+                                <button className='hm-inactive-btn' onClick={() => this.onSaveSearch()}>
+                                    <span>Save Search</span>
+                                    <i className='far fa-heart f-s-12 hm-padding-left'></i>
+                                </button>
+                                {!this.state.drawing ? (
+                                    <button className='hm-inactive-btn mb-drawing' onClick={() => {
+                                        this.setState({ drawing: true, scrollwheel: false, polygon: true, coordinates: [], listings3: [] }, () => {
+                                            this.handleGoogleMapApi(this.state.google);
+                                        })
+                                    }}>
+                                        <i className='far fa-object-ungroup f-s-12 hm-padding-right'></i>
+                                        <span>Drawing</span>
+                                    </button>
+                                ) : (
+                                        <Fragment>
+                                            <button className='hm-apply-btn mb-apply' onClick={() => this.onApply()}>
+                                                <i className='fas fa-check f-s-12 font-color-green'></i>
+                                                <span className='hm-apply-text'>Apply</span>
+                                            </button>
+                                            <button className='hm-cancel-btn mb-cancel' onClick={() => {
+                                                this.setState({ drawing: false, scrollwheel: true, polygon: false, coordinates: [], listings3: [] }, () => {
+                                                    this.handleGoogleMapApi(this.state.google);
+                                                });
+                                            }}>
+                                                <i className='fas fa-times f-s-12 font-color-red'></i>
+                                                <span className='hm-cancel-text'>Cancel</span>
+                                            </button>
+                                        </Fragment>
+                                    )}
+                            </div>
                         </div>
-                    </div>
+                    )}
                     <div className='hm-map-view'>
                         <GoogleMapReact
                             bootstrapURLKeys={{
@@ -451,7 +453,9 @@ class Home extends React.Component {
                             }}
                             options={{
                                 scrollwheel: this.state.scrollwheel,
-                                panControl: false
+                                panControl: false,
+                                fullscreenControl: false,
+                                zoomControl: false
                             }}
                             defaultZoom={window.zoom}
                             center={[this.state.region.lat, this.state.region.lng]}
@@ -528,7 +532,18 @@ class Home extends React.Component {
 
                     </div>
                 </div>
-                <div className='hm-right-panel'>
+                <div className={this.props.tabs ? 'hm-right-panel mb-tab-list' : 'hm-right-panel mb-tab-map'}>
+                    {!this.props.tabs && (
+                        <div className='hm-status-wrapper'>
+                            <div className='hm-status-buttons'>
+                                <button className='hm-inactive-btn' onClick={() => this.setState({ filter: true })}>
+                                    <i className='fas fa-angle-down f-s-12 hm-padding-right'></i>
+                                    <span>Filters</span>
+                                    {this.state.badge > 0 ? <div className='hm-badge'>{window.badge}</div> : <div style={{ width: 10 }} />}
+                                </button>
+                            </div>
+                        </div>
+                    )}
                     <div className='hm-estate-list'>
                         {!isEmpty(this.state.listings2) && this.state.listings2.map((listing, key) => (
                             <PropertyItem
@@ -596,7 +611,8 @@ const mapStateToProps = state => {
         loading: state.auth.loading,
         logged: state.auth.logged,
         user: state.auth.user_info,
-        likes: state.lists.likes
+        likes: state.lists.likes,
+        tabs: state.lists.tabs
     }
 }
 

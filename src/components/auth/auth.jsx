@@ -192,14 +192,14 @@ const Auth = (props) => {
 							<button className='cm-submit-button' onClick={() => SIGNUP()}>
 								<span className='cm-submit-title'>Sign Up</span>
 							</button>
-							<span className='cm-policy-text'>by registering you accept <Link>our terms of use</Link> and <Link>privacy policy</Link></span>
+							<span className='cm-policy-text'>by registering you accept <Link to="">our terms of use</Link> and <Link to="">privacy policy</Link></span>
 							<button className='cm-facebook-button'>
 								<span className='cm-facebook-title'>Sign in Facebook</span>
 							</button>
 							<button className='cm-google-button'>
 								<span className='cm-google-title'>Sign in Google</span>
 							</button>
-							<span className='cm-policy-text'>Have already account? <Link onClick={() => setType(1)}>Sign In</Link></span>
+							<span className='cm-policy-text'>Have already account? <Link to="" onClick={() => setType(1)}>Sign In</Link></span>
 						</div>
 					)}
 			</div>

@@ -103,7 +103,8 @@ const Detail = (props) => {
 								</RBCarousel>
 							</div>
 							<PropertyDetail listing={listing} />
-							<PropertyHistories histories={histories} />
+							<PropertyHistories histories={histories}
+								onDetail={(id) => props.history.push(`/detail/${id}`)} />
 							<div className='pr-map-wrapper'>
 								<GoogleMapReact bootstrapURLKeys={{ key: 'AIzaSyDoi0kDoetjxsvsctCrRb99I5lu1GJMj_8', language: 'en', region: 'US' }}
 									options={{ scrollwheel: false }}

@@ -23,7 +23,7 @@ const PropertySimilar = ({ similar, similars, onSimilar, onDetail }) => {
 
       <div className='si-scrollview'>
         {similars.map((listing, key) => (
-          <SimilarDetail listing={listing} index={key} onClick={(id)=>onDetail(id)} />
+          <SimilarDetail key={key} listing={listing} index={key} onClick={(id)=>onDetail(id)} />
         ))}
       </div>
     </div>
