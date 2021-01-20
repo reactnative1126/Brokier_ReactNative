@@ -2,14 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { setLoading } from './modules/redux/auth/actions';
 import { setTabs, setMobile } from './modules/redux/lists/actions';
-
 import { PageSettings } from './constants/page-settings.js';
+import {
+	Loading,
+	Header,
+	Content,
+	Auth,
+
+	MobileTab
+} from './components';
+
 import configs from './constants/configs';
-import Header from './components/header/header.jsx';
-import MobileTab from './components/mobile/mobile-tab.jsx';
-import Content from './components/content/content.jsx';
-import Loading from './components/loading/loading.jsx';
-import Auth from './components/auth/auth.jsx';
 
 window.listings = [];
 window.details = [];
@@ -443,6 +446,7 @@ class App extends React.Component {
 				<Auth visible={this.props.visible} />
 				<Header />
 				<Content />
+
 				<MobileTab />
 			</PageSettings.Provider>
 		)

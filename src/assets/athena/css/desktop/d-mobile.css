@@ -1,0 +1,27 @@
+.mobile-display-none {
+    display: flex;
+}
+.mobile-header-wrapper {
+    display: none;
+}
+.mobile-home-header {
+    display: none;
+}
+.mobile-tabs-button {
+    display: none;
+}
+.mobile-filter-header {
+    display: none;
+}
+.modal-wrapper>div.mobile-buttons {
+    display: none;
+}
+.mobile-marker-detail1 {
+    display: none;
+}
+.mobile-marker-detail2 {
+    display: none;
+}
+.mobile-marker-detail3 {
+    display: none;
+}

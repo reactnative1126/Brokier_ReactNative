@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Home from '../pages/home';
-import Detail from '../pages/detail';
-import Saved from '../pages/saved';
+import Home from '../pages/desktop/home';
+import Detail from '../pages/desktop/detail';
+import Saved from '../pages/desktop/saved';
 
 const routes = [
   {

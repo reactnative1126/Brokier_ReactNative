@@ -17,7 +17,7 @@ import 'simple-line-icons/css/simple-line-icons.css';
 import 'flag-icon-css/css/flag-icon.min.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './index.css';
-import './assets/scss/react.scss';
+import './assets/original/scss/react.scss';
 import 'bootstrap-social/bootstrap-social.css';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 

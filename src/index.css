@@ -1,14 +1,21 @@
 @import "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700";
 @import "https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css";
 @import "https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css";
-@import "assets/css/default/app.min.css";
-@import "./assets/css/common.css";
-@import "./assets/css/athena/home.css";
-@import "./assets/css/athena/marker.css";
-@import "./assets/css/athena/property.css";
-@import "./assets/css/athena/details.css";
-@import "./assets/css/athena/histories.css";
-@import "./assets/css/athena/filters.css";
-@import "./assets/css/athena/save.css";
-@import "./assets/css/athena/mobile.css";
-@import "./assets/css/media.css";
+@import "./assets/athena/css/default/app.min.css";
+@import "./assets/athena/css/common.css";
+
+@import "./assets/athena/css/desktop/d-home.css";
+@import "./assets/athena/css/desktop/d-detail.css";
+@import "./assets/athena/css/desktop/d-saved.css";
+@import "./assets/athena/css/desktop/d-components.css";
+@import "./assets/athena/css/desktop/d-mobile.css";
+@import "./assets/athena/css/desktop/d-property.css";
+@import "./assets/athena/css/desktop/d-marker.css";
+
+@import "./assets/athena/css/mobile/m-components.css";
+@import "./assets/athena/css/mobile/m-home.css";
+@import "./assets/athena/css/mobile/m-mobile.css";
+@import "./assets/athena/css/mobile/m-property.css";
+@import "./assets/athena/css/mobile/m-detail.css";
+@import "./assets/athena/css/mobile/m-saved.css";
+@import "./assets/athena/css/mobile/m-marker.css";
