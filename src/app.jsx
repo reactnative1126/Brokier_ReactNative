@@ -52,7 +52,7 @@ window.filters = {
 		maxPrice: 5000000,
 	},
 	daysOnMarket: 0,
-	soldInLast: 90,
+	soldInLast: 180,
 	rooms: {
 		bed: 0,
 		bath: 0,
@@ -77,6 +77,80 @@ window.marker = false;
 class App extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			pageHeader: false,
+			pageheaderMegaMenu: false,
+			pageHeaderLanguageBar: false,
+			hasScroll: false,
+			handleSetPageHeader: this.handleSetPageHeader,
+			handleSetPageHeaderLanguageBar: this.handleSetPageHeaderLanguageBar,
+			handleSetPageHeaderMegaMenu: this.handleSetPageHeaderMegaMenu,
+
+			pageSidebar: false,
+			pageSidebarWide: false,
+			pageSidebarLight: false,
+			pageSidebarMinify: false,
+			pageSidebarToggled: false,
+			pageSidebarTransparent: false,
+			pageSidebarSearch: false,
+			handleSetPageSidebar: this.handleSetPageSidebar,
+			handleSetPageSidebarWide: this.handleSetPageSidebarWide,
+			handleSetPageSidebarLight: this.handleSetPageSidebarLight,
+			handleSetPageSidebarMinified: this.handleSetPageSidebarMinified,
+			handleSetPageSidebarTransparent: this.handleSetPageSidebarTransparent,
+			handleSetPageSidebarSearch: this.handleSetPageSidebarSearch,
+			handleSidebarOnMouseOut: this.handleSidebarOnMouseOut,
+			handleSidebarOnMouseOver: this.handleSidebarOnMouseOver,
+			toggleSidebarMinify: this.toggleSidebarMinify,
+			toggleMobileSidebar: this.toggleMobileSidebar,
+
+			pageFloatSubMenuActive: false,
+			pageFloatSubMenu: '',
+			pageFloatSubMenuTop: 'auto',
+			pageFloatSubMenuLeft: 'auto',
+			pageFloatSubMenuBottom: 'auto',
+			pageFloatSubMenuLineTop: 'auto',
+			pageFloatSubMenuLineBottom: 'auto',
+			pageFloatSubMenuArrowTop: 'auto',
+			pageFloatSubMenuArrowBottom: 'auto',
+			pageFloatSubMenuOffset: '',
+			handleFloatSubMenuOnMouseOver: this.handleFloatSubMenuOnMouseOver,
+			handleFloatSubMenuOnMouseOut: this.handleFloatSubMenuOnMouseOut,
+			handleFloatSubMenuClick: this.handleFloatSubMenuClick,
+
+			pageContent: true,
+			pageContentClass: '',
+			pageContentFullHeight: false,
+			pageContentFullWidth: false,
+			pageContentInverseMode: false,
+			handleSetPageContent: this.handleSetPageContent,
+			handleSetPageContentClass: this.handleSetPageContentClass,
+			handleSetPageContentFullHeight: this.handleSetPageContentFullHeight,
+			handleSetPageContentFullWidth: this.handleSetPageContentFullWidth,
+			handleSetPageContentInverseMode: this.handleSetPageContentInverseMode,
+
+			pageFooter: false,
+			handleSetPageFooter: this.handleSetPageFooter,
+
+			pageTopMenu: false,
+			pageMobileTopMenu: false,
+			toggleMobileTopMenu: this.toggleMobileTopMenu,
+			handleSetPageTopMenu: this.handleSetPageTopMenu,
+
+			pageTwoSidebar: false,
+			handleSetPageTwoSidebar: this.handleSetPageTwoSidebar,
+
+			pageRightSidebar: false,
+			pageRightSidebarToggled: true,
+			pageMobileRightSidebarToggled: false,
+			toggleRightSidebar: this.toggleRightSidebar,
+			toggleMobileRightSidebar: this.toggleMobileRightSidebar,
+			handleSetPageRightSidebar: this.handleSetPageRightSidebar,
+
+			handleSetBodyWhiteBg: this.handleSetBodyWhiteBg,
+			handleSetPageBoxedLayout: this.handleSetPageBoxedLayout
+		};
 
 		this.toggleSidebarMinify = (e) => {
 			e.preventDefault();
@@ -328,80 +402,7 @@ class App extends React.Component {
 				document.body.classList.remove('bg-white');
 			}
 		}
-
-		this.state = {
-			pageHeader: false,
-			pageheaderMegaMenu: false,
-			pageHeaderLanguageBar: false,
-			hasScroll: false,
-			handleSetPageHeader: this.handleSetPageHeader,
-			handleSetPageHeaderLanguageBar: this.handleSetPageHeaderLanguageBar,
-			handleSetPageHeaderMegaMenu: this.handleSetPageHeaderMegaMenu,
-
-			pageSidebar: false,
-			pageSidebarWide: false,
-			pageSidebarLight: false,
-			pageSidebarMinify: false,
-			pageSidebarToggled: false,
-			pageSidebarTransparent: false,
-			pageSidebarSearch: false,
-			handleSetPageSidebar: this.handleSetPageSidebar,
-			handleSetPageSidebarWide: this.handleSetPageSidebarWide,
-			handleSetPageSidebarLight: this.handleSetPageSidebarLight,
-			handleSetPageSidebarMinified: this.handleSetPageSidebarMinified,
-			handleSetPageSidebarTransparent: this.handleSetPageSidebarTransparent,
-			handleSetPageSidebarSearch: this.handleSetPageSidebarSearch,
-			handleSidebarOnMouseOut: this.handleSidebarOnMouseOut,
-			handleSidebarOnMouseOver: this.handleSidebarOnMouseOver,
-			toggleSidebarMinify: this.toggleSidebarMinify,
-			toggleMobileSidebar: this.toggleMobileSidebar,
-
-			pageFloatSubMenuActive: false,
-			pageFloatSubMenu: '',
-			pageFloatSubMenuTop: 'auto',
-			pageFloatSubMenuLeft: 'auto',
-			pageFloatSubMenuBottom: 'auto',
-			pageFloatSubMenuLineTop: 'auto',
-			pageFloatSubMenuLineBottom: 'auto',
-			pageFloatSubMenuArrowTop: 'auto',
-			pageFloatSubMenuArrowBottom: 'auto',
-			pageFloatSubMenuOffset: '',
-			handleFloatSubMenuOnMouseOver: this.handleFloatSubMenuOnMouseOver,
-			handleFloatSubMenuOnMouseOut: this.handleFloatSubMenuOnMouseOut,
-			handleFloatSubMenuClick: this.handleFloatSubMenuClick,
-
-			pageContent: true,
-			pageContentClass: '',
-			pageContentFullHeight: false,
-			pageContentFullWidth: false,
-			pageContentInverseMode: false,
-			handleSetPageContent: this.handleSetPageContent,
-			handleSetPageContentClass: this.handleSetPageContentClass,
-			handleSetPageContentFullHeight: this.handleSetPageContentFullHeight,
-			handleSetPageContentFullWidth: this.handleSetPageContentFullWidth,
-			handleSetPageContentInverseMode: this.handleSetPageContentInverseMode,
-
-			pageFooter: false,
-			handleSetPageFooter: this.handleSetPageFooter,
-
-			pageTopMenu: false,
-			pageMobileTopMenu: false,
-			toggleMobileTopMenu: this.toggleMobileTopMenu,
-			handleSetPageTopMenu: this.handleSetPageTopMenu,
-
-			pageTwoSidebar: false,
-			handleSetPageTwoSidebar: this.handleSetPageTwoSidebar,
-
-			pageRightSidebar: false,
-			pageRightSidebarToggled: true,
-			pageMobileRightSidebarToggled: false,
-			toggleRightSidebar: this.toggleRightSidebar,
-			toggleMobileRightSidebar: this.toggleMobileRightSidebar,
-			handleSetPageRightSidebar: this.handleSetPageRightSidebar,
-
-			handleSetBodyWhiteBg: this.handleSetBodyWhiteBg,
-			handleSetPageBoxedLayout: this.handleSetPageBoxedLayout
-		};
+		
 		this.windowResize = this.windowResize.bind(this);
 	}
 
