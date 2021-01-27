@@ -338,16 +338,19 @@ class PropertiesHome extends Component {
     }
   }
 
-  async onShare(listing) {
-    var listing = await ListingsService.getListingDetail(listing.id);
-    console.log(listing);
+  async onShare(id) {
+    var listing = await ListingsService.getListingDetail(id);
     if (!this.props.logged) {
       this.props.navigation.push("Auth");
     } else {
+      var status = listing.lastStatus === 'Sus' ? 'Suspended' : listing.lastStatus === 'Exp' ? 'Expires' : listing.lastStatus === 'Sld' ? 'Sold' : listing.lastStatus === 'Ter' ? 'Terminated' : listing.lastStatus === 'Dft' ? 'Deal' : listing.lastStatus === 'Lsd' ? 'Leased' : listing.lastStatus === 'Sc' ? 'Sold Con' : listing.lastStatus === 'Lc' ? 'Leased Con' : listing.lastStatus === 'Pc' ? 'Price Change' : listing.lastStatus === 'Ext' ? 'Extended' : listing.lastStatus === 'New' ? 'For Sale' : null
       Share.share({
+        message: `Brokier - ${status}, ${isCurrency(listing.listPrice).split('.')[0]}, ${listing.neighborhood} ${listing.city}, `,
         title: `Brokier - ${listing.streetNumber}`,
-        url: 'https://brokier.com/' + listing.mlsNumber
-      })
+        url: 'https://brokier.web.app/detail/' + listing.mlsNumber
+      }, 
+      { subject: 'Brokier - Real Estates' }
+      )
     }
   };
 

@@ -76,7 +76,7 @@ export default PropertyDetail = ({ listing }) => {
               </View>
             </View>
           </View>
-          <View style={{ marginTop: 5 }}>
+          <View style={{ flex: 1 }}>
             <View style={[styles.status, { borderColor: listing.lastStatus === 'Sus' ? colors.BLACK : listing.lastStatus === 'Exp' ? colors.BLACK : listing.lastStatus === 'Sld' ? colors.RED.PRIMARY : listing.lastStatus === 'Ter' ? colors.BLACK : listing.lastStatus === 'Dft' ? colors.GREEN.PRIMARY : listing.lastStatus === 'Lsd' ? '#FF9900' : listing.lastStatus === 'Sc' ? colors.BLUE.PRIMARY : listing.lastStatus === 'Lc' ? colors.BLUE.PRIMARY : listing.lastStatus === 'Pc' ? colors.GREEN.PRIMARY : listing.lastStatus === 'Ext' ? colors.GREEN.PRIMARY : listing.lastStatus === 'New' ? colors.GREEN.PRIMARY : null }]}>
               <Text style={{ fontSize: 14, color: listing.lastStatus === 'Sus' ? colors.BLACK : listing.lastStatus === 'Exp' ? colors.BLACK : listing.lastStatus === 'Sld' ? colors.RED.PRIMARY : listing.lastStatus === 'Ter' ? colors.BLACK : listing.lastStatus === 'Dft' ? colors.GREEN.PRIMARY : listing.lastStatus === 'Lsd' ? '#FF9900' : listing.lastStatus === 'Sc' ? colors.BLUE.PRIMARY : listing.lastStatus === 'Lc' ? colors.BLUE.PRIMARY : listing.lastStatus === 'Pc' ? colors.GREEN.PRIMARY : listing.lastStatus === 'Ext' ? colors.GREEN.PRIMARY : listing.lastStatus === 'New' ? colors.GREEN.PRIMARY : null }} >
                 {listing.lastStatus === 'Sus' ? 'Suspended' : listing.lastStatus === 'Exp' ? 'Expires' : listing.lastStatus === 'Sld' ? 'Sold' : listing.lastStatus === 'Ter' ? 'Terminated' : listing.lastStatus === 'Dft' ? 'Deal' : listing.lastStatus === 'Lsd' ? 'Leased' : listing.lastStatus === 'Sc' ? 'Sold Con' : listing.lastStatus === 'Lc' ? 'Leased Con' : listing.lastStatus === 'Pc' ? 'Price Change' : listing.lastStatus === 'Ext' ? 'Extended' : listing.lastStatus === 'New' ? 'For Sale' : null}
@@ -134,8 +134,9 @@ const styles = StyleSheet.create({
   status: {
     justifyContent: "center",
     alignItems: "flex-start",
-    marginBottom: 5,
-    width: 200,
+    marginVertical: 5,
+    paddingHorizontal: 5,
+    // width: 200,
     height: 20,
     borderWidth: 1,
     borderRadius: 3,

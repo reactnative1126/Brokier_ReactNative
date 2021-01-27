@@ -43,7 +43,7 @@ global.filters = {
     maxPrice: 5000000,
   },
   daysOnMarket: 0,
-  soldInLast: 90,
+  soldInLast: 180,
   rooms: {
     bed: 0,
     bath: 0,

@@ -7,7 +7,7 @@ import { colors } from '@constants/themes';
 export default Loading = (props) => {
 	return (
 		<View style={{
-			display: props.loading ? 'block' : 'none',
+			display: props.loading ? 'flex' : 'none',
 			justifyContent: 'center',
 			alignItems: 'center',
 			marginLeft: wp('50%') - 20,
