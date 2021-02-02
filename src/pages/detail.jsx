@@ -118,7 +118,7 @@ const Detail = (props) => {
 							</div>
 							<PropertyDetail listing={listing} />
 							<PropertyHistories histories={histories}
-								onDetail={(id) => props.history.push(`/detail/${id}`)} />
+								onDetail={(id, streetNumber, streetName, streetSuffix) => props.history.push(`/detail/${streetNumber}-${streetName}-${streetSuffix}/${id}`)} />
 							<div className='detail-map-wrapper'>
 								<GoogleMapReact bootstrapURLKeys={{ key: 'AIzaSyDoi0kDoetjxsvsctCrRb99I5lu1GJMj_8', language: 'en', region: 'US' }}
 									options={{ scrollwheel: false }}
@@ -140,7 +140,7 @@ const Detail = (props) => {
 								similar={similar}
 								onSimilar={(similar) => setSimilar(similar)}
 								similars={similars}
-								onDetail={(id) => props.history.push(`/detail/${id}`)}
+								onDetail={(id, streetNumber, streetName, streetSuffix) => props.history.push(`/detail/${streetNumber}-${streetName.replace(' ', '-')}-${streetSuffix}/${id}`)}
 							/>
 						</div>
 					) : null}

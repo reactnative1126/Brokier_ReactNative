@@ -459,7 +459,7 @@ class Home extends React.Component {
                                     <div style={{ fontWeight: 'bold', padding: 10 }}>Listings</div>
                                     {!isEmpty(this.state.searches) && this.state.searches.map((listing, key) => {
                                         return (
-                                            <div key={key} className='components-header-search-item' onClick={() => document.location.href = `/detail/${listing.id}`}>
+                                            <div key={key} className='components-header-search-item' onClick={() => document.location.href = `/detail/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.id}`}>
                                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                                                     <span style={{ fontWeight: 'bold' }}>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix}</span>
                                                     <div style={{ width: 80, alignItems: 'center' }}>
@@ -680,9 +680,8 @@ class Home extends React.Component {
                     visible={this.state.visible}
                     listing={this.state.detail}
                     onClose={() => this.setState({ visible: false })}
-                    // onDetail={(id) => this.props.history.push(`/detail/${id}`)}
-                    onDetail={(id) => {
-                        const win = window.open(`/detail/${id}`, '_blank');
+                    onDetail={(id, streetNumber, streetName, streetSuffix) => {
+                        const win = window.open(`/detail/${streetNumber}-${streetName}-${streetSuffix}/${id}`, '_blank');
                         win.focus();
                     }}
                     onImage={(images, index) => {

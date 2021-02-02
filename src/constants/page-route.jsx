@@ -16,7 +16,7 @@ const routes = [
     component: () => <Home/>
   },
   {
-    path: '/detail/:id',
+    path: '/detail/:address/:id',
     exact: false,
     component: () => <Detail />
   },

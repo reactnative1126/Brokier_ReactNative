@@ -7,7 +7,7 @@ const SimilarDetail = ({ index, listing, onClick }) => {
 
 	return (
 		<div key={`sim${index}`} className='similar-detail-wrapper' key={listing.id.toString()}>
-			<button className='similar-detail-button' onClick={() => onClick(listing.id)}>
+			<button className='similar-detail-button' onClick={() => onClick(listing.id, listing.streetNumber, listing.streetName, listing.streetSuffix)}>
 				<img className='similar-detail-image' src={configs.resURL + listing.images.split('#')[0]} alt={listing.images.split('#')[0]} />
 				<div className='similar-detail-content'>
 					<div className='content-top'>
