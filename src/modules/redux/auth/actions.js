@@ -8,6 +8,10 @@ export const setVisible = (data) => ({
     type: types.SET_VISIBLE,
     payload: data,
 });
+export const setVisible1 = (data) => ({
+    type: types.SET_VISIBLE1,
+    payload: data,
+});
 
 
 

@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { signOut, setLoading, setVisible } from '../modules/redux/auth/actions';
+import { signOut, setLoading, setVisible, setVisible1 } from '../modules/redux/auth/actions';
 import { setLikes } from '../modules/redux/lists/actions';
 import {
     PropertyItem,
@@ -124,6 +124,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this);
         this.onRegionChangeComplete([configs.lat, configs.lng], window.zoom, [
             window.bounds.nw_latitude, window.bounds.nw_longitude,
             window.bounds.se_latitude, window.bounds.se_longitude,
@@ -749,6 +750,9 @@ const mapDispatchToProps = dispatch => {
         },
         setVisible: (data) => {
             dispatch(setVisible(data));
+        },
+        setVisible1: (data) => {
+            dispatch(setVisible1(data));
         }
     }
 }

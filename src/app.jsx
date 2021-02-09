@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setLoading } from './modules/redux/auth/actions';
+import { setLoading, setVisible1 } from './modules/redux/auth/actions';
 import { setTabs, setMobile } from './modules/redux/lists/actions';
 import { PageSettings } from './constants/page-settings.js';
 import {
@@ -9,10 +9,12 @@ import {
 	Content,
 	Auth,
 
-	MobileTab
+	MobileTab,
+	MobilePopUp
 } from './components';
 
 import configs from './constants/configs';
+import { isMobile } from 'react-device-detect';
 
 window.listings = [];
 window.details = [];
@@ -402,11 +404,14 @@ class App extends React.Component {
 				document.body.classList.remove('bg-white');
 			}
 		}
-		
+
 		this.windowResize = this.windowResize.bind(this);
 	}
 
 	componentDidMount() {
+		if(isMobile) {
+			this.props.setVisible1(true);
+		}
 		this.props.setLoading(false);
 		window.addEventListener('scroll', this.handleScroll);
 		window.onresize = this.windowResize;
@@ -447,8 +452,8 @@ class App extends React.Component {
 				<Auth visible={this.props.visible} />
 				<Header />
 				<Content />
-
 				<MobileTab />
+				{(isMobile && this.props.visible1) && <MobilePopUp />}
 			</PageSettings.Provider>
 		)
 	}
@@ -457,7 +462,8 @@ class App extends React.Component {
 const mapStateToProps = state => {
 	return {
 		loading: state.auth.loading,
-		visible: state.auth.visible
+		visible: state.auth.visible,
+		visible1: state.auth.visible1
 	}
 }
 
@@ -471,6 +477,9 @@ const mapDispatchToProps = dispatch => {
 		},
 		setMobile: (data) => {
 			dispatch(setMobile(data));
+		},
+		setVisible1: (data) => {
+			dispatch(setVisible1(data));
 		}
 	}
 }

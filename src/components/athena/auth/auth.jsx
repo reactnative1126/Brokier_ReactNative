@@ -102,6 +102,7 @@ const Auth = (props) => {
 			await getEmail(email).then(async (response) => {
 				if (response.count === 0) {
 					await setUser1({
+						unique_id: Date.now(),
 						name: name1,
 						email: email1,
 						password: password1

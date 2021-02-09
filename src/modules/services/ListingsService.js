@@ -92,21 +92,23 @@ export const getSearch = (search) => {
 };
 
 export const setSearches = (name, coordinates, userId) => {
-    return axios.post(`/listings/searches`, {
-        name,
-        userId,
-        region: window.region,
-        filters: window.filters,
-        location: window.locations,
-        coordinates,
-        description: window.description
+    return axios.get(`/listings/setSearches`, {
+        params: {
+            name,
+            userId,
+            region: global.region,
+            filters: global.filters,
+            location: global.location,
+            coordinates,
+            description: global.description
+        }
     }).then((response) => {
         return response.data.listings;
     });
 };
 
 export const getSearches = (userId) => {
-    return axios.get(`/listings/searches`, {
+    return axios.get(`/listings/getSearches`, {
         params: {
             userId
         }
@@ -116,16 +118,18 @@ export const getSearches = (userId) => {
 };
 
 export const setLike = (userId, listingId) => {
-    return axios.post(`/listings/like`, {
-        userId: userId,
-        listingId: listingId
+    return axios.get(`/listings/setLike`, {
+        params: {
+            userId: userId,
+            listingId: listingId
+        }
     }).then((response) => {
         return response.data.likes;
     });
 };
 
 export const getLike = (userId) => {
-    return axios.get(`/listings/like`, {
+    return axios.get(`/listings/getLike`, {
         params: {
             userId: userId
         }
@@ -142,5 +146,19 @@ export const getFavoriteList = (userId, offset) => {
         }
     }).then((response) => {
         return response.data.listings;
+    });
+};
+
+export const setReferral = (id, user, referralCode) => {
+    return axios.get(`/listings/setReferral`, {
+        params: {
+            listingId: id,
+            referralCode,
+            userId: user.id,
+            uniqueId: user.unique_id,
+            userRole: user.user_role
+        }
+    }).then((response) => {
+        return response.data.listings[0];
     });
 };

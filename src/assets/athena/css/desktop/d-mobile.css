@@ -4,6 +4,21 @@
 .mobile-header-wrapper {
     display: none;
 }
+.mobile-popup-wrapper {
+    display: none;
+}
+.mobile-popup-container {
+    display: none;
+}
+.mobile-popup-header {
+    display: none;
+}
+.mobile-popup-main {
+    display: none;
+}
+.mobile-popup-items {
+    display: none;
+}
 .mobile-home-header {
     display: none;
 }

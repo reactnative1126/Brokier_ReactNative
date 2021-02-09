@@ -16,6 +16,57 @@
         background-color: white;
         z-index: 5000;
     }
+    .mobile-popup-wrapper {
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        background-color: #00000080;
+        z-index: 5001;
+    }
+    .mobile-popup-container {
+        position: fixed;
+        bottom: 0;
+        width: 100vw;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        z-index: 5002;
+    }
+    .mobile-popup-header {
+        width: 100vw;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        border-bottom: 1px solid #aaa;
+    }
+    .mobile-popup-main {
+        width: 100vw;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #eee;
+        /* border: 1px solid black; */
+        padding: 10px 0 10px 0;
+    }
+    .mobile-popup-items {
+        width: 90vw;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+    }
     .mobile-home-header {
         position: fixed;
         top: 0;

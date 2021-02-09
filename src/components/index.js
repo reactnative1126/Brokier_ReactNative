@@ -23,6 +23,7 @@ import SimilarDetail from './athena/property/SimilarDetail';
 import SavedItem from './athena/saved/SavedItem';
 
 import MobileTab from './athena/tab/MobileTab';
+import MobilePopUp from './athena/tab/MobilePopUp';
 import MobileMarkerDetail from './athena/marker/MobileMarkerDetail';
 
 export {
@@ -51,5 +52,6 @@ export {
     SavedItem,
 
     MobileTab,
+    MobilePopUp,
     MobileMarkerDetail
 }

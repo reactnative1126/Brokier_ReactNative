@@ -18,8 +18,7 @@ import {
 import {
 	getListingDetail,
 	getDetailHistories,
-	getDetailSimilars,
-	getDetailRooms
+	getDetailSimilars
 } from '../modules/services/ListingsService';
 import { isEmpty } from "../utils/functions";
 import configs from "../constants/configs";
