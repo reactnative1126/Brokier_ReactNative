@@ -19,59 +19,56 @@ $api->version('v1', function($api){
             $api->get('/rooms', 'Api\Listings\ListingsController@rooms');
             $api->get('/search', 'Api\Listings\ListingsController@search');
 
-            $api->get('/like', 'Api\Listings\ListingsController@getLike');
-            $api->post('/like', 'Api\Listings\ListingsController@setLike');
+            $api->get('/getLike', 'Api\Listings\ListingsController@getLike');
+            $api->get('/setLike', 'Api\Listings\ListingsController@setLike');
 
             $api->get('/favorite', 'Api\Listings\ListingsController@favorite');
-            $api->get('/searches', 'Api\Listings\ListingsController@getSearches');
-            $api->post('/searches', 'Api\Listings\ListingsController@setSearches');
+            $api->get('/getSearches', 'Api\Listings\ListingsController@getSearches');
+            $api->get('/setSearches', 'Api\Listings\ListingsController@setSearches');
+
+            $api->get('/setViewings', 'Api\Listings\ListingsController@setViewings');
+            $api->get('/getViewings', 'Api\Listings\ListingsController@getViewings');
         });
 
         $api->group(['prefix' => 'users'], function ($api) {
             $api->get('/validate', 'Api\Auth\UsersController@validateEmail');
-            $api->post('/', 'Api\Auth\UsersController@setUser');
-            $api->get('/', 'Api\Auth\UsersController@getUser');
-
+            $api->get('/setUser', 'Api\Auth\UsersController@setUser');
+            $api->get('/getUser', 'Api\Auth\UsersController@getUser');
+            $api->get('/getReferral', 'Api\Auth\UsersController@getReferral');
+            $api->get('/updateUser', 'Api\Auth\UsersController@updateUser');
+            $api->get('/uploadAvatar', 'Api\Auth\UsersController@uploadAvatar');
         });
 
-        $api->get('ping', 'Api\PingController@index');
-
-        $api->get('assets/{uuid}/render', 'Api\Assets\RenderFileController@show');
-
-        $api->group(['middleware' => ['auth:api'], ], function ($api) {
-
-            // $api->group(['prefix' => 'users'], function ($api) {
-            //     $api->get('/', 'Api\Users\UsersController@index');
-            //     $api->post('/', 'Api\Users\UsersController@store');
-            //     $api->get('/{uuid}', 'Api\Users\UsersController@show');
-            //     $api->put('/{uuid}', 'Api\Users\UsersController@update');
-            //     $api->patch('/{uuid}', 'Api\Users\UsersController@update');
-            //     $api->delete('/{uuid}', 'Api\Users\UsersController@destroy');
-            // });
-
-            $api->group(['prefix' => 'roles'], function ($api) {
-                $api->get('/', 'Api\Users\RolesController@index');
-                $api->post('/', 'Api\Users\RolesController@store');
-                $api->get('/{uuid}', 'Api\Users\RolesController@show');
-                $api->put('/{uuid}', 'Api\Users\RolesController@update');
-                $api->patch('/{uuid}', 'Api\Users\RolesController@update');
-                $api->delete('/{uuid}', 'Api\Users\RolesController@destroy');
-            });
-
-            $api->get('permissions', 'Api\Users\PermissionsController@index');
-
-            $api->group(['prefix' => 'me'], function($api) {
-                $api->get('/', 'Api\Users\ProfileController@index');
-                $api->put('/', 'Api\Users\ProfileController@update');
-                $api->patch('/', 'Api\Users\ProfileController@update');
-                $api->put('/password', 'Api\Users\ProfileController@updatePassword');
-            });
-
-            $api->group(['prefix' => 'assets'], function($api) {
-                $api->post('/', 'Api\Assets\UploadFileController@store');
-            });
-
-        });
+        // $api->get('ping', 'Api\PingController@index');
+        // $api->get('assets/{uuid}/render', 'Api\Assets\RenderFileController@show');
+        // $api->group(['middleware' => ['auth:api'], ], function ($api) {
+        //     // $api->group(['prefix' => 'users'], function ($api) {
+        //     //     $api->get('/', 'Api\Users\UsersController@index');
+        //     //     $api->post('/', 'Api\Users\UsersController@store');
+        //     //     $api->get('/{uuid}', 'Api\Users\UsersController@show');
+        //     //     $api->put('/{uuid}', 'Api\Users\UsersController@update');
+        //     //     $api->patch('/{uuid}', 'Api\Users\UsersController@update');
+        //     //     $api->delete('/{uuid}', 'Api\Users\UsersController@destroy');
+        //     // });
+        //     $api->group(['prefix' => 'roles'], function ($api) {
+        //         $api->get('/', 'Api\Users\RolesController@index');
+        //         $api->post('/', 'Api\Users\RolesController@store');
+        //         $api->get('/{uuid}', 'Api\Users\RolesController@show');
+        //         $api->put('/{uuid}', 'Api\Users\RolesController@update');
+        //         $api->patch('/{uuid}', 'Api\Users\RolesController@update');
+        //         $api->delete('/{uuid}', 'Api\Users\RolesController@destroy');
+        //     });
+        //     $api->get('permissions', 'Api\Users\PermissionsController@index');
+        //     $api->group(['prefix' => 'me'], function($api) {
+        //         $api->get('/', 'Api\Users\ProfileController@index');
+        //         $api->put('/', 'Api\Users\ProfileController@update');
+        //         $api->patch('/', 'Api\Users\ProfileController@update');
+        //         $api->put('/password', 'Api\Users\ProfileController@updatePassword');
+        //     });
+        //     $api->group(['prefix' => 'assets'], function($api) {
+        //         $api->post('/', 'Api\Assets\UploadFileController@store');
+        //     });
+        // });
 
     });
 

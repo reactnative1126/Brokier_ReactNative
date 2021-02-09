@@ -8,6 +8,7 @@ use App\Model\Listing;
 use App\Model\Like;
 use App\Model\Room;
 use App\Model\Search;
+use App\Model\Referral;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Dingo\Api\Routing\Helpers;
@@ -690,6 +691,45 @@ class ListingsController extends Controller
         $data['message'] = "Success";
         $data['count'] = count($likes);
         $data['likes'] = $likes;
+
+        return $data;
+    }
+
+    public function setViewings(Request $request)
+    {
+        $listingId = $request->get('listingId');
+        $userId = $request->get('userId');
+        $agentUniqueId = $request->get('agentUniqueId');
+
+        $referral = new Referral;
+        $referralId = $referral->insertGetId(['listing_id' => $listingId, 'user_id' => $userId, 'unique_id' => $agentUniqueId]);
+
+        $data['status'] = 200;
+        $data['message'] = "Success";
+        // $data['count'] = count($listings);
+        // $data['listings'] = $listings;
+        $data['referralId'] = $referralId;
+
+        return $data;
+    }
+
+    public function getViewings(Request $request)
+    {
+        $userId = $request->get('userId');
+        $agentUniqueId = $request->get('agentId');
+        $offset = $request->get('offset');
+        
+
+        $referral = new Referral;
+        $listingIds = $referral->where(['user_id' => $userId], ['unique_id' => $agentUniqueId])->pluck('listing_id');
+
+        $query = new Listing;
+        $listings = $query->select('id', 'status', 'type', 'lastStatus', 'listPrice', 'soldPrice', 'daysOnMarket', 'streetNumber', 'streetName', 'streetSuffix', 'district', 'numBedrooms', 'numBedroomsPlus', 'numBathrooms', 'numBathroomsPlus', 'numParkingSpaces', 'images', DB::raw('0 as count'))->whereIn('id', $listingIds)->orderBy('id', 'desc')->offset($offset * 10)->limit(10)->get();
+
+        $data['status'] = 200;
+        $data['message'] = "Success";
+        $data['count'] = count($listings);
+        $data['listings'] = $listings;
 
         return $data;
     }
