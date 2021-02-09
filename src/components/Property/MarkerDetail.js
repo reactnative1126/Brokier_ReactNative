@@ -13,7 +13,7 @@ import { colors } from "@constants/themes";
 import { images } from "@constants/assets";
 
 export default MarkerDetail = ({ listing, likes, navigation, onLogin, onLike, onShare }) => {
-  const logged = useSelector(state => state.auth.logged);
+  const { logged } = useSelector(state => state.auth);
   return (
     <View key={listing.id} style={styles.imageContainer} >
       <Swiper autoplay={false} showsPagination={false} >
@@ -49,9 +49,9 @@ export default MarkerDetail = ({ listing, likes, navigation, onLogin, onLike, on
       <View style={{ position: 'absolute', bottom: Platform.OS == 'ios' ? 0 : 0, width: wp('100%') }}>
         <LinearGradient colors={['transparent', 'rgba(0, 0, 0, 0.9)']} style={{ padding: 10 }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', paddingBottom: 5 }}>
-            <View>
+            <View style={{ width: wp('100%') - 200 }}>
               <Text style={[{ fontSize: 18, fontWeight: 'bold', color: colors.WHITE }, (listing.lastStatus === 'Sld' || listing.lastStatus === 'Lsd') && { textDecorationLine: 'line-through' }]}>{isCurrency(listing.listPrice)}</Text>
-              <Text style={{ fontSize: 14, color: colors.WHITE }}>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix}. {listing.district}</Text>
+              <Text style={{ fontSize: 14, color: colors.WHITE }} numberOfLines={1}>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix}. {listing.district}</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <View style={{ alignItems: 'center' }}>

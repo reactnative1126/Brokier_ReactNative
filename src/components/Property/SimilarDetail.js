@@ -34,7 +34,7 @@ export default SimilarDetail = ({ navigation, listing }) => {
   return (
     <Card style={styles.container} index={listing.id.toString()}>
       <Loading2 loading={loading} />
-      <TouchableOpacity onPress={() => onDetail(listing.id)}>
+      <TouchableOpacity key={listing.id.toString()} onPress={() => onDetail(listing.id)}>
         <View style={styles.imageContainer}>
           <TouchableOpacity onPress={() => onDetail(listing.id)}>
             <Image style={styles.image} source={{ uri: configs.resURL + listing.images.split('#')[0], cache: 'force-cache' }} defaultSource={images.loading} />

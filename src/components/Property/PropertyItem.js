@@ -21,7 +21,7 @@ const renderPagination = (index, total) => {
   )
 }
 
-export default PropertyItem = ({ listing, likes, onPress, onLike, onShare }) => {
+export default PropertyItem = ({ listing, likes, onPress, onLogin, onLike, onShare }) => {
   const logged = useSelector(state => state.auth.logged);
   return (
     <Card index={listing.id} style={{ marginBottom: 7 }}>
@@ -33,6 +33,7 @@ export default PropertyItem = ({ listing, likes, onPress, onLike, onShare }) => 
         </View>
         <ActionButtons
           like={likes.indexOf(listing.id) > -1}
+          onLogin={() => onLogin()}
           onLike={() => onLike(listing.id)}
           onShare={() => onShare(listing.id)}
         />

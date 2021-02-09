@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, Modal, ActivityIndicator } from "react-native";
 import * as Facebook from 'expo-facebook';
 import * as Google from 'expo-google-app-auth';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { Icon } from "react-native-elements";
@@ -128,8 +129,9 @@ class SignIn extends Component {
         this.props.setLikes(likes);
         this.props.navigation.pop();
       } else {
-        this.setState({ loading: false });
-        alert("User email or password is wrong.");
+        this.setState({ loading: false }, () => {
+          this.setState({ errorEmail: "User email or password is wrong" });
+        });
       }
     })
   }
@@ -137,62 +139,64 @@ class SignIn extends Component {
   render() {
     const { email, password } = this.state;
     return (
-      <View style={styles.container}>
-        <StatusBar hidden />
-        <View style={{ marginTop: 50, width: wp("100%"), alignItems: "flex-start", paddingLeft: 20 }}>
-          <TouchableOpacity onPress={() => this.props.navigation.pop()}><Icon name="close" type="ant-design" size={40} /></TouchableOpacity>
-        </View>
-        <Text style={{ marginTop: 50, fontSize: 34, fontWeight: 'bold' }}> Sign In</Text>
-        <TextInput
-          title="Email" iconName="email" iconType="fontisto" iconSize={20}
-          value={email} secureTextEntry={false} autoCapitalize="none"
-          onChangeText={(email) => this.onValidateEmail(email)}
-        />
-        <Text style={{ width: '90%', marginTop: 5, marginLeft: 100, fontSize: 12, color: colors.RED.DEFAULT }}>{this.state.errorEmail}</Text>
-        <TextInput
-          title="Password" iconName="lock" iconType="entypo" iconSize={20}
-          value={password} secureTextEntry={true}
-          onChangeText={(password) => this.onValidatePassword(password)}
-        />
-        <Text style={{ width: '90%', marginTop: 5, marginLeft: 100, fontSize: 12, color: colors.RED.DEFAULT }}>{this.state.errorPassword}</Text>
-        <NormalButton
-          width={wp("90%")}
-          height={40}
-          color="#0073E4"
-          text="Sign In"
-          textColor={colors.WHITE}
-          onPress={() => this.EPSIGNIN()}
-        />
-        <TouchableOpacity style={{ marginTop: 20 }}><Text style={{ color: "#0072DC", textDecorationLine: "underline" }}>Forgot Password?</Text></TouchableOpacity>
-        <NormalButton
-          width={wp("90%")}
-          height={40}
-          color="#C4DAF0"
-          text="Sign in Facebook"
-          textColor="#0072DC"
-          onPress={() => this.FBSIGNIN()}
-        />
-        <NormalButton
-          width={wp("90%")}
-          height={40}
-          color="#F0C4C4"
-          text="Sign in Google"
-          textColor="#EA5050"
-          onPress={() => this.GGSIGNIN()}
-        />
-        <View style={{ flexDirection: "row", marginTop: 5 }}>
-          <Text style={{ fontSize: 12 }}>Don't you have account? </Text>
-          <TouchableOpacity onPress={() => {
-            this.props.navigation.replace("SignUp");
-          }}><Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY, textDecorationLine: "underline" }}>Sign Up</Text></TouchableOpacity>
-        </View>
-        <Modal animationType="fade" transparent={true} visible={this.state.loading} >
-          <View style={{ flex: 1, backgroundColor: '#00000080', justifyContent: 'center', alignItems: 'center' }}>
-            <View style={{ alignItems: 'center', flexDirection: 'row', flex: 1, justifyContent: "center" }}>
-              <ActivityIndicator style={{ height: 80 }} size="large" color={colors.BLACK} />
-            </View>
+      <View style={{ width: wp('100%'), height: hp('100%'), backgroundColor: '#E3E3E3' }}>
+        <KeyboardAwareScrollView contentContainerStyle={styles.container}>
+          <StatusBar hidden />
+          <View style={{ marginTop: 30, width: wp("100%"), alignItems: "flex-start", paddingLeft: 10 }}>
+            <TouchableOpacity onPress={() => this.props.navigation.pop()}><Icon name="close" type="ant-design" size={30} /></TouchableOpacity>
           </View>
-        </Modal>
+          <Text style={{ marginVertical: 10, fontSize: 34, fontWeight: 'bold' }}> Sign In</Text>
+          <TextInput
+            title="Email" iconName="email" iconType="fontisto" iconSize={20}
+            value={email} secureTextEntry={false} autoCapitalize="none"
+            onChangeText={(email) => this.onValidateEmail(email)}
+          />
+          <Text style={{ width: '90%', marginTop: 5, marginLeft: 100, fontSize: 12, color: colors.RED.DEFAULT }}>{this.state.errorEmail}</Text>
+          <TextInput
+            title="Password" iconName="lock" iconType="entypo" iconSize={20}
+            value={password} secureTextEntry={true}
+            onChangeText={(password) => this.onValidatePassword(password)}
+          />
+          <Text style={{ width: '90%', marginTop: 5, marginLeft: 100, fontSize: 12, color: colors.RED.DEFAULT }}>{this.state.errorPassword}</Text>
+          <NormalButton
+            width={wp("90%")}
+            height={40}
+            color="#0073E4"
+            text="Sign In"
+            textColor={colors.WHITE}
+            onPress={() => this.EPSIGNIN()}
+          />
+          <TouchableOpacity style={{ marginTop: 20 }}><Text style={{ color: "#0072DC", textDecorationLine: "underline" }}>Forgot Password?</Text></TouchableOpacity>
+          <NormalButton
+            width={wp("90%")}
+            height={40}
+            color="#C4DAF0"
+            text="Sign in Facebook"
+            textColor="#0072DC"
+            onPress={() => this.FBSIGNIN()}
+          />
+          <NormalButton
+            width={wp("90%")}
+            height={40}
+            color="#F0C4C4"
+            text="Sign in Google"
+            textColor="#EA5050"
+            onPress={() => this.GGSIGNIN()}
+          />
+          <View style={{ flexDirection: "row", marginTop: 5 }}>
+            <Text style={{ fontSize: 12 }}>Don't you have account? </Text>
+            <TouchableOpacity onPress={() => {
+              this.props.navigation.replace("SignUp");
+            }}><Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY, textDecorationLine: "underline" }}>Sign Up</Text></TouchableOpacity>
+          </View>
+          <Modal animationType="fade" transparent={true} visible={this.state.loading} >
+            <View style={{ flex: 1, backgroundColor: '#00000080', justifyContent: 'center', alignItems: 'center' }}>
+              <View style={{ alignItems: 'center', flexDirection: 'row', flex: 1, justifyContent: "center" }}>
+                <ActivityIndicator style={{ height: 80 }} size="large" color={colors.BLACK} />
+              </View>
+            </View>
+          </Modal>
+        </KeyboardAwareScrollView>
       </View>
     );
   }
@@ -200,7 +204,6 @@ class SignIn extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#E3E3E3",
     alignItems: 'center'
   },

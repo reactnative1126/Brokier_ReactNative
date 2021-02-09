@@ -2,7 +2,7 @@ import axios from '@utils/axios';
 
 export default ListingsService = {
     getListingsMap: async function () {
-        return await axios.get(`/listings/map`, {
+        return axios.get(`/listings/map`, {
             params: {
                 zoom: Math.round(Math.log(360 / global.region.longitudeDelta) / Math.LN2),
                 nw_latitude: global.region.latitude + global.region.latitudeDelta / 2,
@@ -17,7 +17,7 @@ export default ListingsService = {
     },
 
     getListingsList: async function (region, offset, sort) {
-        return await axios.get(`/listings/list`, {
+        return axios.get(`/listings/list`, {
             params: {
                 offset: offset,
                 sort: sort,
@@ -33,7 +33,7 @@ export default ListingsService = {
     },
 
     getListingDetail: async function (id) {
-        return await axios.get(`/listings/detail`, {
+        return axios.get(`/listings/detail`, {
             params: {
                 id: id
             }
@@ -43,7 +43,7 @@ export default ListingsService = {
     },
 
     getDetailHistories: async function (streetNumber, streetName, streetSuffix, unitNumber) {
-        return await axios.get(`/listings/histories`, {
+        return axios.get(`/listings/histories`, {
             params: {
                 streetNumber,
                 streetName,
@@ -56,7 +56,7 @@ export default ListingsService = {
     },
 
     getDetailSimilars: async function (latitude, longitude, status, type, lastStatus, propertyType, numBedrooms) {
-        return await axios.get(`/listings/similars`, {
+        return axios.get(`/listings/similars`, {
             params: {
                 latitude,
                 longitude,
@@ -72,18 +72,17 @@ export default ListingsService = {
     },
 
     getDetailRooms: async function (mlsNumber) {
-        return await axios.get(`/listings/rooms`, {
+        return axios.get(`/listings/rooms`, {
             params: {
                 mlsNumber
             }
         }).then((response) => {
-            console.log(response.data.listings)
             return response.data.listings;
         });
     },
 
     getSearch: async function (search) {
-        return await axios.get(`/listings/search`, {
+        return axios.get(`/listings/search`, {
             params: {
                 search: search
             }
@@ -93,21 +92,23 @@ export default ListingsService = {
     },
 
     setSearches: async function (name, coordinates, userId) {
-        return await axios.post(`/listings/searches`, {
-            name,
-            userId,
-            region: global.region,
-            filters: global.filters,
-            location: global.location,
-            coordinates,
-            description: global.description
+        return axios.get(`/listings/setSearches`, {
+            params: {
+                name,
+                userId,
+                region: global.region,
+                filters: global.filters,
+                location: global.location,
+                coordinates,
+                description: global.description
+            }
         }).then((response) => {
             return response.data.listings;
         });
     },
 
     getSearches: async function (userId) {
-        return await axios.get(`/listings/searches`, {
+        return axios.get(`/listings/getSearches`, {
             params: {
                 userId
             }
@@ -117,16 +118,18 @@ export default ListingsService = {
     },
 
     setLike: async function (userId, listingId) {
-        return await axios.post(`/listings/like`, {
-            userId: userId,
-            listingId: listingId
+        return axios.get(`/listings/setLike`, {
+            params: {
+                userId: userId,
+                listingId: listingId
+            }
         }).then((response) => {
             return response.data.likes;
         });
     },
 
     getLike: async function (userId) {
-        return await axios.get(`/listings/like`, {
+        return axios.get(`/listings/getLike`, {
             params: {
                 userId: userId
             }
@@ -136,13 +139,27 @@ export default ListingsService = {
     },
 
     getFavoriteList: async function (userId, offset) {
-        return await axios.get(`/listings/favorite`, {
+        return axios.get(`/listings/favorite`, {
             params: {
                 userId: userId,
                 offset: offset
             }
         }).then((response) => {
             return response.data.listings;
+        });
+    },
+
+    setReferral: async function (id, user, referralCode) {
+        return axios.get(`/listings/setReferral`, {
+            params: {
+                listingId: id,
+                referralCode,
+                userId: user.id,
+                uniqueId: user.unique_id,
+                userRole: user.user_role
+            }
+        }).then((response) => {
+            return response.data.listings[0];
         });
     },
 }

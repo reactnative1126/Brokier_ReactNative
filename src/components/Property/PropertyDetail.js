@@ -28,12 +28,13 @@ export default PropertyDetail = ({ listing }) => {
   useEffect(() => {
     var imagesArray = [];
     listing.images.split('#').map((image, key) => {
-      imagesArray = [...imagesArray,{ uri: configs.resURL + image }];
+      imagesArray = [...imagesArray, { uri: configs.resURL + image }];
     });
     setImages(imagesArray);
 
     return () => console.log(images);
   }, []);
+
   return (
     <Card index='52'>
       <View>
@@ -46,7 +47,6 @@ export default PropertyDetail = ({ listing }) => {
             {listing.images.split('#').map((image, key) => {
               return (
                 <TouchableOpacity key={key} onPress={() => {
-                  console.log(images)
                   setVisible(true);
                   setIndex(key);
 
@@ -76,9 +76,11 @@ export default PropertyDetail = ({ listing }) => {
               </View>
             </View>
           </View>
-          <View style={{ flex: 1 }}>
-            <View style={[styles.status, { borderColor: listing.lastStatus === 'Sus' ? colors.BLACK : listing.lastStatus === 'Exp' ? colors.BLACK : listing.lastStatus === 'Sld' ? colors.RED.PRIMARY : listing.lastStatus === 'Ter' ? colors.BLACK : listing.lastStatus === 'Dft' ? colors.GREEN.PRIMARY : listing.lastStatus === 'Lsd' ? '#FF9900' : listing.lastStatus === 'Sc' ? colors.BLUE.PRIMARY : listing.lastStatus === 'Lc' ? colors.BLUE.PRIMARY : listing.lastStatus === 'Pc' ? colors.GREEN.PRIMARY : listing.lastStatus === 'Ext' ? colors.GREEN.PRIMARY : listing.lastStatus === 'New' ? colors.GREEN.PRIMARY : null }]}>
-              <Text style={{ fontSize: 14, color: listing.lastStatus === 'Sus' ? colors.BLACK : listing.lastStatus === 'Exp' ? colors.BLACK : listing.lastStatus === 'Sld' ? colors.RED.PRIMARY : listing.lastStatus === 'Ter' ? colors.BLACK : listing.lastStatus === 'Dft' ? colors.GREEN.PRIMARY : listing.lastStatus === 'Lsd' ? '#FF9900' : listing.lastStatus === 'Sc' ? colors.BLUE.PRIMARY : listing.lastStatus === 'Lc' ? colors.BLUE.PRIMARY : listing.lastStatus === 'Pc' ? colors.GREEN.PRIMARY : listing.lastStatus === 'Ext' ? colors.GREEN.PRIMARY : listing.lastStatus === 'New' ? colors.GREEN.PRIMARY : null }} >
+          <View>
+            <View style={styles.status}>
+              <Text style={[
+                { fontSize: 14, color: listing.lastStatus === 'Sus' ? colors.BLACK : listing.lastStatus === 'Exp' ? colors.BLACK : listing.lastStatus === 'Sld' ? colors.RED.PRIMARY : listing.lastStatus === 'Ter' ? colors.BLACK : listing.lastStatus === 'Dft' ? colors.GREEN.PRIMARY : listing.lastStatus === 'Lsd' ? '#FF9900' : listing.lastStatus === 'Sc' ? colors.BLUE.PRIMARY : listing.lastStatus === 'Lc' ? colors.BLUE.PRIMARY : listing.lastStatus === 'Pc' ? colors.GREEN.PRIMARY : listing.lastStatus === 'Ext' ? colors.GREEN.PRIMARY : listing.lastStatus === 'New' ? colors.GREEN.PRIMARY : null },
+                { paddingHorizontal: 5, borderRadius: 3, borderWidth: 1, borderColor: listing.lastStatus === 'Sus' ? colors.BLACK : listing.lastStatus === 'Exp' ? colors.BLACK : listing.lastStatus === 'Sld' ? colors.RED.PRIMARY : listing.lastStatus === 'Ter' ? colors.BLACK : listing.lastStatus === 'Dft' ? colors.GREEN.PRIMARY : listing.lastStatus === 'Lsd' ? '#FF9900' : listing.lastStatus === 'Sc' ? colors.BLUE.PRIMARY : listing.lastStatus === 'Lc' ? colors.BLUE.PRIMARY : listing.lastStatus === 'Pc' ? colors.GREEN.PRIMARY : listing.lastStatus === 'Ext' ? colors.GREEN.PRIMARY : listing.lastStatus === 'New' ? colors.GREEN.PRIMARY : null }]} >
                 {listing.lastStatus === 'Sus' ? 'Suspended' : listing.lastStatus === 'Exp' ? 'Expires' : listing.lastStatus === 'Sld' ? 'Sold' : listing.lastStatus === 'Ter' ? 'Terminated' : listing.lastStatus === 'Dft' ? 'Deal' : listing.lastStatus === 'Lsd' ? 'Leased' : listing.lastStatus === 'Sc' ? 'Sold Con' : listing.lastStatus === 'Lc' ? 'Leased Con' : listing.lastStatus === 'Pc' ? 'Price Change' : listing.lastStatus === 'Ext' ? 'Extended' : listing.lastStatus === 'New' ? 'For Sale' : null}
                 {listing.lastStatus == 'Sld' && ' ' + moment(listing.soldDate).format('MMM YYYY')}
                 {listing.lastStatus == 'Lsd' && ' ' + moment(listing.soldDate).format('DD MMM YYYY')}
@@ -135,11 +137,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
     marginVertical: 5,
-    paddingHorizontal: 5,
-    // width: 200,
+    // paddingHorizontal: 5,
+    // width: 100,
     height: 20,
-    borderWidth: 1,
-    borderRadius: 3,
+    // borderWidth: 1,
+    // borderRadius: 3,
   },
   day: {
     justifyContent: "center",

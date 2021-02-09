@@ -3,7 +3,6 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "@modules";
 import AppContainer from "@navigations";
-import { ListingsService } from "@modules/services";
 
 import configs from "@constants/configs";
 import i18n from "@utils/i18n";
@@ -66,19 +65,6 @@ global.filters = {
 global.marker = false;
 
 export default class App extends Component {
-  // async componentDidMount() {
-  //   for (let offset = 0; offset < 20; offset++) {  
-  //       if (offset < 3) {
-  //         var listings = await ListingsService.getListingsAvailable(offset);
-  //         global.listings = [...global.listings, ...listings];
-  //       } else {
-  //         var listings = await ListingsService.getListingsUnAvailable(offset - 3);
-  //         global.listings = [...global.listings, ...listings];
-  //       }
-  //       console.log(offset, '-', global.listings.length);      
-  //   }
-  // }
-
   render() {
     return (
       <Provider store={store}>

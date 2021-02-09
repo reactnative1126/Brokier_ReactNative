@@ -23,7 +23,10 @@ export default SavedSearches = (props) => {
           renderItem={(propertyItem) => (
             <PropertyItem
               propertyItem={propertyItem.item}
-              onPress={() => this.props.navigation.navigate('PropertiesDetail', { propertyItem: propertyItem.item })}
+              onPress={() => props.navigation.navigate('PropertiesDetail', { propertyItem: propertyItem.item })}
+              onLogin={()=>props.navigation.push("Auth")}
+              onShare={(id)=>props.onShare(id)}
+              onLike={(id)=>props.onLike(id)}
             />
           )}
         />

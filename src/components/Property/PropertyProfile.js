@@ -1,30 +1,39 @@
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
 import Card from '../Card/Card';
+import { isEmpty } from "@utils/functions";
 import { colors } from "@constants/themes";
 import { images } from "@constants/assets";
 
-export default PropertyProfile = (props) => {
+export default PropertyProfile = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const { logged, user_info } = useSelector(state => state.auth);
+
   return (
-    <Card index={54} style={styles.profile}>
-      <Text style={{ fontSize: 14, marginBottom: 5 }}>Ben Johnson Long Name</Text>
-      <Image
-        style={{ width: 80, height: 80, borderRadius: 40 }}
-        source={images.avatar}
-      />
-      <Text style={{ fontSize: 12 }}>Re-Max Realtron</Text>
-      <Text style={{ fontSize: 12, marginBottom: 5 }}>Sales Representative</Text>
-      <View style={{ width: '60%', flexDirection: 'row', justifyContent: 'space-around' }}>
-        <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 100, height: 30, borderWidth: 0.5, borderRadius: 3 }}>
-          <Text style={{ fontSize: 12, }}>Call Agent</Text>
-        </TouchableOpacity>
-        <View style={{width: 50}} />
-        <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 100, height: 30, borderWidth: 0.5, borderRadius: 3 }}>
-          <Text style={{ fontSize: 12, }}>Message Agent</Text>
-        </TouchableOpacity>
-      </View>
-    </Card>
+    <TouchableOpacity onPress={() => {
+        navigation.reset({ index: 1, routes: [{ name: 'App' }] });
+        navigation.navigate('AgentUserProfile');
+    }}>
+      <Card index={54} style={styles.profile}>
+        <Text style={{ fontSize: 14, marginBottom: 5 }}>{!isEmpty(user_info) && user_info.user_name}</Text>
+        <Image
+          style={{ width: 80, height: 80, borderRadius: 40 }}
+          source={images.avatar}
+        />
+        <Text style={{ fontSize: 12, marginVertical: 5 }}>{!isEmpty(user_info) && user_info.brokerage_name}</Text>
+        <View style={{ width: '60%', flexDirection: 'row', justifyContent: 'space-around' }}>
+          <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 100, height: 30, borderWidth: 0.5, borderRadius: 3 }}>
+            <Text style={{ fontSize: 12, }}>Call Agent</Text>
+          </TouchableOpacity>
+          <View style={{ width: 50 }} />
+          <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 100, height: 30, borderWidth: 0.5, borderRadius: 3 }}>
+            <Text style={{ fontSize: 12, }}>Message Agent</Text>
+          </TouchableOpacity>
+        </View>
+      </Card>
+    </TouchableOpacity>
   );
 };
 

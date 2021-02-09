@@ -33,11 +33,11 @@ export default class PropertiesSearch extends Component {
   async searchResult(search) {
     await MapService.getPlaces(search).then(result => {
       this.setState({ locations: result.predictions });
-    }).catch(error => console.log(error)).finally(() => this.setState({ loading: false }));
+    }).catch(error => console.log(error.message)).finally(() => this.setState({ loading: false }));
 
     await ListingsService.getSearch(search).then(listings => {
       this.setState({ listings });
-    }).catch(error => console.log(error)).finally(() => this.setState({ loading: false }));
+    }).catch(error => console.log(error.message)).finally(() => this.setState({ loading: false }));
   }
 
   async onDetail(id) {
@@ -62,7 +62,7 @@ export default class PropertiesSearch extends Component {
           ]
         })
       )
-    }).catch(error => console.log(error)).finally(() => this.setState({ loading: false }));
+    }).catch(error => console.log(error.message)).finally(() => this.setState({ loading: false }));
 
   }
 

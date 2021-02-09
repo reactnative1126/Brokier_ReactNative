@@ -6,6 +6,7 @@ import ActionButtons from "./Buttons/ActionButtons";
 import PickerButton from "./Buttons/PickerButton";
 import NormalButton from "./Buttons/NormalButton";
 import TextInput from "./TextInput/TextInput";
+import TextInput2 from "./TextInput/TextInput2";
 
 import PropertyItem from "./Property/PropertyItem";
 import PropertyFilter from "./Property/PropertyFilter";
@@ -43,6 +44,7 @@ export {
     NormalButton,
 
     TextInput,
+    TextInput2,
     Card, 
     PropertyItem, 
     PropertyFilter, 

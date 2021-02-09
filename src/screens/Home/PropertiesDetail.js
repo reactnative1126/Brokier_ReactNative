@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Share } from "react-native";
 import GoogleStaticMap from 'react-native-google-static-map';
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { setLikes } from "@modules/redux/lists/actions";
 import { Loading2, Header, ActionButtons, PropertyDetail, PropertyHistory, PropertyDescription, PropertySimilar, PropertySchools, PropertyPrices, PropertyProfile, PropertyQuestions } from "@components";
 import { ListingsService } from "@modules/services";
-import { isEmpty } from "@utils/functions";
+import { isEmpty, isCurrency } from "@utils/functions";
 import configs from "@constants/configs";
 import { colors } from "@constants/themes";
 
@@ -40,16 +40,6 @@ class PropertiesDetail extends Component {
         this.setState({ similars });
       });
   }
-
-  async onLike(id) {
-    if (!this.props.logged) {
-      this.props.navigation.push("Auth");
-    } else {
-      await ListingsService.setLike(this.props.user.id, id).then((response) => {
-        this.props.setLikes(response);
-      })
-    }
-  }
   async onSimilar(similar) {
     var status = 'A';
     var type = 'Sale';
@@ -78,6 +68,43 @@ class PropertiesDetail extends Component {
       });
   }
 
+  async onLike(id) {
+    await ListingsService.setLike(this.props.user.id, id).then((response) => {
+      this.props.setLikes(response);
+    });
+  }
+
+  async onShare(id) {
+    const user = this.props.user;
+    var listing = await ListingsService.getListingDetail(id);
+    var status = listing.lastStatus === 'Sus' ? 'Suspended' : listing.lastStatus === 'Exp' ? 'Expires' : listing.lastStatus === 'Sld' ? 'Sold' : listing.lastStatus === 'Ter' ? 'Terminated' : listing.lastStatus === 'Dft' ? 'Deal' : listing.lastStatus === 'Lsd' ? 'Leased' : listing.lastStatus === 'Sc' ? 'Sold Con' : listing.lastStatus === 'Lc' ? 'Leased Con' : listing.lastStatus === 'Pc' ? 'Price Change' : listing.lastStatus === 'Ext' ? 'Extended' : listing.lastStatus === 'New' ? 'For Sale' : null;
+    var image = `${configs.resURL}${listing.images.split('#')[0]}`;
+
+    if (Platform.OS === 'ios') {
+      var subject = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
+      var message = `${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix}: ${status}, ${isCurrency(listing.listPrice).split('.')[0]}, ${listing.neighborhood} ${listing.city}, ${listing.mlsNumber} - Brokier${'\n'}`;
+      if (!isEmpty(user) && user.user_role === 'regular') {
+        message += `https://brokier.web.app/home/A11real0926queen/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+      } else {
+        message += `https://brokier.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+      }
+
+      Share.share({ message }, { subject });
+    } else {
+      var dialogTitle = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
+      var message = `${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix}: ${status}, ${isCurrency(listing.listPrice).split('.')[0]}, ${listing.neighborhood} ${listing.city}, ${listing.mlsNumber} - Brokier${'\n'}`;
+      var title = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
+
+      if (!isEmpty(user) && user.user_role === 'regular') {
+        message += `https://brokier.web.app/home/A11real0926queen/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+      } else {
+        message += `https://brokier.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+      }
+
+      Share.share({ message, title }, { dialogTitle });
+    }
+  };
+
 
   render() {
     const { listing } = this.props.route.params;
@@ -96,7 +123,12 @@ class PropertiesDetail extends Component {
                   <Text style={{ fontSize: 11 }}>{listing.neighborhood} {listing.city}</Text>
                 </View>
               </View>
-              <ActionButtons like={this.props.likes.indexOf(listing.id) > -1} onLike={() => this.onLike(listing.id)} />
+              <ActionButtons
+                like={this.props.likes.indexOf(listing.id) > -1}
+                onLogin={() => this.props.navigation.push("Auth")}
+                onLike={() => this.onLike(listing.id)}
+                onShare={() => this.onShare(listing.id)}
+              />
             </View>
           </View>
         </Header>
@@ -112,7 +144,11 @@ class PropertiesDetail extends Component {
           />
           <PropertyDescription listing={listing} loading={() => this.setState({ loading: !this.state.loading })} />
           <PropertyPrices listing={listing} />
-          <PropertyProfile />
+          {
+            (this.props.logged && !isEmpty(this.props.user.agent_unique_id)) && (
+              <PropertyProfile navigation={this.props.navigation} userInfo={this.props.user} />
+            )
+          }
           <PropertySimilar
             navigation={this.props.navigation}
             similar={this.state.similar}
@@ -122,19 +158,20 @@ class PropertiesDetail extends Component {
           <View style={{ height: 150 }} />
         </ScrollView>
         <View style={styles.bottomBar}>
-          <View style={{ width: wp("100%") - 170, height: 60 }}>
-            <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", width: "100%", height: 35, borderRadius: 5, backgroundColor: colors.RED.PRIMARY }}>
-              <Text style={{ fontSize: 16, fontWeight: "bold", color: colors.WHITE, }} >
-                Schedule Viewing
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ width: 120, height: 60 }}>
-            <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", width: "100%", height: 35, borderRadius: 5, backgroundColor: '#E1E1E1', borderWidth: 1, borderColor: '#B0AEAE' }}>
-              <Text style={{ fontSize: 12, fontWeight: "bold", color: '#7E7E7E' }} >
-                Ask Questions
-              </Text>
-            </TouchableOpacity>
+          <View style={{ width: wp("100%"), paddingHorizontal: 20, height: 60 }}>
+            {(this.props.logged && !isEmpty(this.props.user.agent_unique_id)) ? (
+              <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", width: "100%", height: 35, borderRadius: 5, backgroundColor: '#E1E1E1' }}>
+                <Text style={{ fontSize: 16, fontWeight: "bold", color: '#434343', }} >
+                  Connections
+                  </Text>
+              </TouchableOpacity>
+            ) : (
+                <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", width: "100%", height: 35, borderRadius: 5, backgroundColor: colors.RED.PRIMARY }}>
+                  <Text style={{ fontSize: 16, fontWeight: "bold", color: colors.WHITE, }} >
+                    Schedule Viewing
+                  </Text>
+                </TouchableOpacity>
+              )}
           </View>
         </View>
       </View>
@@ -150,7 +187,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
+    // marginTop: 10,
     padding: 2,
     width: "100%",
     height: 35,
@@ -187,8 +224,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: wp("100%"),
     height: 80,
-    backgroundColor: colors.GREY.PRIMARY,
-    padding: 20,
+    backgroundColor: '#F6F6F6',
+    paddingVertical: 20,
   },
 });
 

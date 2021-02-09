@@ -8,7 +8,7 @@ import { colors } from "@constants/themes";
 
 export default PropertySimilar = ({ navigation, similars, similar, onSimilar }) => {
   return (
-    <Card index='similar' style={styles.similar}>
+    <Card index='similar1' style={styles.similar}>
       <Text style={{ fontSize: 14, fontWeight: "bold" }}>
         Similar Listings:
       </Text>

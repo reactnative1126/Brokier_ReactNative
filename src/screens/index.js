@@ -1,7 +1,5 @@
-import Splash from '@screens/Auth';
 import SignIn from '@screens/Auth/SignIn';
 import SignUp from '@screens/Auth/SignUp';
-
 import PropertiesHome from '@screens/Home/PropertiesHome';
 import PropertiesDetail from '@screens/Home/PropertiesDetail';
 import PropertiesSearch from '@screens/Home/PropertiesSearch';
@@ -16,7 +14,7 @@ import AccountSettings from '@screens/Profile/AccountSettings';
 
 
 export {
-    Splash, SignIn, SignUp,
+    SignIn, SignUp,
     PropertiesHome, PropertiesDetail, PropertiesSearch,
     Favorite,
     Mortgage,

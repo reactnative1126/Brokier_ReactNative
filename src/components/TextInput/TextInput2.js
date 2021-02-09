@@ -1,11 +1,11 @@
 import React from "react";
-import {  StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { Icon, Input } from "react-native-elements"; 
-import { colors } from "@constants/themes"; 
+import { Icon, Input } from "react-native-elements";
+import { colors } from "@constants/themes";
 
-export default TextInput = (props) => {
+export default TextInput2 = (props) => {
   return (
     <View style={styles.input}>
       <Text style={{ marginLeft: 50, marginBottom: 5, fontSize: 12 }}>{props.title}</Text>
@@ -15,12 +15,14 @@ export default TextInput = (props) => {
         </View>
         <Input
           value={props.value}
+          autoFocus={true}
+          keyboardType={props.keyboardType}
           secureTextEntry={props.secureTextEntry}
           autoCapitalize={props.autoCapitalize}
           onChangeText={(text) => props.onChangeText(text)}
           inputContainerStyle={styles.inputContainerStyle}
           containerStyle={styles.textInputStyle}
-        inputStyle={styles.inputTextStyle}
+          inputStyle={styles.inputTextStyle}
         />
       </View>
     </View>
@@ -29,8 +31,8 @@ export default TextInput = (props) => {
 
 const styles = StyleSheet.create({
   input: {
-    marginTop: 20,
-    width: wp("90%")
+    marginTop: 10,
+    width: "90%"
   },
   main: {
     flexDirection: "row",

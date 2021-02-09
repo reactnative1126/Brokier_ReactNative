@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Modal, ActivityIndicator } from "react-native";
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { Icon } from "react-native-elements";
 import { connect } from "react-redux";
-import { Loading, Header, PickerButton } from "@components";
+import { Header, PickerButton } from "@components";
 import { colors } from "@constants/themes";
+import { setUser } from "@modules/redux/auth/actions";
+import { isEmpty, validateEmail, validateMobile, validateLength } from "@utils/functions";
 
 const speeds = [
   { value: 0, label: 'Instant' },
@@ -22,8 +24,223 @@ class AccountSettings extends Component {
       emailNotification: false,
       textNotification: false,
       speedStatus: false,
-      speed: 'Instant'
+      speed: 'Instant',
+
+      name: '',
+      errorName: '',
+      visibleName: false,
+      email: '',
+      errorEmail: '',
+      visibleEmail: false,
+      phone: '',
+      errorPhone: '',
+      visiblePhone: false,
     };
+  }
+
+  onValidateName(name) {
+    this.setState({ name }, () => {
+      if (isEmpty(this.state.name)) {
+        this.setState({ errorName: 'Please enter user name' });
+      } else {
+        if (!validateLength(this.state.name, 2)) {
+          this.setState({ errorName: 'Please enter 2+ characters' })
+        } else {
+          this.setState({ errorName: '' });
+        }
+      }
+    })
+  }
+
+  onValidateEmail(email) {
+    this.setState({ email }, () => {
+      if (isEmpty(this.state.email)) {
+        this.setState({ errorEmail: 'Please enter user email' });
+      } else {
+        if (!validateEmail(this.state.email)) {
+          this.setState({ errorEmail: 'Please enter correct email format' })
+        } else {
+          this.setState({ errorEmail: '' });
+        }
+      }
+    })
+  }
+
+  onValidatePhone(phone) {
+    this.setState({ phone }, () => {
+      if (isEmpty(this.state.phone)) {
+        this.setState({ errorPhone: 'Please enter Phone number' });
+      } else {
+        if (!validateMobile(this.state.phone)) {
+          this.setState({ errorPhone: 'Please enter correct phone number' });
+        } else {
+          this.setState({ errorPhone: '' });
+        }
+      }
+    })
+  }
+
+  async onName() {
+    this.setState({ loading: true, visibleName: false });
+    await AuthService.updateUser({
+      user_id: this.props.user.id,
+      unique_id: this.props.user.unique_id,
+      name: this.state.name,
+      email: this.props.user.user_email,
+      brokerage_name: this.props.user.brokerage_name,
+      phone: this.props.user.user_phone,
+      website: this.props.user.user_website,
+      instagram_id: this.props.user.user_instagram_id,
+      photo: this.props.user.user_photo,
+      role: this.props.user.user_role,
+    }).then(async (res) => {
+      this.setState({ loading: false });
+      if (res.count > 0) {
+        this.props.setUser(res.users[0]);
+      }
+    }).catch((err) => {
+      this.setState({ loading: false });
+    });
+  }
+
+  async onEmail() {
+    this.setState({ loading: true, visibleEmail: false });
+    await AuthService.updateUser({
+      user_id: this.props.user.id,
+      unique_id: this.props.user.unique_id,
+      name: this.props.user.user_name,
+      email: this.state.email,
+      brokerage_name: this.props.user.brokerage_name,
+      phone: this.props.user.user_phone,
+      website: this.props.user.user_website,
+      instagram_id: this.props.user.user_instagram_id,
+      photo: this.props.user.user_photo,
+      role: this.props.user.user_role,
+    }).then(async (res) => {
+      this.setState({ loading: false });
+      if (res.count > 0) {
+        this.props.setUser(res.users[0]);
+      }
+    }).catch((err) => {
+      this.setState({ loading: false });
+    });
+  }
+
+  async onPhone() {
+    this.setState({ loading: true, visiblePhone: false });
+    await AuthService.updateUser({
+      user_id: this.props.user.id,
+      unique_id: this.props.user.unique_id,
+      name: this.props.user.user_name,
+      email: this.props.user.user_email,
+      brokerage_name: this.props.user.brokerage_name,
+      phone: this.state.phone,
+      website: this.props.user.user_website,
+      instagram_id: this.props.user.user_instagram_id,
+      photo: this.props.user.user_photo,
+      role: this.props.user.user_role,
+    }).then(async (res) => {
+      this.setState({ loading: false });
+      if (res.count > 0) {
+        this.props.setUser(res.users[0]);
+      }
+    }).catch((err) => {
+      this.setState({ loading: false });
+    });
+  }
+
+  renderName() {
+    return (
+      <Modal visible={this.state.visibleName} animationType="none" swipeArea={50} transparent={true}>
+        <View style={styles.wrapper}>
+          <Text style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}>Change User Name</Text>
+          <Text style={{ marginVertical: 10, width: '80%', textAlign: 'center' }}>Would you change User Name?</Text>
+          <TextInput2
+            title="User Name" iconName="user" iconType="evilicon" iconSize={20}
+            value={this.state.name} autoCapitalize="none"
+            onChangeText={(name) => this.onValidateName(name)}
+          />
+          <Text style={{ width: '90%', marginTop: 5, marginLeft: 100, fontSize: 12, color: colors.RED.DEFAULT }}>{this.state.errorName}</Text>
+          <View style={styles.buttonView}>
+            <TouchableOpacity style={styles.cancelButton} onPress={() => {
+              this.setState({ name: '', errorName: '', visibleName: false })
+            }}>
+              <Text style={{ fontSize: 16, color: colors.WHITE, fontWeight: 'bold' }}>Discard</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={(!isEmpty(this.state.name) && isEmpty(this.state.errorName)) ? styles.submitButton : styles.disableButton}
+              disabled={isEmpty(this.state.name) || !isEmpty(this.state.errorName)}
+              onPress={() => this.onName()}
+            >
+              <Text style={{ fontSize: 16, color: colors.WHITE, fontWeight: 'bold' }}>Change</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.overlay} />
+      </Modal>
+    )
+  }
+
+  renderEmail() {
+    return (
+      <Modal visible={this.state.visibleEmail} animationType="none" swipeArea={50} transparent={true}>
+        <View style={styles.wrapper}>
+          <Text style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}>Change User Email</Text>
+          <Text style={{ marginVertical: 10, width: '80%', textAlign: 'center' }}>Would you change User Email?</Text>
+          <TextInput2
+            title="User Email" iconName="email" iconType="fontisto" iconSize={20}
+            value={this.state.email} autoCapitalize="none"
+            onChangeText={(email) => this.onValidateEmail(email)}
+          />
+          <Text style={{ width: '90%', marginTop: 5, marginLeft: 100, fontSize: 12, color: colors.RED.DEFAULT }}>{this.state.errorEmail}</Text>
+          <View style={styles.buttonView}>
+            <TouchableOpacity style={styles.cancelButton} onPress={() => {
+              this.setState({ email: '', errorEmail: '', visibleEmail: false })
+            }}>
+              <Text style={{ fontSize: 16, color: colors.WHITE, fontWeight: 'bold' }}>Discard</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={(!isEmpty(this.state.email) && isEmpty(this.state.errorEmail)) ? styles.submitButton : styles.disableButton}
+              disabled={isEmpty(this.state.email) || !isEmpty(this.state.errorEmail)}
+              onPress={() => this.onEmail()}
+            >
+              <Text style={{ fontSize: 16, color: colors.WHITE, fontWeight: 'bold' }}>Change</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.overlay} />
+      </Modal>
+    )
+  }
+
+  renderPhone() {
+    return (
+      <Modal visible={this.state.visiblePhone} animationType="none" swipeArea={50} transparent={true}>
+        <View style={styles.wrapper}>
+          <Text style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}>Change User Phone number</Text>
+          <Text style={{ marginVertical: 10, width: '80%', textAlign: 'center' }}>Would you change Phone number?</Text>
+          <TextInput2
+            title="Phone number" iconName="phone" iconType="font-awesome" iconSize={20}
+            value={this.state.phone} autoCapitalize="none"
+            keyboardType={'phone-pad'}
+            onChangeText={(phone) => this.onValidatePhone(phone)}
+          />
+          <Text style={{ width: '90%', marginTop: 5, marginLeft: 100, fontSize: 12, color: colors.RED.DEFAULT }}>{this.state.errorPhone}</Text>
+          <View style={styles.buttonView}>
+            <TouchableOpacity style={styles.cancelButton} onPress={() => {
+              this.setState({ phone: '', errorPhone: '', visiblePhone: false })
+            }}>
+              <Text style={{ fontSize: 16, color: colors.WHITE, fontWeight: 'bold' }}>Discard</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={(!isEmpty(this.state.phone) && isEmpty(this.state.errorPhone)) ? styles.submitButton : styles.disableButton}
+              disabled={isEmpty(this.state.phone) || !isEmpty(this.state.errorPhone)}
+              onPress={() => this.onPhone()}
+            >
+              <Text style={{ fontSize: 16, color: colors.WHITE, fontWeight: 'bold' }}>Change</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.overlay} />
+      </Modal>
+    )
   }
 
   render() {
@@ -31,11 +248,10 @@ class AccountSettings extends Component {
     return (
       <View style={styles.container}>
         <StatusBar hidden />
-        <Loading loading={this.state.loading} />
         <Header style={{ backgroundColor: colors.GREY.PRIMARY, paddingLeft: 10, paddingRight: 10 }}>
           <View style={styles.header}>
-            <TouchableOpacity onPress={()=>this.props.navigation.goBack()}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Account Settings</Text>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Account Settings</Text>
             </TouchableOpacity>
           </View>
         </Header>
@@ -43,27 +259,27 @@ class AccountSettings extends Component {
           <View style={{ width: wp('100%'), height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingLeft: 20, paddingRight: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ fontWeight: 'bold' }}>Name: </Text>
-              <Text>Joseph Cildman</Text>
+              <Text>{this.props.user.user_name}</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => this.setState({ name: this.props.user.user_name, visibleName: true })}>
               <Text style={{ fontWeight: 'bold', color: colors.BLUE.PRIMARY }}>Edit</Text>
             </TouchableOpacity>
           </View>
           <View style={{ width: wp('100%'), height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingLeft: 20, paddingRight: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ fontWeight: 'bold' }}>Email: </Text>
-              <Text>Ben@email.com</Text>
+              <Text>{this.props.user.user_email}</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => this.setState({ email: this.props.user.user_email, visibleEmail: true })}>
               <Text style={{ fontWeight: 'bold', color: colors.BLUE.PRIMARY }}>Edit</Text>
             </TouchableOpacity>
           </View>
           <View style={{ width: wp('100%'), height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingLeft: 20, paddingRight: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ fontWeight: 'bold' }}>Phone: </Text>
-              <Text>142-402-2314</Text>
+              <Text>{this.props.user.user_phone}</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => this.setState({ phone: this.props.user.user_phone, visiblePhone: true })}>
               <Text style={{ fontWeight: 'bold', color: colors.BLUE.PRIMARY }}>Edit</Text>
             </TouchableOpacity>
           </View>
@@ -114,6 +330,17 @@ class AccountSettings extends Component {
           </View>
         </ScrollView>
         {speedStatus ? <PickerButton data={speeds} label={speed} onSelect={(label) => this.setState({ speed: label, speedStatus: false })} /> : null}
+        {this.renderName()}
+        {this.renderEmail()}
+        {this.renderPhone()}
+
+        <Modal animationType="fade" transparent={true} visible={this.state.loading} >
+          <View style={{ flex: 1, backgroundColor: '#00000080', justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ alignItems: 'center', flexDirection: 'row', flex: 1, justifyContent: "center" }}>
+              <ActivityIndicator style={{ height: 80 }} size="large" color={colors.BLACK} />
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -129,6 +356,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-end'
   },
+  overlay: {
+    width: wp('100%'),
+    height: hp('100%'),
+    backgroundColor: '#00000080'
+  },
   inputView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -139,6 +371,64 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 0.5,
   },
+  wrapper: {
+    position: 'absolute',
+    top: 100,
+    left: (wp('100%') - 300) / 2,
+    alignItems: 'center',
+    width: 300,
+    height: 230,
+    // backgroundColor: colors.WHITE,
+    backgroundColor: '#E3E3E3',
+    borderRadius: 10,
+    zIndex: 100
+  },
+  buttonView: {
+    position: 'absolute',
+    bottom: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: 35,
+  },
+  cancelButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '50%',
+    height: 35,
+    backgroundColor: colors.RED.PRIMARY,
+    borderBottomLeftRadius: 10,
+  },
+  submitButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '50%',
+    height: 35,
+    backgroundColor: colors.BLUE.PRIMARY,
+    borderBottomRightRadius: 10
+  },
+  disableButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '50%',
+    height: 35,
+    backgroundColor: '#0072DC80',
+    borderBottomRightRadius: 10
+  }
 });
 
-export default connect(undefined, undefined)(AccountSettings);
+const mapStateToProps = state => {
+  return {
+    logged: state.auth.logged,
+    user: state.auth.user_info
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    setUser: (data) => {
+      dispatch(setUser(data))
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountSettings);

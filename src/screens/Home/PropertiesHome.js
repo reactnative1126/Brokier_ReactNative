@@ -5,6 +5,7 @@ import Grid from 'react-native-infinite-scroll-grid';
 import SwitchSelector from "react-native-switch-selector";
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+// import * as Linking from 'expo-linking';
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { Icon } from "react-native-elements";
@@ -16,6 +17,7 @@ import { MapStore } from '@modules/stores';
 import { ListingsService, MapService } from "@modules/services";
 import { isEmpty, isNumber, isCurrency } from "@utils/functions";
 import { colors } from "@constants/themes";
+import configs from "@constants/configs";
 
 class PropertiesHome extends Component {
 
@@ -59,7 +61,6 @@ class PropertiesHome extends Component {
       listings2: [],
       listings3: [],
       details: [],
-      likes: []
     };
     this.props.setTab(true);
   }
@@ -109,7 +110,7 @@ class PropertiesHome extends Component {
     var likes = await ListingsService.getLike(isEmpty(this.props.user) ? 0 : this.props.user.id);
     this.props.setLikes(likes);
     this.setState({
-      listings, listings3, likes, loading: false,
+      listings, listings3, loading: false,
       borderColor: (this.state.forSale && !this.state.sold) || (this.state.forSale && this.state.sold) ? '#549E6550' :
         (this.state.forRent && !this.state.rented) || (this.state.forRent && this.state.rented) ? '#4E9EE950' :
           (!this.state.forSale && this.state.sold) ? '#E4575750' : (!this.state.forRent && this.state.rented) ? '#FF990050' : null,
@@ -139,20 +140,15 @@ class PropertiesHome extends Component {
       var likes = await ListingsService.getLike(isEmpty(this.props.user) ? 0 : this.props.user.id);
       this.props.setLikes(likes);
       if (!this.state.drawing) {
-        this.setState({ listings2: refresh ? listings : [...this.state.listings2, ...listings], likes, loadingMore: false, offset: offset + 1, filter: false, loading: false });
+        this.setState({ listings2: refresh ? listings : [...this.state.listings2, ...listings], loadingMore: false, offset: offset + 1, filter: false, loading: false });
       } else {
-        this.setState({ listings2: refresh ? await MapStore.getRegionMarkers(2, this.state.coordinates, listings) : [...this.state.listings2, ...await MapStore.getRegionMarkers(2, this.state.coordinates, listings)], likes, loadingMore: false, offset: offset + 1, filter: false, loading: false });
+        this.setState({ listings2: refresh ? await MapStore.getRegionMarkers(2, this.state.coordinates, listings) : [...this.state.listings2, ...await MapStore.getRegionMarkers(2, this.state.coordinates, listings)], loadingMore: false, offset: offset + 1, filter: false, loading: false });
       }
     } catch (error) {
       console.log(error.message);
     } finally {
       this.setState({ isLoading: false, loadingMore: false, refreshing: false, filter: false, loading: false, loading2: false });
     }
-  }
-
-  async onDetail(id) {
-    var listing = await ListingsService.getListingDetail(id);
-    this.props.navigation.navigate('PropertiesDetail', { listing });
   }
 
   onView() {
@@ -327,30 +323,45 @@ class PropertiesHome extends Component {
     }
   }
 
+  async onDetail(id) {
+    var listing = await ListingsService.getListingDetail(id);
+    this.props.navigation.navigate('PropertiesDetail', { listing });
+  }
+
   async onLike(id) {
-    if (!this.props.logged) {
-      this.props.navigation.push("Auth");
-    } else {
-      await ListingsService.setLike(this.props.user.id, id).then((response) => {
-        this.setState({ likes: response });
-        this.props.setLikes(response);
-      })
-    }
+    await ListingsService.setLike(this.props.user.id, id).then((response) => {
+      this.props.setLikes(response);
+    });
   }
 
   async onShare(id) {
+    const user = this.props.user;
     var listing = await ListingsService.getListingDetail(id);
-    if (!this.props.logged) {
-      this.props.navigation.push("Auth");
+    var status = listing.lastStatus === 'Sus' ? 'Suspended' : listing.lastStatus === 'Exp' ? 'Expires' : listing.lastStatus === 'Sld' ? 'Sold' : listing.lastStatus === 'Ter' ? 'Terminated' : listing.lastStatus === 'Dft' ? 'Deal' : listing.lastStatus === 'Lsd' ? 'Leased' : listing.lastStatus === 'Sc' ? 'Sold Con' : listing.lastStatus === 'Lc' ? 'Leased Con' : listing.lastStatus === 'Pc' ? 'Price Change' : listing.lastStatus === 'Ext' ? 'Extended' : listing.lastStatus === 'New' ? 'For Sale' : null;
+    var image = `${configs.resURL}${listing.images.split('#')[0]}`;
+
+    if (Platform.OS === 'ios') {
+      var subject = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
+      var message = `${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix}: ${status}, ${isCurrency(listing.listPrice).split('.')[0]}, ${listing.neighborhood} ${listing.city}, ${listing.mlsNumber} - Brokier${'\n'}`;
+      if (!isEmpty(user) && user.user_role === 'regular') {
+        message += `https://brokier.web.app/home/A11real0926queen/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+      } else {
+        message += `https://brokier.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+      }
+
+      Share.share({ message }, { subject });
     } else {
-      var status = listing.lastStatus === 'Sus' ? 'Suspended' : listing.lastStatus === 'Exp' ? 'Expires' : listing.lastStatus === 'Sld' ? 'Sold' : listing.lastStatus === 'Ter' ? 'Terminated' : listing.lastStatus === 'Dft' ? 'Deal' : listing.lastStatus === 'Lsd' ? 'Leased' : listing.lastStatus === 'Sc' ? 'Sold Con' : listing.lastStatus === 'Lc' ? 'Leased Con' : listing.lastStatus === 'Pc' ? 'Price Change' : listing.lastStatus === 'Ext' ? 'Extended' : listing.lastStatus === 'New' ? 'For Sale' : null
-      Share.share({
-        message: `Brokier - ${status}, ${isCurrency(listing.listPrice).split('.')[0]}, ${listing.neighborhood} ${listing.city}, `,
-        title: `Brokier - ${listing.streetNumber}`,
-        url: 'https://brokier.web.app/detail/' + listing.mlsNumber
-      }, 
-      { subject: 'Brokier - Real Estates' }
-      )
+      var dialogTitle = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
+      var message = `${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix}: ${status}, ${isCurrency(listing.listPrice).split('.')[0]}, ${listing.neighborhood} ${listing.city}, ${listing.mlsNumber} - Brokier${'\n'}`;
+      var title = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
+
+      if (!isEmpty(user) && user.user_role === 'regular') {
+        message += `https://brokier.web.app/home/A11real0926queen/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+      } else {
+        message += `https://brokier.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+      }
+
+      Share.share({ message, title }, { dialogTitle });
     }
   };
 
@@ -437,7 +448,7 @@ class PropertiesHome extends Component {
               clusterColor={"#140c98"}
               spiderLineColor={"#140c98"}
               onPanDrag={(e) => this.onPanDrag(e)}
-              // onMarkerDragEnd={() => alert("OK")}
+            // onMarkerDragEnd={() => alert("OK")}
             >
               {/* {(this.state.drawing && !isEmpty(this.state.coordinates)) ? (
                 this.state.coordinates.map((marker, key) => (
@@ -523,9 +534,9 @@ class PropertiesHome extends Component {
                   listing={listing.item}
                   likes={this.props.likes}
                   onPress={() => this.onDetail(listing.item.id)}
+                  onLogin={() => this.props.navigation.push("Auth")}
                   onLike={(id) => this.onLike(id)}
                   onShare={(id) => this.onShare(id)}
-                  onComment={() => this.props.navigation.push("Auth")}
                 />
               )}
               refreshing={this.state.refreshing}
@@ -633,7 +644,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
+    // marginTop: 10,
     padding: 2,
     width: "100%",
     height: 35,
