@@ -55,7 +55,7 @@ class SignIn extends Component {
     })
   }
 
-  async EPSIGNIN() {
+  EPSIGNIN() {
     if (isEmpty(this.state.email)) {
       this.setState({ errorEmail: 'Please enter email' });
     }
@@ -75,10 +75,10 @@ class SignIn extends Component {
         permissions: ['public_profile', "email"],
       });
       if (result.type == "success") {
-        await fetch(`https://graph.facebook.com/me?access_token=${result.token}`)
+        fetch(`https://graph.facebook.com/me?access_token=${result.token}`)
           .then(response => response.json())
-          .then(async (res) => {
-            await fetch(`https://graph.facebook.com/${res.id}?fields=birthday,email,hometown&access_token=${result.token}`)
+          .then((res) => {
+            fetch(`https://graph.facebook.com/${res.id}?fields=birthday,email,hometown&access_token=${result.token}`)
               .then(resp => resp.json())
               .then((json) => {
                 this.setState({ email: json.email, password: '123456', loading: true }, () => {
@@ -117,8 +117,8 @@ class SignIn extends Component {
     }
   }
 
-  async SIGNIN() {
-    await AuthService.getUser({
+  SIGNIN() {
+    AuthService.getUser({
       email: this.state.email,
       password: this.state.password
     }).then(async (res) => {

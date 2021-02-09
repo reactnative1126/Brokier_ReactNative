@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { Profile, AgentUserProfile, AgentEditProfile, AgentViewProfile, AccountSettings } from '@screens';
+import { Profile, AgentUserProfile, AgentEditProfile, AgentViewProfile, AccountSettings, ReferredConnections, BookedViewings } from '@screens';
 import { navOptionHandler } from '@utils/functions';
 
 const StactProfile = createStackNavigator();
@@ -13,6 +13,8 @@ export default ProfileStack = () => {
       <StactProfile.Screen name="AgentEditProfile" component={AgentEditProfile} options={navOptionHandler} />
       <StactProfile.Screen name="AgentViewProfile" component={AgentViewProfile} options={navOptionHandler} />
       <StactProfile.Screen name="AccountSettings" component={AccountSettings} options={navOptionHandler} />
+      <StactProfile.Screen name="ReferredConnections" component={ReferredConnections} options={navOptionHandler} />
+      <StactProfile.Screen name="BookedViewings" component={BookedViewings} options={navOptionHandler} />
     </StactProfile.Navigator>
   )
 }

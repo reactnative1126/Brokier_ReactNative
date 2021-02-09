@@ -1,7 +1,7 @@
 import axios from '@utils/axios';
 
 export default AuthService = {
-    getEmail: async function (userEmail) {
+    getEmail: function (userEmail) {
         return axios.get(`/users/validate`, {
             params: {
                 userEmail: userEmail
@@ -10,7 +10,7 @@ export default AuthService = {
             return response.data;
         });
     },
-    setUser: async function (params) {
+    setUser: function (params) {
         return axios.get(`/users/setUser`, {
             params: {
                 unique_id: params.unique_id,
@@ -23,7 +23,7 @@ export default AuthService = {
             return response.data;
         });
     },
-    getUser: async function (params) {
+    getUser: function (params) {
         return axios.get(`/users/getUser`, {
             params: {
                 email: params.email,
@@ -33,7 +33,16 @@ export default AuthService = {
             return response.data;
         });
     },
-    updateUser: async function (params) {
+    getReferral: function (params) {
+        return axios.get(`/users/getReferral`, {
+            params: {
+                uniqueId: params.uniqueId
+            }
+        }).then((response) => {
+            return response.data;
+        });
+    },
+    updateUser: function (params) {
         return axios.get(`/users/updateUser`, {
             params: {
                 user_id: params.user_id,
@@ -51,7 +60,7 @@ export default AuthService = {
             return response.data;
         });
     },
-    uploadAvatar: async function (data) {
+    uploadAvatar: function (data) {
         return axios.get(`/users/uploadAvatar`, {
             params: {
                 upload: data

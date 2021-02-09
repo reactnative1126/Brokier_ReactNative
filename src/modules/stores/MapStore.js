@@ -162,7 +162,7 @@ class Store {
     return inside
   }
 
-  async getRegionMarkers(type, points, listings) {
+  getRegionMarkers(type, points, listings) {
     var results = [];
     listings.map((listing, key) => {
       var point = {

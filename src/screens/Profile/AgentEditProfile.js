@@ -104,9 +104,9 @@ class AgentEditProfile extends Component {
     })
   }
 
-  async onBroker() {
+  onBroker() {
     this.setState({ loading: true, visibleBroker: false });
-    await AuthService.updateUser({
+    AuthService.updateUser({
       user_id: this.props.user.id,
       unique_id: generateKey(16),
       name: this.props.user.user_name,
@@ -117,7 +117,7 @@ class AgentEditProfile extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role,
-    }).then(async (res) => {
+    }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
         this.props.setUser(res.users[0]);
@@ -127,9 +127,9 @@ class AgentEditProfile extends Component {
     });
   }
 
-  async onPhone() {
+  onPhone() {
     this.setState({ loading: true, visiblePhone: false });
-    await AuthService.updateUser({
+    AuthService.updateUser({
       user_id: this.props.user.id,
       unique_id: this.props.user.unique_id,
       name: this.props.user.user_name,
@@ -140,7 +140,7 @@ class AgentEditProfile extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role,
-    }).then(async (res) => {
+    }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
         this.props.setUser(res.users[0]);
@@ -150,9 +150,9 @@ class AgentEditProfile extends Component {
     });
   }
 
-  async onEmail() {
+  onEmail() {
     this.setState({ loading: true, visibleEmail: false });
-    await AuthService.updateUser({
+    AuthService.updateUser({
       user_id: this.props.user.id,
       unique_id: this.props.user.unique_id,
       name: this.props.user.user_name,
@@ -163,7 +163,7 @@ class AgentEditProfile extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role,
-    }).then(async (res) => {
+    }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
         this.props.setUser(res.users[0]);
@@ -173,9 +173,9 @@ class AgentEditProfile extends Component {
     });
   }
 
-  async onWebsite() {
+  onWebsite() {
     this.setState({ loading: true, visibleWebsite: false });
-    await AuthService.updateUser({
+    AuthService.updateUser({
       user_id: this.props.user.id,
       unique_id: this.props.user.unique_id,
       name: this.props.user.user_name,
@@ -186,7 +186,7 @@ class AgentEditProfile extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role
-    }).then(async (res) => {
+    }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
         this.props.setUser(res.users[0]);
@@ -196,9 +196,9 @@ class AgentEditProfile extends Component {
     });
   }
 
-  async onInstagram() {
+  onInstagram() {
     this.setState({ loading: true, visibleInstagram: false });
-    await AuthService.updateUser({
+    AuthService.updateUser({
       user_id: this.props.user.id,
       unique_id: this.props.user.unique_id,
       name: this.props.user.user_name,
@@ -209,7 +209,7 @@ class AgentEditProfile extends Component {
       instagram_id: this.state.instagram,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role
-    }).then(async (res) => {
+    }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
         this.props.setUser(res.users[0]);

@@ -30,12 +30,12 @@ export default class PropertiesSearch extends Component {
     }, 1000)
   }
 
-  async searchResult(search) {
-    await MapService.getPlaces(search).then(result => {
+  searchResult(search) {
+    MapService.getPlaces(search).then(result => {
       this.setState({ locations: result.predictions });
     }).catch(error => console.log(error.message)).finally(() => this.setState({ loading: false }));
 
-    await ListingsService.getSearch(search).then(listings => {
+    ListingsService.getSearch(search).then(listings => {
       this.setState({ listings });
     }).catch(error => console.log(error.message)).finally(() => this.setState({ loading: false }));
   }
@@ -45,8 +45,8 @@ export default class PropertiesSearch extends Component {
     this.props.navigation.navigate('PropertiesDetail', { listing });
   }
 
-  async onMap(address) {
-    await MapService.getGeometry(address.replace(/ /g, '+')).then(result => {
+  onMap(address) {
+    MapService.getGeometry(address.replace(/ /g, '+')).then(result => {
       var region = result.results[0];
       global.region = {
         latitude: region.geometry.location.lat,

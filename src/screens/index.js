@@ -11,6 +11,8 @@ import AgentUserProfile from '@screens/Profile/AgentUserProfile';
 import AgentEditProfile from '@screens/Profile/AgentEditProfile';
 import AgentViewProfile from '@screens/Profile/AgentViewProfile';
 import AccountSettings from '@screens/Profile/AccountSettings';
+import ReferredConnections from '@screens/Profile/ReferredConnections';
+import BookedViewings from '@screens/Profile/BookedViewings';
 
 
 export {
@@ -19,5 +21,5 @@ export {
     Favorite,
     Mortgage,
     Market,
-    Profile, AgentUserProfile, AgentEditProfile, AgentViewProfile, AccountSettings
+    Profile, AgentUserProfile, AgentEditProfile, AgentViewProfile, AccountSettings, ReferredConnections, BookedViewings
 }

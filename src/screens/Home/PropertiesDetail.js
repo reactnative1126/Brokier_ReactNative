@@ -26,7 +26,7 @@ class PropertiesDetail extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const { listing } = this.props.route.params;
     ListingsService.getDetailHistories(listing.streetNumber, listing.streetName, listing.streetSuffix, listing.unitNumber)
       .then((histories) => {
@@ -40,7 +40,8 @@ class PropertiesDetail extends Component {
         this.setState({ similars });
       });
   }
-  async onSimilar(similar) {
+
+  onSimilar(similar) {
     var status = 'A';
     var type = 'Sale';
     var lastStatus = null;
@@ -68,8 +69,8 @@ class PropertiesDetail extends Component {
       });
   }
 
-  async onLike(id) {
-    await ListingsService.setLike(this.props.user.id, id).then((response) => {
+  onLike(id) {
+    ListingsService.setLike(this.props.user.id, id).then((response) => {
       this.props.setLikes(response);
     });
   }
@@ -105,6 +106,15 @@ class PropertiesDetail extends Component {
     }
   };
 
+  onViewing(listingId, agentUniqueId, userId) {
+    this.setState({ loading: true });
+    ListingsService.setViewings(listingId, agentUniqueId, userId).then((res) => {
+      alert('Success');
+      this.setState({ loading: false });
+    }).catch((err) => {
+      this.setState({ loading: false });
+    });
+  }
 
   render() {
     const { listing } = this.props.route.params;
@@ -159,14 +169,18 @@ class PropertiesDetail extends Component {
         </ScrollView>
         <View style={styles.bottomBar}>
           <View style={{ width: wp("100%"), paddingHorizontal: 20, height: 60 }}>
-            {(this.props.logged && !isEmpty(this.props.user.agent_unique_id)) ? (
-              <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", width: "100%", height: 35, borderRadius: 5, backgroundColor: '#E1E1E1' }}>
+            {(this.props.logged && this.props.user.user_role == 'agent') ? (
+              <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", width: "100%", height: 35, borderRadius: 5, backgroundColor: '#E1E1E1' }}
+
+              >
                 <Text style={{ fontSize: 16, fontWeight: "bold", color: '#434343', }} >
                   Connections
                   </Text>
               </TouchableOpacity>
             ) : (
-                <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", width: "100%", height: 35, borderRadius: 5, backgroundColor: colors.RED.PRIMARY }}>
+                <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", width: "100%", height: 35, borderRadius: 5, backgroundColor: colors.RED.PRIMARY }}
+                  onPress={() => this.onViewing(listing.id, this.props.user.agent_unique_id, this.props.user.id)}
+                >
                   <Text style={{ fontSize: 16, fontWeight: "bold", color: colors.WHITE, }} >
                     Schedule Viewing
                   </Text>

@@ -71,7 +71,7 @@ class SignUp extends Component {
     })
   }
 
-  async EPSIGNUP() {
+  EPSIGNUP() {
     if (isEmpty(this.state.name)) {
       this.setState({ errorName: 'Please enter name' });
     }
@@ -94,10 +94,10 @@ class SignUp extends Component {
         permissions: ['public_profile', "email"],
       });
       if (result.type == "success") {
-        await fetch(`https://graph.facebook.com/me?access_token=${result.token}`)
+        fetch(`https://graph.facebook.com/me?access_token=${result.token}`)
           .then(response => response.json())
-          .then(async (res) => {
-            await fetch(`https://graph.facebook.com/${res.id}?fields=name,email&access_token=${result.token}`)
+          .then((res) => {
+            fetch(`https://graph.facebook.com/${res.id}?fields=name,email&access_token=${result.token}`)
               .then(resp => resp.json())
               .then((json) => {
                 this.setState({ name: json.name, email: json.email, password: '123456', loading: true }, () => {
@@ -138,9 +138,9 @@ class SignUp extends Component {
   }
 
   async SIGNUP() {
-    await AuthService.getEmail(this.state.email).then(async (response) => {
+    AuthService.getEmail(this.state.email).then(async (response) => {
       if (response.count == 0) {
-        await AuthService.setUser({
+        AuthService.setUser({
           unique_id: generateKey(16),
           name: this.state.name,
           email: this.state.email,
@@ -224,7 +224,7 @@ class SignUp extends Component {
             <Text style={{ fontSize: 12 }}>Do you have already account? </Text>
             <TouchableOpacity onPress={() => this.props.navigation.replace('SignIn')}><Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY, textDecorationLine: "underline" }}>Sign In</Text></TouchableOpacity>
           </View>
-          <View style={{height: 50}} />
+          <View style={{ height: 50 }} />
           <Modal animationType="fade" transparent={true} visible={this.state.loading} >
             <View style={{ flex: 1, backgroundColor: '#00000080', justifyContent: 'center', alignItems: 'center' }}>
               <View style={{ alignItems: 'center', flexDirection: 'row', flex: 1, justifyContent: "center" }}>

@@ -64,9 +64,9 @@ class AgentUserProfile extends Component {
     })
   }
 
-  async onWebsite() {
+  onWebsite() {
     this.setState({ loading: true, visibleWebsite: false });
-    await AuthService.updateUser({
+    AuthService.updateUser({
       user_id: this.props.user.id,
       unique_id: this.props.user.unique_id,
       name: this.props.user.user_name,
@@ -77,7 +77,7 @@ class AgentUserProfile extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role
-    }).then(async (res) => {
+    }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
         this.props.setUser(res.users[0]);
@@ -87,9 +87,9 @@ class AgentUserProfile extends Component {
     });
   }
 
-  async onInstagram() {
+  onInstagram() {
     this.setState({ loading: true, visibleInstagram: false });
-    await AuthService.updateUser({
+    AuthService.updateUser({
       user_id: this.props.user.id,
       unique_id: this.props.user.unique_id,
       name: this.props.user.user_name,
@@ -100,7 +100,7 @@ class AgentUserProfile extends Component {
       instagram_id: this.state.instagram,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role
-    }).then(async (res) => {
+    }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
         this.props.setUser(res.users[0]);
@@ -125,7 +125,7 @@ class AgentUserProfile extends Component {
         type: result.type,
         uri: result.uri
       });
-      await AuthService.uploadAvatar({
+      AuthService.uploadAvatar({
         name: `${this.props.user.unique_id}.${result.type}`,
         type: result.type,
         uri: result.uri
@@ -138,7 +138,7 @@ class AgentUserProfile extends Component {
     }
   }
 
-  async onShare() {
+  onShare() {
     const user = this.props.user;
 
     if (Platform.OS === 'ios') {
@@ -155,6 +155,21 @@ class AgentUserProfile extends Component {
       Share.share({ message, title }, { dialogTitle });
     }
   };
+
+  onReferredConnections() {
+    const user = this.props.user;
+    this.setState({ loading: true });
+    AuthService.getReferral({
+      uniqueId: user.unique_id
+    }).then((res) => {
+      this.setState({ loading: false });
+      if (res.count > 0) {
+        this.props.navigation.navigate('ReferredConnections', {params: res.users});
+      }
+    }).catch((err) => {
+      this.setState({ loading: false });
+    });
+  }
 
   renderWebsite() {
     return (
@@ -319,7 +334,9 @@ class AgentUserProfile extends Component {
             <Icon name="heart" type="font-awesome" size={15} />
             <Text style={{ marginLeft: 20, fontSize: 12 }}>Saved Listings</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ width: wp('100%'), height: 50, flexDirection: 'row', alignItems: 'center', paddingLeft: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}>
+          <TouchableOpacity style={{ width: wp('100%'), height: 50, flexDirection: 'row', alignItems: 'center', paddingLeft: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}
+            onPress={() => this.onReferredConnections()}
+          >
             <Icon name="users" type="font-awesome" size={15} />
             <Text style={{ marginLeft: 20, fontSize: 12 }}>Referred Connections</Text>
           </TouchableOpacity>
