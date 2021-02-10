@@ -11,8 +11,8 @@ export const getListingsMap = () => {
             filters: window.filters
         }
     }).then((response) => {
-            return response.data.listings;
-        });
+        return response.data.listings;
+    });
 };
 
 export const getListingsList = (region, offset, sort) => {
@@ -27,8 +27,8 @@ export const getListingsList = (region, offset, sort) => {
             filters: window.filters
         }
     }).then((response) => {
-            return response.data.listings;
-        });
+        return response.data.listings;
+    });
 };
 
 export const getListingDetail = (id) => {
@@ -92,23 +92,21 @@ export const getSearch = (search) => {
 };
 
 export const setSearches = (name, coordinates, userId) => {
-    return axios.get(`/listings/setSearches`, {
-        params: {
-            name,
-            userId,
-            region: global.region,
-            filters: global.filters,
-            location: global.location,
-            coordinates,
-            description: global.description
-        }
+    return axios.post(`/listings/searches`, {
+        name,
+        userId,
+        region: global.region,
+        filters: global.filters,
+        location: global.location,
+        coordinates,
+        description: global.description
     }).then((response) => {
         return response.data.listings;
     });
 };
 
 export const getSearches = (userId) => {
-    return axios.get(`/listings/getSearches`, {
+    return axios.get(`/listings/searches`, {
         params: {
             userId
         }
@@ -118,18 +116,16 @@ export const getSearches = (userId) => {
 };
 
 export const setLike = (userId, listingId) => {
-    return axios.get(`/listings/setLike`, {
-        params: {
-            userId: userId,
-            listingId: listingId
-        }
+    return axios.post(`/listings/like`, {
+        userId: userId,
+        listingId: listingId
     }).then((response) => {
         return response.data.likes;
     });
 };
 
 export const getLike = (userId) => {
-    return axios.get(`/listings/getLike`, {
+    return axios.get(`/listings/like`, {
         params: {
             userId: userId
         }
@@ -149,16 +145,24 @@ export const getFavoriteList = (userId, offset) => {
     });
 };
 
-export const setReferral = (id, user, referralCode) => {
-    return axios.get(`/listings/setReferral`, {
+export const setViewings = (listingId, agentUniqueId, userId) => {
+    return axios.post(`/listings/viewings`, {
+        listingId,
+        agentUniqueId,
+        userId
+    }).then((response) => {
+        return response.data.listings;
+    });
+};
+
+export const getViewings = (agentId, userId, offset) => {
+    return axios.get(`/listings/viewings`, {
         params: {
-            listingId: id,
-            referralCode,
-            userId: user.id,
-            uniqueId: user.unique_id,
-            userRole: user.user_role
+            agentId,
+            userId,
+            offset
         }
     }).then((response) => {
-        return response.data.listings[0];
+        return response.data.listings;
     });
 };
