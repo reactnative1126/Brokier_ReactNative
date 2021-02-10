@@ -10,6 +10,7 @@ import { images } from "@constants/assets";
 import { setUser, signOut } from "@modules/redux/auth/actions";
 import { AuthService } from "@modules/services";
 import { isEmpty, validateMobile, validateEmail, validateLength } from "@utils/functions";
+import configs from "@constants/configs";
 
 class AgentViewProfile extends Component {
   constructor(props) {
@@ -314,7 +315,7 @@ class AgentViewProfile extends Component {
           <View style={styles.header}>
             <Image
               style={{ width: 70, height: 70, borderRadius: 35 }}
-              source={images.avatar}
+              source={isEmpty(this.props.user.user_photo) ? images.avatar : {uri: configs.avatarURL + this.props.user.user_photo}}
             />
             <View style={{ marginLeft: 10, width: 200 }}>
               <TouchableOpacity onPress={() => this.props.navigation.goBack()}>

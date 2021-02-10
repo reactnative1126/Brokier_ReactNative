@@ -11,6 +11,8 @@ import { AuthService } from "@modules/services";
 import { Loading, Header } from "@components";
 import { colors } from "@constants/themes";
 import { isEmpty, validateLength } from "@utils/functions";
+import configs from "@constants/configs";
+import axios from 'axios';
 
 class AgentUserProfile extends Component {
   constructor(props) {
@@ -118,22 +120,41 @@ class AgentUserProfile extends Component {
       quality: 1,
     });
     if (!result.cancelled) {
-      // this.setState({photo: result.uri});
-      let formData = new FormData();
-      formData.append('upload', {
+      this.setState({ loading: true });
+      let data = new FormData();
+      data.append('image', {
         name: `${this.props.user.unique_id}.${result.type}`,
         type: result.type,
         uri: result.uri
       });
-      AuthService.uploadAvatar({
-        name: `${this.props.user.unique_id}.${result.type}`,
-        type: result.type,
-        uri: result.uri
-      }).then(async (res) => {
-
-      }).catch((err) => {
-        this.setState({ loading: false });
-      });
+      axios.post(`${configs.apiURL}/users/uploadAvatar`, data, {
+        headers: {
+          'Accept': 'application/json',
+          'content-Type': 'multipart/form-data'
+        },
+        responseType: 'json'
+      }).then(res => {
+        AuthService.updateUser({
+          user_id: this.props.user.id,
+          unique_id: this.props.user.unique_id,
+          name: this.props.user.user_name,
+          email: this.props.user.user_email,
+          brokerage_name: this.props.user.brokerage_name,
+          phone: this.props.user.user_phone,
+          website: this.props.user.user_website,
+          instagram_id: this.state.instagram,
+          photo: res.data.path,
+          role: this.props.user.user_role
+        }).then((res) => {
+          this.setState({ loading: false });
+          if (res.count > 0) {
+            this.setState({ loading: false });
+            this.props.setUser(res.users[0]);
+          }
+        }).catch((err) => {
+          this.setState({ loading: false });
+        });
+      })
 
     }
   }
@@ -164,7 +185,7 @@ class AgentUserProfile extends Component {
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
-        this.props.navigation.navigate('ReferredConnections', {params: res.users});
+        this.props.navigation.navigate('ReferredConnections', { params: res.users });
       }
     }).catch((err) => {
       this.setState({ loading: false });
@@ -256,8 +277,7 @@ class AgentUserProfile extends Component {
               </View>
             </View>
             <TouchableOpacity onPress={() => this.onAvatar()}>
-              <Image style={{ width: 50, height: 50, borderRadius: 25 }} source={isEmpty(this.state.photo) ? require('@assets/images/addphoto.jpg') : { uri: this.state.photo }} />
-              {/* <Image style={{ width: 50, height: 50, borderRadius: 25 }} source={isEmpty(this.props.user.user_photo) ? require('@assets/images/addphoto.jpg') : {uri: configs.avatarURL + this.props.user.user_photo}} /> */}
+              <Image style={{ width: 50, height: 50, borderRadius: 25 }} source={isEmpty(this.props.user.user_photo) ? require('@assets/images/addphoto.jpg') : { uri: configs.avatarURL + this.props.user.user_photo }} />
             </TouchableOpacity>
           </View>
         </Header>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Modal, ActivityIndicator } from "react-native";
+import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Modal, ActivityIndicator, Image } from "react-native";
+import * as ImagePicker from 'expo-image-picker';
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { connect } from "react-redux";
@@ -8,6 +9,8 @@ import { Loading, Header } from "@components";
 import { colors } from "@constants/themes";
 import { AuthService } from "@modules/services";
 import { isEmpty, validateEmail, validateMobile, validateLength, generateKey } from "@utils/functions";
+import configs from "@constants/configs";
+import axios from 'axios';
 
 class AgentEditProfile extends Component {
   constructor(props) {
@@ -219,6 +222,53 @@ class AgentEditProfile extends Component {
     });
   }
 
+  async onAvatar() {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      this.setState({ loading: true });
+      let data = new FormData();
+      data.append('image', {
+        name: `${this.props.user.unique_id}.${result.type}`,
+        type: result.type,
+        uri: result.uri
+      });
+      axios.post(`${configs.apiURL}/users/uploadAvatar`, data, {
+        headers: {
+          'Accept': 'application/json',
+          'content-Type': 'multipart/form-data'
+        },
+        responseType: 'json'
+      }).then(res => {
+        AuthService.updateUser({
+          user_id: this.props.user.id,
+          unique_id: this.props.user.unique_id,
+          name: this.props.user.user_name,
+          email: this.props.user.user_email,
+          brokerage_name: this.props.user.brokerage_name,
+          phone: this.props.user.user_phone,
+          website: this.props.user.user_website,
+          instagram_id: this.state.instagram,
+          photo: res.data.path,
+          role: this.props.user.user_role
+        }).then((res) => {
+          this.setState({ loading: false });
+          if (res.count > 0) {
+            this.setState({ loading: false });
+            this.props.setUser(res.users[0]);
+          }
+        }).catch((err) => {
+          this.setState({ loading: false });
+        });
+      })
+
+    }
+  }
+
   renderBroker() {
     return (
       <Modal visible={this.state.visibleBroker} animationType="none" swipeArea={50} transparent={true}>
@@ -390,9 +440,10 @@ class AgentEditProfile extends Component {
           <View style={{ width: wp('100%'), padding: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
               <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Name:{'\n'}{this.props.user.user_name}</Text>
-              <View style={{ justifyContent: 'center', alignItems: 'center', width: 60, height: 60, borderRadius: 30, backgroundColor: '#C4C4C4' }}>
-                <Text style={{ fontSize: 14, fontWeight: 'bold', color: colors.BLUE.PRIMARY, textAlign: 'center' }}>Add{'\n'}Photo</Text>
-              </View>
+              <TouchableOpacity onPress={() => this.onAvatar()}>
+                <Image style={{ width: 60, height: 60, borderRadius: 30 }} source={isEmpty(this.props.user.user_photo) ? require('@assets/images/addphoto.jpg') : { uri: configs.avatarURL + this.props.user.user_photo }} />
+              </TouchableOpacity>
+
             </View>
             <Text style={{ fontSize: 12, fontWeight: 'bold' }}>Brokerage Name:</Text>
             <View style={{ flexDirection: 'row' }}>
