@@ -18,25 +18,28 @@ $api->version('v1', function($api){
             $api->get('/similars', 'Api\Listings\ListingsController@similars');
             $api->get('/rooms', 'Api\Listings\ListingsController@rooms');
             $api->get('/search', 'Api\Listings\ListingsController@search');
-
-            $api->get('/getLike', 'Api\Listings\ListingsController@getLike');
-            $api->get('/setLike', 'Api\Listings\ListingsController@setLike');
-
             $api->get('/favorite', 'Api\Listings\ListingsController@favorite');
-            $api->get('/getSearches', 'Api\Listings\ListingsController@getSearches');
-            $api->get('/setSearches', 'Api\Listings\ListingsController@setSearches');
 
-            $api->get('/setViewings', 'Api\Listings\ListingsController@setViewings');
-            $api->get('/getViewings', 'Api\Listings\ListingsController@getViewings');
+            $api->get('/like', 'Api\Listings\ListingsController@getLike');
+            $api->post('/like', 'Api\Listings\ListingsController@setLike');
+
+            $api->get('/searches', 'Api\Listings\ListingsController@getSearches');
+            $api->post('/searches', 'Api\Listings\ListingsController@setSearches');
+
+            $api->get('/viewings', 'Api\Listings\ListingsController@getViewings');
+            $api->post('/viewings', 'Api\Listings\ListingsController@setViewings');
         });
 
         $api->group(['prefix' => 'users'], function ($api) {
             $api->get('/validate', 'Api\Auth\UsersController@validateEmail');
-            $api->get('/setUser', 'Api\Auth\UsersController@setUser');
-            $api->get('/getUser', 'Api\Auth\UsersController@getUser');
-            $api->get('/getReferral', 'Api\Auth\UsersController@getReferral');
-            $api->get('/updateUser', 'Api\Auth\UsersController@updateUser');
-            $api->get('/uploadAvatar', 'Api\Auth\UsersController@uploadAvatar');
+            
+            $api->get('/user', 'Api\Auth\UsersController@getUser');
+            $api->post('/user', 'Api\Auth\UsersController@setUser');
+            $api->post('/updateUser', 'Api\Auth\UsersController@updateUser');
+            $api->post('/uploadAvatar', 'Api\Auth\UsersController@uploadAvatar');
+
+            $api->get('/referral', 'Api\Auth\UsersController@getReferral');
+
         });
 
         // $api->get('ping', 'Api\PingController@index');

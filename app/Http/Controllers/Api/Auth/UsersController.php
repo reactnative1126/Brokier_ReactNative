@@ -108,11 +108,13 @@ class UsersController extends Controller
         $userPhone = $request->get('phone');
         $userWebsite = $request->get('website');
         $userInstagramId = $request->get('instagram_id');
+        $userPhoto = $request->get('photo');
         $userRole = $request->get('role');
+        $agentUniqueId = $request->get('agent_unique_id');
 
         $query = new User;
         $query->where('id', $userId)->
-        update(['user_name'=>$userName, 'brokerage_name' => $brokerageName, 'user_email'=>$userEmail, 'user_phone' => $userPhone, 'user_website' => $userWebsite, 'user_instagram_id' => $userInstagramId, 'user_role' => $userRole]);
+        update(['user_name'=>$userName, 'brokerage_name' => $brokerageName, 'user_email'=>$userEmail, 'user_phone' => $userPhone, 'user_website' => $userWebsite, 'user_instagram_id' => $userInstagramId, 'user_photo' => $userPhoto, 'user_role' => $userRole, 'agent_unique_id' => $agentUniqueId]);
 
         $users = $query->where('id', $userId)->get();
 
@@ -126,15 +128,12 @@ class UsersController extends Controller
 
     public function uploadAvatar(Request $request)
     {
-        $file = $request->file('upload');
-        // $path = Storage::disk('local')->put('example.txt', 'Contents');
-        // $path = Storage::putFile('upload');
-        // $path = Storage::put('file.jpg', $upload);
-        // $path = Storage::move('old/file.jpg', 'new/file.jpg');
-// $url = Storage::url('file.jpg');
-        $file->move('./avatars', $upload);
-        // Log::info($path);
+        $path = Storage::disk('public')->putFile('avatars', new File($request->file('image')));
 
-        return $path;
+        $data['status'] = 200;
+        $data['message'] = "Success";
+        $data['path'] = $path;
+
+        return $data;
     }
 }
