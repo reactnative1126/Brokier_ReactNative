@@ -3,9 +3,11 @@ import GoogleMapReact from 'google-map-react';
 import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { signOut, setLoading, setVisible, setVisible1 } from '../modules/redux/auth/actions';
+import { setLoading, setVisible, setUser } from '../modules/redux/auth/actions';
 import { setLikes } from '../modules/redux/lists/actions';
+import { setModal } from '../modules/redux/mobile/actions';
 import {
+    Confirm,
     PropertyItem,
     PropertyModal,
     PropertyImage,
@@ -16,6 +18,7 @@ import {
     MarkerMain,
     MobileMarkerDetail
 } from '../components';
+import { updateUser, getAgent } from '../modules/services/AuthService';
 import {
     getListingsMap,
     getListingsList,
@@ -26,7 +29,7 @@ import {
     getSearch
 } from '../modules/services/ListingsService';
 import {
-    getPlaces,
+    // getPlaces,
     getGeometry
 } from '../modules/services/MapService';
 import { MapStore } from '../modules/stores';
@@ -43,6 +46,13 @@ class Home extends React.Component {
             search: '',
             searches: null,
             locations: null,
+
+            confirmVisible: false,
+            confirmTitle: '',
+            confirmDescription: '',
+            confirmCancel: 'Cancel',
+            confirmButton: 'OK',
+            confirmAction: 1,
 
             view: (window.filters.type === 'Sale' || window.filters.lastStatus === 'Sld') ? true : false,
             forSale: window.filters.type === 'Sale' ? true : false,
@@ -108,7 +118,7 @@ class Home extends React.Component {
 
     async onMap(address) {
         await getGeometry(address.replace(/ /g, '+')).then(result => {
-            var region = result.results[0];
+            // var region = result.results[0];
             // window.region = {
             // 	latitude: region.geometry.location.lat,
             // 	longitude: region.geometry.location.lng,
@@ -123,14 +133,185 @@ class Home extends React.Component {
         this.props.setLikes([]);
     }
 
-    componentDidMount() {
-        console.log(this);
+    async componentDidMount() {
+        window.homeUrl = {
+            agentId: this.props.match.params.agentId,
+            address: this.props.match.params.address,
+            mlsNumber: this.props.match.params.mlsNumber,
+            listingId: this.props.match.params.id
+        }
+        console.log(`agentID: ${window.homeUrl.agentId}, address: ${window.homeUrl.address}, mlsNumber: ${window.homeUrl.mlsNumber}, listingId: ${window.homeUrl.listingId}`);
+        if (window.homeUrl.agentId === undefined && window.homeUrl.address === undefined && window.homeUrl.mlsNumber === undefined) {
+            return;
+        } else if (window.homeUrl.agentId === 'AthenaHein0916' && window.homeUrl.mlsNumber === 'Z901126S') {
+            return;
+        } else if (window.homeUrl.agentId === 'AthenaHein0916' && window.homeUrl.mlsNumber !== 'Z901126S') {
+            this.props.history.push(`/detail/${window.homeUrl.address}/${window.homeUrl.mlsNumber}/${window.homeUrl.listingId}`);
+        } else if (window.homeUrl.agentId !== 'AthenaHein0916' && window.homeUrl.mlsNumber === 'Z901126S') {
+            if (this.props.logged) {
+                if (this.props.user.user_role === 'regular') {
+                    if (isEmpty(this.props.user.agent_unique_id)) {
+                        var agentName = await getAgent({ agentId: window.homeUrl.agentId });
+                        this.setState({
+                            confirmVisible: true,
+                            confirmTitle: 'Connect with Agent',
+                            confirmDescription: `Would you connect to this Agent: ${!isEmpty(agentName.users) ? agentName.users[0].user_name : window.homeUrl.agentId} now?`,
+                            confirmCancel: 'Cancel',
+                            confirmButton: 'OK',
+                            confirmAction: 1
+                        });
+                        return;
+                    } else {
+                        if (this.props.user.agent_unique_id === window.homeUrl.agentId) {
+                            // this.setState({
+                            //     confirmVisible: true,
+                            //     confirmTitle: 'Connect with Agent',
+                            //     confirmDescription: `You are already connected this agent: ${window.homeUrl.agentId}.`,
+                            //     confirmCancel: '',
+                            //     confirmButton: 'OK',
+                            //     confirmAction: 2
+                            // });
+                            return;
+                        } else {
+                            var oldAgent = await getAgent({ agentId: this.props.user.agent_unique_id });
+                            var newAgent = await getAgent({ agentId: window.homeUrl.agentId });
+                            this.setState({
+                                confirmVisible: true,
+                                confirmTitle: 'Connect with Agent',
+                                confirmDescription: `You are already connected to agent: ${!isEmpty(oldAgent.users) ? oldAgent.users[0].user_name : this.props.user.agent_unique_id} ${'\n'}. Would you like to switch to ${!isEmpty(newAgent.users) ? newAgent.users[0].user_name : window.homeUrl.agentId}?`,
+                                confirmCancel: `No, Stay with ${!isEmpty(oldAgent.users) ? oldAgent.users[0].user_name : this.props.user.agent_unique_id}`,
+                                confirmButton: `Yes, Switch to ${!isEmpty(newAgent.users) ? newAgent.users[0].user_name : window.homeUrl.agentId}`,
+                                confirmAction: 3
+                            });
+                            return;
+                        }
+                    }
+                } else {
+                    // this.setState({
+                    //     confirmVisible: true,
+                    //     confirmTitle: 'Connect with Agent',
+                    //     confirmDescription: `You are an agent user.`,
+                    //     confirmCancel: '',
+                    //     confirmButton: 'OK',
+                    //     confirmAction: 4
+                    // });
+                    return;
+                }
+            } else {
+                this.props.setVisible(true);
+            }
+        } else if (window.homeUrl.agentId !== 'AthenaHein0916' && window.homeUrl.mlsNumber !== 'Z901126S') {
+            if (this.props.logged) {
+                if (this.props.user.user_role === 'regular') {
+                    if (isEmpty(this.props.user.agent_unique_id)) {
+                        var agentName = await getAgent({ agentId: window.homeUrl.agentId });
+                        this.setState({
+                            confirmVisible: true,
+                            confirmTitle: 'Connect with Agent',
+                            confirmDescription: `Would you connect to this Agent: ${!isEmpty(agentName.users) ? agentName.users[0].user_name : window.homeUrl.agentId} now?`,
+                            confirmCancel: 'Cancel',
+                            confirmButton: 'OK',
+                            confirmAction: 5
+                        });
+                        return;
+                    } else {
+                        if (this.props.user.agent_unique_id === window.homeUrl.agentId) {
+                            // this.setState({
+                            //     confirmVisible: true,
+                            //     confirmTitle: 'Connect with Agent',
+                            //     confirmDescription: `You are already connected this agent: ${window.homeUrl.agentId}.`,
+                            //     confirmCancel: '',
+                            //     confirmButton: 'OK',
+                            //     confirmAction: 6
+                            // });
+                            return;
+                        } else {
+                            var oldAgent = await getAgent({ agentId: this.props.user.agent_unique_id });
+                            var newAgent = await getAgent({ agentId: window.homeUrl.agentId });
+                            this.setState({
+                                confirmVisible: true,
+                                confirmTitle: 'Connect with Agent',
+                                confirmDescription: `You are already connected to agent: ${!isEmpty(oldAgent.users) ? oldAgent.users[0].user_name : this.props.user.agent_unique_id} ${'\n'}. Would you like to switch to ${!isEmpty(newAgent.users) ? newAgent.users[0].user_name : window.homeUrl.agentId}?`,
+                                confirmCancel: `No, Stay with ${!isEmpty(oldAgent.users) ? oldAgent.users[0].user_name : this.props.user.agent_unique_id}`,
+                                confirmButton: `Yes, Switch to ${!isEmpty(newAgent.users) ? newAgent.users[0].user_name : window.homeUrl.agentId}`,
+                                confirmAction: 7
+                            });
+                            return;
+                        }
+                    }
+                } else {
+                    // this.setState({
+                    //     confirmVisible: true,
+                    //     confirmTitle: 'Connect with Agent',
+                    //     confirmDescription: `You are an agent user.`,
+                    //     confirmCancel: '',
+                    //     confirmButton: 'OK',
+                    //     confirmAction: 8
+                    // });
+                    return;
+                }
+            } else {
+                this.props.setVisible(true);
+            }
+        }
+
         this.onRegionChangeComplete([configs.lat, configs.lng], window.zoom, [
             window.bounds.nw_latitude, window.bounds.nw_longitude,
             window.bounds.se_latitude, window.bounds.se_longitude,
             window.bounds.se_latitude, window.bounds.nw_longitude,
             window.bounds.nw_latitude, window.bounds.se_longitude
         ]);
+    }
+
+    onConfirm1() {
+        updateUser({
+            user_id: this.props.user.id,
+            unique_id: this.props.user.unique_id,
+            name: this.props.user.user_name,
+            email: this.props.user.user_email,
+            brokerage_name: this.props.user.brokerage_name,
+            phone: this.props.user.user_phone,
+            website: this.props.user.user_website,
+            instagram_id: this.props.user.user_instagram_id,
+            photo: this.props.user.user_photo,
+            role: this.props.user.user_role,
+            agent_unique_id: window.homeUrl.agentId
+        }).then((res) => {
+            if (res.count > 0) {
+                this.props.setUser(res.users[0]);
+                this.setState({ confirmVisible: false });
+            }
+        }).catch((err) => {
+            console.log(err.message);
+        });
+    }
+
+    onConfirm2() {
+        updateUser({
+            user_id: this.props.user.id,
+            unique_id: this.props.user.unique_id,
+            name: this.props.user.user_name,
+            email: this.props.user.user_email,
+            brokerage_name: this.props.user.brokerage_name,
+            phone: this.props.user.user_phone,
+            website: this.props.user.user_website,
+            instagram_id: this.props.user.user_instagram_id,
+            photo: this.props.user.user_photo,
+            role: this.props.user.user_role,
+            agent_unique_id: window.homeUrl.agentId
+        }).then((res) => {
+            if (res.count > 0) {
+                this.props.setUser(res.users[0]);
+                this.setState({ confirmVisible: false });
+                this.props.history.push(`/detail/${window.homeUrl.address}/${window.homeUrl.mlsNumber}/${window.homeUrl.listingId}`);
+            }
+        }).catch((err) => {
+            console.log(err.message);
+        });
+    }
+
+    onConfirm3() {
+        this.props.history.push(`/detail/${window.homeUrl.address}/${window.homeUrl.mlsNumber}/${window.homeUrl.listingId}`);
     }
 
     onRegionChangeComplete(center, zoom, bounds) {
@@ -460,7 +641,7 @@ class Home extends React.Component {
                                     <div style={{ fontWeight: 'bold', padding: 10 }}>Listings</div>
                                     {!isEmpty(this.state.searches) && this.state.searches.map((listing, key) => {
                                         return (
-                                            <div key={key} className='components-header-search-item' onClick={() => document.location.href = `/detail/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.id}`}>
+                                            <div key={key} className='components-header-search-item' onClick={() => document.location.href = `/detail/${listing.streetNumber}-${listing.streetName}-${listing.streetSuffix}/${listing.mlsNumber}/${listing.id}`}>
                                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                                                     <span style={{ fontWeight: 'bold' }}>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix}</span>
                                                     <div style={{ width: 80, alignItems: 'center' }}>
@@ -681,8 +862,8 @@ class Home extends React.Component {
                     visible={this.state.visible}
                     listing={this.state.detail}
                     onClose={() => this.setState({ visible: false })}
-                    onDetail={(id, streetNumber, streetName, streetSuffix) => {
-                        const win = window.open(`/detail/${streetNumber}-${streetName}-${streetSuffix}/${id}`, '_blank');
+                    onDetail={(id, streetNumber, streetName, streetSuffix, mlsNumber) => {
+                        const win = window.open(`/detail/${streetNumber}-${streetName}-${streetSuffix}/${mlsNumber}/${id}`, '_blank');
                         win.focus();
                     }}
                     onImage={(images, index) => {
@@ -725,6 +906,21 @@ class Home extends React.Component {
                         />
                     )
                 }
+                <Confirm
+                    visible={this.state.confirmVisible}
+                    title={this.state.confirmTitle}
+                    description={this.state.confirmDescription}
+                    cancel={this.state.confirmCancel}
+                    confirm={this.state.confirmButton}
+                    action={this.state.confirmAction}
+                    onCancel={() => this.setState({ confirmVisible: false })}
+                    onConfirm={() => {
+                        (this.state.confirmAction === 1 || this.state.confirmAction === 3) ? this.onConfirm1() :
+                            (this.state.confirmAction === 5 || this.state.confirmAction === 7) ? this.onConfirm2() :
+                                (this.state.confirmAction === 6 || this.state.confirmAction === 8) ? this.onConfirm3() :
+                                    this.setState({ confirmVisible: false });
+                    }}
+                />
             </div>
         )
     }
@@ -751,9 +947,12 @@ const mapDispatchToProps = dispatch => {
         setVisible: (data) => {
             dispatch(setVisible(data));
         },
-        setVisible1: (data) => {
-            dispatch(setVisible1(data));
-        }
+        setModal: (data) => {
+            dispatch(setModal(data));
+        },
+        setUser: (data) => {
+            dispatch(setUser(data));
+        },
     }
 }
 

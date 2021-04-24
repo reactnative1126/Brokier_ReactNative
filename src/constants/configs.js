@@ -1,6 +1,8 @@
 export default {
     // apiURL: "http://brokier.com/api",
-    apiURL: "https://prozim.kwikbookings.com/api",
+    // apiURL: "https://cors.bridged.cc/http://brokier.vidnab.com/api",
+    // resURL: "https://cdn.repliers.io/",
+    apiURL: "https://cors.bridged.cc/https://68.183.200.36/api",
     resURL: "https://cdn.repliers.io/",
 
     // google_map_key: 'AIzaSyAU54vgtYyzf4gUDXFALWt5vYTJsnGZraM', AIzaSyDoi0kDoetjxsvsctCrRb99I5lu1GJMj_8

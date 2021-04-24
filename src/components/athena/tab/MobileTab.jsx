@@ -2,15 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from "react-redux";
-import { isEmpty, isCurrency } from '../../../utils/functions';
 import { PageSettings } from '../../../constants/page-settings.js';
-import { getSearch, getListingDetail } from '../../../modules/services/ListingsService';
-import { getPlaces, getGeometry } from '../../../modules/services/MapService';
+import { getSearch } from '../../../modules/services/ListingsService';
+import { getGeometry } from '../../../modules/services/MapService';
 import { signOut, setVisible } from '../../../modules/redux/auth/actions';
 import { setLikes } from '../../../modules/redux/lists/actions';
 
-// import axios from 'axios';
-// import axios from '../../../utils/axios.js';
 
 class MobileTab extends React.Component {
 	constructor(props) {
@@ -36,9 +33,6 @@ class MobileTab extends React.Component {
 	}
 
 	async searchResult(search) {
-		// await getPlaces(search).then(result => {
-		// 	this.setState({ locations: result.predictions });
-		// }).catch(error => console.log(error)).finally(() => this.setState({ loading: false }));
 		await getSearch(search).then(listings => {
 			this.setState({ listings });
 		}).catch(error => console.log(error)).finally(() => this.setState({ loading: false }));
@@ -47,12 +41,6 @@ class MobileTab extends React.Component {
 	async onMap(address) {
 		await getGeometry(address.replace(/ /g, '+')).then(result => {
 			var region = result.results[0];
-			// window.region = {
-			// 	latitude: region.geometry.location.lat,
-			// 	longitude: region.geometry.location.lng,
-			// 	latitudeDelta: configs.latitudeDelta,
-			// 	longitudeDelta: configs.longitudeDelta
-			// }
 		}).catch(error => console.log(error)).finally(() => this.setState({ loading: false }));
 	}
 
@@ -69,7 +57,7 @@ class MobileTab extends React.Component {
 						<div id="header" className="header navbar-default">
 							<ul className="navbar-nav navbar-right" style={{ display: 'flex', justifyContent: 'space-between' }}>
 								<li>
-									<Link to="/home" className='components-header-right-button'>
+									<Link to="/home/AthenaHein0916/926-Angel-St/Z901126S/000000" className='components-header-right-button'>
 										<i className='far fa-map f-s-16'></i>
 										<span>Find Homes</span>
 									</Link>
@@ -93,7 +81,7 @@ class MobileTab extends React.Component {
 									</Link>
 								</li>
 								<li>
-									<Link to="" className='components-header-right-button' onClick={() => this.props.logged ? this.signOut() : this.props.setVisible(true)}>
+									<Link to="" className='components-header-right-button' onClick={() => this.props.logged ? this.props.user.user_role === 'regular' ? document.location.href = `/profile` : document.location.href = `/agent-user` : this.props.setVisible(true)}>
 										<i className='far fa-user f-s-16'></i>
 										<span>Profile</span>
 									</Link>
@@ -109,20 +97,15 @@ class MobileTab extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-		logged: state.auth.logged
+		logged: state.auth.logged,
+		user: state.auth.user_info
 	}
 }
 const mapDispatchToProps = dispatch => {
 	return {
-		signOut: (data) => {
-			dispatch(signOut(data))
-		},
-		setLikes: (data) => {
-			dispatch(setLikes(data));
-		},
-		setVisible: (data) => {
-			dispatch(setVisible(data));
-		}
+		signOut: (data) => dispatch(signOut(data)),
+		setLikes: (data) => dispatch(setLikes(data)),
+		setVisible: (data) => dispatch(setVisible(data))
 	}
 }
 

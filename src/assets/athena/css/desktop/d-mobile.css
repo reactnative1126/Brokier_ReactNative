@@ -19,6 +19,9 @@
 .mobile-popup-items {
     display: none;
 }
+.mobile-popup-open {
+    display: none;
+}
 .mobile-home-header {
     display: none;
 }

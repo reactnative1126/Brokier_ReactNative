@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 
 import { isEmpty, isCurrency } from "../../../utils/functions";
 import configs from "../../../constants/configs";

@@ -2,6 +2,13 @@ import Loading from './athena/loading/loading.jsx';
 import Header from './athena/header/header.jsx';
 import Content from './athena/content/content.jsx';
 import Auth from './athena/auth/auth.jsx';
+import Confirm from './athena/confirm/confirm.jsx';
+import EditPhone from './athena/confirm/EditPhone.jsx';
+import EditBroker from './athena/confirm/EditBroker.jsx';
+import EditName from './athena/confirm/EditName.jsx';
+import EditEmail from './athena/confirm/EditEmail.jsx';
+import EditWebsite from './athena/confirm/EditWebsite.jsx';
+import EditInstagram from './athena/confirm/EditInstagram.jsx';
 
 import PropertyDescription from './athena/property/PropertyDescription';
 import PropertyDetail from './athena/property/PropertyDetail';
@@ -31,6 +38,13 @@ export {
     Header,
     Content,
     Auth,
+    Confirm,
+    EditPhone,
+    EditBroker,
+    EditName,
+    EditEmail,
+    EditWebsite,
+    EditInstagram,
 
     PropertyDescription,
     PropertyDetail,

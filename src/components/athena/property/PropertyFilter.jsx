@@ -23,11 +23,6 @@ const solds = [
   { value: 365, label: '1 Year' },
   { value: 730, label: '2 Years' },
 ];
-// const questions = [
-//   { question: "Investors" },
-//   { question: "As is" },
-//   { question: "Fully renovated" },
-// ]
 
 const colourStyles = {
   control: styles => ({ ...styles, backgroundColor: 'white' }),
@@ -50,8 +45,6 @@ const colourStyles = {
 };
 
 const PropertyFilter = (props) => {
-
-  const [loading, setLoading] = useState(false);
   const [allTypes, setAllTypes] = useState(window.filters.propertyType.allTypes);
   const [condoApartment, setCondoApartment] = useState(window.filters.propertyType.condoApartment);
   const [condoTown, setCondoTown] = useState(window.filters.propertyType.condoTown);
@@ -63,12 +56,10 @@ const PropertyFilter = (props) => {
   const [semiDetached, setSemiDetached] = useState(window.filters.propertyType.semiDetached);
   const [minPrice, setMinPrice] = useState(window.filters.price.minPrice);
   const [maxPrice, setMaxPrice] = useState(window.filters.price.maxPrice);
-  const [dayStatus, setDayStatus] = useState(false);
   const [daysOnMarket, setDaysOnMarket] = useState({
     value: window.filters.daysOnMarket,
     label: window.filters.daysOnMarket === 0 ? 'Any' : window.filters.daysOnMarket === 1 ? '1 Day' : window.filters.daysOnMarket === 3 ? '3 Days' : window.filters.daysOnMarket === 7 ? '7 Days' : window.filters.daysOnMarket === 14 ? '14 Days' : window.filters.daysOnMarket === 30 ? '30 Days' : '30+ Days'
   });
-  const [soldStatus, setSoldStatus] = useState(false);
   const [soldInLast, setSoldInLast] = useState({
     value: window.filters.soldInLast,
     label: window.filters.soldInLast === 60 ? 'Any' : window.filters.soldInLast === 1 ? '1 Day' : window.filters.soldInLast === 7 ? '7 Days' : window.filters.soldInLast === 30 ? '30 Days' : window.filters.soldInLast === 90 ? '3 Months' : window.filters.soldInLast === 180 ? '6 Months' : window.filters.soldInLast === 365 ? '1 Year' : '2 Years'
@@ -467,10 +458,6 @@ const PropertyFilter = (props) => {
                 </div>
               </div>
             </div>
-            {/* <PropertyQuestions
-            title="Keywords in Description"
-            questions={questions} />
-          <div style={{ height: 100 }} /> */}
           </div>
         </div>
         <div className='property-filter-bottom-buttons'>

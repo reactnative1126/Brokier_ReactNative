@@ -36,7 +36,8 @@ button:focus {
 .detail-left-panel {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    width: 100%;
+    height: calc(100vh - 51px);
     border-left: 1px solid #bbb;
     border-right: 1px solid #bbb;
 }

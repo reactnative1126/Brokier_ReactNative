@@ -98,6 +98,10 @@ button:focus {
     padding: 10px 10px;
     border-bottom: 1px solid #DEDEDE;
 }
+.saved-search-item:hover {
+    background-color: #eee;
+    cursor: pointer;
+}
 .saved-load-more {
     margin-top: 20px;
     margin-bottom: 20px;

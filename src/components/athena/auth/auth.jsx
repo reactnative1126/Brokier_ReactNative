@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { setVisible, setUser } from '../../../modules/redux/auth/actions';
 import { setLikes } from '../../../modules/redux/lists/actions';
 import { isEmpty, validateEmail, validateLength } from '../../../utils/functions';
@@ -78,17 +78,22 @@ const Auth = (props) => {
 
 	const SIGNIN = async () => {
 		if (!isEmpty(email) && !isEmpty(password) && isEmpty(errorEmail) && isEmpty(errorPassword)) {
-			// dispatch(setLoading(true));
-			await getUser({
+			getUser({
 				email,
 				password
 			}).then(async (res) => {
-				// dispatch(setLoading(false));
 				if (res.count > 0) {
 					dispatch(setUser(res.users[0]));
 					var likes = await getLike(res.users[0].id);
 					dispatch(setLikes(likes));
-					dispatch(setVisible(false));
+					if (window.homeUrl.agentId === undefined && window.homeUrl.address === undefined && window.homeUrl.mlsNumber === undefined && window.homeUrl.listingId === undefined) {
+						dispatch(setVisible(false));
+						return;
+					} else {
+						window.location.href = `/home/${window.homeUrl.agentId}/${window.homeUrl.address}/${window.homeUrl.mlsNumber}/${window.homeUrl.listingId}`;
+						dispatch(setVisible(false));
+						return;
+					}
 				} else {
 					alert("User email or password is wrong.");
 				}
@@ -98,25 +103,29 @@ const Auth = (props) => {
 
 	const SIGNUP = async () => {
 		if (!isEmpty(name1) && !isEmpty(email1) && !isEmpty(password1) && isEmpty(errorName1) && isEmpty(errorEmail1) && isEmpty(errorPassword1)) {
-			// dispatch(setLoading(true));
-			await getEmail(email).then(async (response) => {
+			getEmail(email).then(async (response) => {
 				if (response.count === 0) {
-					await setUser1({
+					setUser1({
 						unique_id: Date.now(),
 						name: name1,
 						email: email1,
 						password: password1
 					}).then(async (res) => {
-						// dispatch(setLoading(false));
 						if (res.count > 0) {
 							dispatch(setUser(res.users[0]));
 							var likes = await getLike(res.users[0].id);
 							dispatch(setLikes(likes));
-							dispatch(setVisible(false));
+							if (window.homeUrl.agentId === undefined && window.homeUrl.address === undefined && window.homeUrl.mlsNumber === undefined && window.homeUrl.listingId === undefined) {
+								dispatch(setVisible(false));
+								return;
+							} else {
+								window.location.href = `/home/${window.homeUrl.agentId}/${window.homeUrl.address}/${window.homeUrl.mlsNumber}/${window.homeUrl.listingId}`;
+								dispatch(setVisible(false));
+								return;
+							}
 						}
 					})
 				} else {
-					// dispatch(setLoading(false));
 					alert("Email has already registed");
 				}
 			});
@@ -127,7 +136,7 @@ const Auth = (props) => {
 		props.visible ? (
 			<div className='components-auth-overlay'>
 				{type === 1 ? (
-					<div className='components-auth-modal'>						
+					<div className='components-auth-modal'>
 						<button className='components-auth-close-button' onClick={() => dispatch(setVisible(false))}>
 							<i className='fas fa-times-circle f-s-18'></i>
 						</button>
@@ -163,10 +172,10 @@ const Auth = (props) => {
 						}}>Sign up</Link></span>
 					</div>
 				) : (
-						<div className='components-auth-modal'>					
-						<button className='components-auth-close-button' onClick={() => dispatch(setVisible(false))}>
-							<i className='fas fa-times-circle f-s-16'></i>
-						</button>
+						<div className='components-auth-modal'>
+							<button className='components-auth-close-button' onClick={() => dispatch(setVisible(false))}>
+								<i className='fas fa-times-circle f-s-16'></i>
+							</button>
 							<span className='components-auth-title'>Create Account</span>
 							<span className='components-auth-input-title'>Name</span>
 							<div className='components-auth-input-wrapper'>

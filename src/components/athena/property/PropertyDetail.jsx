@@ -67,11 +67,6 @@ const PropertyDetail = ({ listing }) => {
             <span className='text'>{listing.daysOnMarket} Days on Market</span>
           </div>
         </div>
-        {/* <div className='property-detail-days-maket'>
-          <div className='days-wrapper'>
-            <span className='text'>{listing.daysOnMarket} Days on Market</span>
-          </div>
-        </div> */}
       </div>
       <div className='property-detail-middle'>
         <div className={statusClass}>

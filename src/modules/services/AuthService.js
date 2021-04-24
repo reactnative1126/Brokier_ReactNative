@@ -33,6 +33,15 @@ export const getUser = (params) => {
     });
 };
 
+export const getAgent = (params) => {
+    return axios.get(`/users/agent`, {
+        params: {
+            uniqueId: params.agentId
+        }
+    }).then((response) => {
+        return response.data;
+    });
+};
 
 export const updateUser = (params) => {
     return axios.post(`/users/updateUser`, {
@@ -45,7 +54,18 @@ export const updateUser = (params) => {
         website: params.website,
         instagram_id: params.instagram_id,
         photo: params.photo,
-        role: params.role
+        role: params.role,
+        agent_unique_id: params.agent_unique_id
+    }).then((response) => {
+        return response.data;
+    });
+};
+
+export const getReferral = (params) => {
+    return axios.get(`/users/referral`, {
+        params: {
+            uniqueId: params.uniqueId
+        }
     }).then((response) => {
         return response.data;
     });

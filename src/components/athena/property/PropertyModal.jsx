@@ -33,7 +33,6 @@ const PropertyModal = ({ visible, listing, onClose, onImage, onDetail }) => {
 
 	useEffect(() => {
 		if (!isEmpty(listing)) {
-			// dispatch(setLoading(true));
 			var status = 'A';
 			var type = 'Sale';
 			var lastStatus = null;
@@ -60,7 +59,6 @@ const PropertyModal = ({ visible, listing, onClose, onImage, onDetail }) => {
 				});
 			getDetailRooms(listing.mlsNumber)
 				.then((rooms) => {
-					// dispatch(setLoading(false));
 					setRooms(rooms);
 				});
 		}
@@ -71,7 +69,7 @@ const PropertyModal = ({ visible, listing, onClose, onImage, onDetail }) => {
 			<a className='property-modal'>
 				<div className='modal-wrapper'>
 					<div className='buttons'>
-						<button className='expand-button' onClick={() => onDetail(listing.id, listing.streetNumber, listing.streetName, listing.streetSuffix)}>
+						<button className='expand-button' onClick={() => onDetail(listing.id, listing.streetNumber, listing.streetName, listing.streetSuffix, listing.mlsNumber)}>
 							<span className='expand-text'>Expand</span>
 							<i className='fas fa-expand f-s-12'></i>
 						</button>
@@ -115,7 +113,7 @@ const PropertyModal = ({ visible, listing, onClose, onImage, onDetail }) => {
 					</div>
 					<PropertyDetail listing={listing} />
 					<PropertyHistories histories={histories}
-						onDetail={(id, streetNumber, streetName, streetSuffix) => onDetail(id, streetNumber, streetName, streetSuffix)} />
+						onDetail={(id, streetNumber, streetName, streetSuffix, mlsNumber) => onDetail(id, streetNumber, streetName, streetSuffix, mlsNumber)} />
 					<div className='property-modal-map-wrapper'>
 						<GoogleMapReact bootstrapURLKeys={{ key: 'AIzaSyDoi0kDoetjxsvsctCrRb99I5lu1GJMj_8', language: 'en', region: 'US' }}
 							options={{ scrollwheel: false }}
@@ -138,7 +136,7 @@ const PropertyModal = ({ visible, listing, onClose, onImage, onDetail }) => {
 						similar={similar}
 						onSimilar={(similar) => setSimilar(similar)}
 						similars={similars}
-						onDetail={(id, streetNumber, streetName, streetSuffix) => onDetail(id, streetNumber, streetName, streetSuffix)}
+						onDetail={(id, streetNumber, streetName, streetSuffix, mlsNumber) => onDetail(id, streetNumber, streetName, streetSuffix, mlsNumber)}
 					/>
 				</div>
 			</a>

@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setLoading, setVisible1 } from './modules/redux/auth/actions';
+import { setLoading } from './modules/redux/auth/actions';
 import { setTabs, setMobile } from './modules/redux/lists/actions';
+import { setModal } from './modules/redux/mobile/actions';
 import { PageSettings } from './constants/page-settings.js';
 import {
 	Loading,
 	Header,
 	Content,
 	Auth,
-
 	MobileTab,
 	MobilePopUp
 } from './components';
@@ -16,6 +16,12 @@ import {
 import configs from './constants/configs';
 import { isMobile } from 'react-device-detect';
 
+window.homeUrl = {
+	agentId: undefined,
+	address: undefined,
+	mlsNumber: undefined,
+	listingId: undefined
+}
 window.listings = [];
 window.details = [];
 window.zoom = 15;
@@ -409,9 +415,6 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
-		if(isMobile) {
-			this.props.setVisible1(true);
-		}
 		this.props.setLoading(false);
 		window.addEventListener('scroll', this.handleScroll);
 		window.onresize = this.windowResize;
@@ -449,11 +452,11 @@ class App extends React.Component {
 		return (
 			<PageSettings.Provider value={this.state}>
 				<Loading loading={this.props.loading} />
+				{(isMobile && this.props.modal) && <MobilePopUp />}
 				<Auth visible={this.props.visible} />
 				<Header />
 				<Content />
 				<MobileTab />
-				{(isMobile && this.props.visible1) && <MobilePopUp />}
 			</PageSettings.Provider>
 		)
 	}
@@ -463,7 +466,7 @@ const mapStateToProps = state => {
 	return {
 		loading: state.auth.loading,
 		visible: state.auth.visible,
-		visible1: state.auth.visible1
+		modal: state.mobile.modal
 	}
 }
 
@@ -478,8 +481,8 @@ const mapDispatchToProps = dispatch => {
 		setMobile: (data) => {
 			dispatch(setMobile(data));
 		},
-		setVisible1: (data) => {
-			dispatch(setVisible1(data));
+		setModal: (data) => {
+			dispatch(setModal(data));
 		}
 	}
 }

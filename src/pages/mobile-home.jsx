@@ -572,7 +572,7 @@ class MobileHome extends React.Component {
                     listing={this.state.detail}
                     onClose={() => this.setState({ visible: false })}
                     onDetail={(id, streetNumber, streetName, streetSuffix) => {
-                        const win = window.open(`/detail/${streetNumber}-${streetName.replace(' ', '-')}-${streetSuffix}/${id}`, '_blank');
+                        const win = window.open(`/detail/${streetNumber}-${streetName}-${streetSuffix}/${mlsNumber}/${id}`, '_blank');
                         win.focus();
                     }}
                     onImage={(images, index) => {

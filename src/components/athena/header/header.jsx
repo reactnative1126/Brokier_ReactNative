@@ -33,9 +33,6 @@ class Header extends React.Component {
 	}
 
 	async searchResult(search) {
-		// await getPlaces(search).then(result => {
-		// 	this.setState({ locations: result.predictions });
-		// }).catch(error => console.log(error)).finally(() => this.setState({ loading: false }));
 		await getSearch(search).then(listings => {
 			this.setState({ listings });
 		}).catch(error => console.log(error)).finally(() => this.setState({ loading: false }));
@@ -43,13 +40,6 @@ class Header extends React.Component {
 
 	async onMap(address) {
 		await getGeometry(address.replace(/ /g, '+')).then(result => {
-			// 	var region = result.results[0];
-			// 	window.region = {
-			// 	latitude: region.geometry.location.lat,
-			// 	longitude: region.geometry.location.lng,
-			// 	latitudeDelta: configs.latitudeDelta,
-			// 	longitudeDelta: configs.longitudeDelta
-			// }
 		}).catch(error => console.log(error)).finally(() => this.setState({ loading: false }));
 	}
 
@@ -76,7 +66,7 @@ class Header extends React.Component {
 												<div style={{ fontWeight: 'bold', padding: 10 }}>Listings</div>
 												{!isEmpty(this.state.listings) && this.state.listings.map((listing, key) => {
 													return (
-														<div key={key} className='components-header-search-item' onClick={() => document.location.href = `/detail/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.id}`}>
+														<div key={key} className='components-header-search-item' onClick={() => document.location.href = `/detail/${listing.streetNumber}-${listing.streetName}-${listing.streetSuffix}/${listing.mlsNumber}/${listing.id}`}>
 															<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 																<span style={{ fontWeight: 'bold' }}>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix}</span>
 																<div style={{ width: 80, alignItems: 'center' }}>
@@ -104,7 +94,7 @@ class Header extends React.Component {
 							</div>
 							<ul className="components-header-right navbar-nav navbar-right">
 								<li>
-									<Link to="/home" className='components-header-right-button'>
+									<Link to="/home/AthenaHein0916/926-Angel-St/Z901126S/000000" className='components-header-right-button'>
 										<i className='far fa-map f-s-16'></i>
 										<span>Find Homes</span>
 									</Link>
@@ -128,7 +118,7 @@ class Header extends React.Component {
 									</Link>
 								</li>
 								<li>
-									<Link to="" className='components-header-right-button' onClick={() => this.props.logged ? this.signOut() : this.props.setVisible(true)}>
+									<Link to="" className='components-header-right-button' onClick={() => this.props.logged ? this.props.user.user_role === 'regular' ? document.location.href = `/profile` : document.location.href = `/agent-user` : this.props.setVisible(true)}>
 										<i className='far fa-user f-s-16'></i>
 										<span>Profile</span>
 									</Link>
@@ -145,23 +135,16 @@ class Header extends React.Component {
 const mapStateToProps = state => {
 	return {
 		logged: state.auth.logged,
+		user: state.auth.user_info,
 		tabs: state.lists.tabs
 	}
 }
 const mapDispatchToProps = dispatch => {
 	return {
-		signOut: (data) => {
-			dispatch(signOut(data))
-		},
-		setLikes: (data) => {
-			dispatch(setLikes(data));
-		},
-		setVisible: (data) => {
-			dispatch(setVisible(data));
-		},
-		setTabs: (data) => {
-			dispatch(setTabs(data));
-		},
+		signOut: (data) => dispatch(signOut(data)),
+		setLikes: (data) => dispatch(setLikes(data)),
+		setVisible: (data) => dispatch(setVisible(data)),
+		setTabs: (data) => dispatch(setTabs(data))
 	}
 }
 
