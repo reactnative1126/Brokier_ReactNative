@@ -2,10 +2,10 @@ import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
-import Card from '../Card/Card';
-import { isEmpty } from "@utils/functions";
 import { colors } from "@constants/themes";
 import { images } from "@constants/assets";
+import { isEmpty } from "@utils/functions";
+import Card from '../Card/Card';
 
 export default PropertyProfile = ({ navigation }) => {
   const dispatch = useDispatch();

@@ -2,11 +2,12 @@
   "expo": {
     "name": "brokier",
     "slug": "brokier",
+    "scheme": "brokier",
     "platforms": [
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "1.0",
     "orientation": "portrait",
     "icon": "./src/assets/icons/icon.png",
     "splash": {
@@ -21,6 +22,7 @@
       "**/*"
     ],
     "ios": {
+      "buildNumber": "10",
       "supportsTablet": true,
       "bundleIdentifier": "com.brokier.app",
       "infoPlist": {
@@ -34,11 +36,12 @@
         ]
       },
       "config": {
-        "googleMapsApiKey": "AIzaSyC0xtEteZeM8hlVw-dmM1TE2JUL2ps9A88"
+        "googleMapsApiKey": "AIzaSyA8EWQFs6DxdpVM433_WVF9DilTKpEfHx4"
       }
     },
     "android": {
       "package": "com.brokier.app",
+      "versionCode": 11,
       "permissions": [
         "CAMERA",
         "READ_EXTERNAL_STORAGE",
@@ -50,7 +53,7 @@
       ],
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyC0xtEteZeM8hlVw-dmM1TE2JUL2ps9A88"
+          "apiKey": "AIzaSyA8EWQFs6DxdpVM433_WVF9DilTKpEfHx4"
         }
       }
     },

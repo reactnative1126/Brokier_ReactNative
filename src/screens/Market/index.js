@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
-
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { Icon } from "react-native-elements";
 import { connect } from "react-redux";
-import { Loading, Header, PickerButton, PropertyQuestions, MarketSummary, MarketChart1, MarketChart2 } from "@components";
+import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
+import { Icon } from "react-native-elements";
 import {  colors } from "@constants/themes";
 import { images } from "@constants/assets";
+import { Loading, Header, PickerButton, PropertyQuestions, MarketSummary, MarketChart1, MarketChart2 } from "@components";
 
 const cities = [
   { value: 0, label: 'City' },

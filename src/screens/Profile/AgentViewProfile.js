@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Image, Modal, ActivityIndicator } from "react-native";
-
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { Icon } from "react-native-elements";
 import { connect } from "react-redux";
-import { Loading, Header } from "@components";
+import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Image, Modal, ActivityIndicator } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
+import configs from "@constants/configs";
+import { Icon } from "react-native-elements";
 import { colors } from "@constants/themes";
+import { Loading, Header } from "@components";
 import { images } from "@constants/assets";
 import { setUser, signOut } from "@modules/redux/auth/actions";
 import { AuthService } from "@modules/services";
 import { isEmpty, validateMobile, validateEmail, validateLength } from "@utils/functions";
-import configs from "@constants/configs";
 
 class AgentViewProfile extends Component {
   constructor(props) {
@@ -103,6 +103,7 @@ class AgentViewProfile extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -126,6 +127,7 @@ class AgentViewProfile extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -148,7 +150,8 @@ class AgentViewProfile extends Component {
       website: this.state.website,
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
-      role: this.props.user.user_role
+      role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -171,7 +174,8 @@ class AgentViewProfile extends Component {
       website: this.props.user.user_website,
       instagram_id: this.state.instagram,
       photo: this.props.user.user_photo,
-      role: this.props.user.user_role
+      role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -417,10 +421,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    marginTop: -10,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    marginTop: -10,
   },
   linkButton: {
     justifyContent: 'center',
@@ -442,7 +446,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 300,
     height: 240,
-    // backgroundColor: colors.WHITE,
     backgroundColor: '#E3E3E3',
     borderRadius: 10,
     zIndex: 100
@@ -489,9 +492,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    setUser: (data) => {
-      dispatch(setUser(data))
-    },
+    setUser: (data) => dispatch(setUser(data))
   }
 }
 

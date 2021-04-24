@@ -17,9 +17,17 @@ import BookedViewings from '@screens/Profile/BookedViewings';
 
 export {
     SignIn, SignUp,
-    PropertiesHome, PropertiesDetail, PropertiesSearch,
+    PropertiesHome,
+    PropertiesDetail,
+    PropertiesSearch,
     Favorite,
     Mortgage,
     Market,
-    Profile, AgentUserProfile, AgentEditProfile, AgentViewProfile, AccountSettings, ReferredConnections, BookedViewings
+    Profile,
+    AgentUserProfile,
+    AgentEditProfile,
+    AgentViewProfile,
+    AccountSettings,
+    ReferredConnections,
+    BookedViewings
 }

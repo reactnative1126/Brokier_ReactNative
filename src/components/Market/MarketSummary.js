@@ -1,21 +1,21 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
 import { Icon } from "react-native-elements";
 import { colors } from "@constants/themes";
 
 export default MarketSummary = (props) => {
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10 }}>
+      <View style={styles.wrapper}>
         <View style={{ width: 30 }} />
-        <Text style={{ textDecorationLine: 'underline', fontSize: 12, color: '#848484' }}>Market Summary</Text>
+        <Text style={styles.title}>Market Summary</Text>
         <TouchableOpacity>
           <Icon name="share-apple" type="evilicon" size={25} />
         </TouchableOpacity>
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingBottom: 10, borderBottomWidth: 0.5, borderBottomColor: '#C0C0C0' }}>
+      <View style={styles.wrapper1}>
         <View style={{ width: 30 }} />
         <View style={{ width: (wp('100%') - 60) / 3, justifyContent: 'center', alignItems: 'center' }}>
           <Text style={{ fontSize: 10, color: '#737373' }}>Market Price</Text>
@@ -51,4 +51,22 @@ const styles = StyleSheet.create({
   container: {
     width: wp('100%'),
   },
+  wrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10
+  },
+  title: {
+    textDecorationLine: 'underline',
+    fontSize: 12,
+    color: '#848484'
+  },
+  wrapper1: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingBottom: 10,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#C0C0C0'
+  }
 });

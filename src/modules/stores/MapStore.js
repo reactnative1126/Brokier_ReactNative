@@ -107,7 +107,6 @@ class Store {
     var results = {}
     for (let index = 0; index < listings.length; index++) {
       const listingOne = listings[index];
-      // const key = listingOne.latitude + '#' + listingOne.longitude;
       const key = global.zoom < 15 ? listingOne.latitude + '#' + listingOne.longitude : listingOne.streetNumber + listingOne.streetName + listingOne.streetSuffix;
       if (isEmpty(results[key])) results[key] = [];
       results[key].push(listingOne);

@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Text, FlatList, TouchableOpacity } from "react-native";
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
+import { colors } from "@constants/themes";
 import Card from '../Card/Card';
 import SimilarDetail from '../Property/SimilarDetail';
-import { colors } from "@constants/themes";
 
 export default PropertySimilar = ({ navigation, similars, similar, onSimilar }) => {
   return (
@@ -45,54 +45,18 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 0
   },
-  smallDetails: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    width: "100%",
-  },
-  smallDetailTop: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    width: "100%",
-    height: 50,
-  },
-  smallStatus: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 5,
-    width: 80,
-    height: 15,
-    borderWidth: 0.2,
-    borderColor: colors.RED.PRIMARY,
-    borderRadius: 3,
-  },
-  smallDay: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 5,
-    width: 80,
-    height: 15,
-    backgroundColor: colors.GREY.PRIMARY,
-    borderRadius: 3,
-  },
-  detailBottom: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-    height: 30,
-  },
   toggleButton: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: wp('100%') - 20,
-    height: 25,
-    backgroundColor: colors.GREY.PRIMARY,
-    borderRadius: 5,
     marginTop: 10,
     marginBottom: 10,
+    width: wp('100%') - 20,
+    height: 25,
     paddingLeft: 5,
-    paddingRight: 5
+    paddingRight: 5,
+    backgroundColor: colors.GREY.PRIMARY,
+    borderRadius: 5,
   },
   oneButton: {
     justifyContent: 'center',

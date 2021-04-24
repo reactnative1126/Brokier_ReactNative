@@ -42,12 +42,21 @@ export default AuthService = {
             website: params.website,
             instagram_id: params.instagram_id,
             photo: params.photo,
-            role: params.role
+            role: params.role,
+            agent_unique_id: params.agent_unique_id
         }).then((response) => {
             return response.data;
         });
     },
-    
+    getAgent: function (params) {
+        return axios.get(`/users/agent`, {
+            params: {
+                uniqueId: params.agentId
+            }
+        }).then((response) => {
+            return response.data;
+        });
+    },
     getReferral: function (params) {
         return axios.get(`/users/referral`, {
             params: {

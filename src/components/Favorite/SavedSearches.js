@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
 import { Icon } from "react-native-elements";
-import PropertyItem from '../Property/PropertyItem';
 import { isEmpty } from "@utils/functions";
+import PropertyItem from '../Property/PropertyItem';
 
 export default SavedSearches = (props) => {
   return (

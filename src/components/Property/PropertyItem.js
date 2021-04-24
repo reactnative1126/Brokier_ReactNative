@@ -4,12 +4,12 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, TouchableHighlight } f
 import Swiper from "react-native-swiper";
 import moment from 'moment';
 
-import Card from '../Card/Card';
-import ActionButtons from '../Buttons/ActionButtons';
-import { isEmpty, isCurrency } from "@utils/functions";
 import configs from "@constants/configs";
 import { colors } from "@constants/themes";
 import { images } from "@constants/assets";
+import { isEmpty, isCurrency } from "@utils/functions";
+import Card from '../Card/Card';
+import ActionButtons from '../Buttons/ActionButtons';
 
 const renderPagination = (index, total) => {
   return (
@@ -26,7 +26,6 @@ export default PropertyItem = ({ listing, likes, onPress, onLogin, onLike, onSha
   return (
     <Card index={listing.id} style={{ marginBottom: 7 }}>
       <TouchableOpacity style={styles.topBar} onPress={onPress}>
-        {/* <View style={{ width: 80 }} /> */}
         <View style={{ alignItems: 'flex-start' }}>
           <Text style={{ fontWeight: 'bold' }}>{listing.streetNumber + " " + listing.streetName + " " + listing.streetSuffix.replace('St', 'Street')} {!isEmpty(listing.unitNumber) && `#${listing.unitNumber}`}</Text>
           <Text style={{ fontSize: 14 }}>{listing.neighborhood} {listing.city}</Text>
@@ -157,9 +156,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
     marginBottom: 5,
-    // width: 5,
     height: 20,
-    // borderWidth: 0.5,
     borderRadius: 3,
   },
   day: {

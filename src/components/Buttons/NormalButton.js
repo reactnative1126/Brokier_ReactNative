@@ -8,7 +8,7 @@ export default NormalButton = (props) => {
       height: props.height,
       backgroundColor: props.color
     }]} onPress={props.onPress}>
-      <Text style={{fontSize: 16, fontWeight: "bold", color: props.textColor}}>{props.text}</Text>
+      <Text style={{ fontSize: 16, fontWeight: "bold", color: props.textColor }}>{props.text}</Text>
     </TouchableOpacity>
   );
 };

@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, Modal, ActivityIndicator } from "react-native";
+import { connect } from "react-redux";
+import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, Modal, ActivityIndicator, Alert } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as Facebook from 'expo-facebook';
 import * as Google from 'expo-google-app-auth';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import configs from "@constants/configs";
 import { Icon } from "react-native-elements";
-import { connect } from "react-redux";
+import { colors } from "@constants/themes";
 import { setUser } from "@modules/redux/auth/actions";
 import { setLikes } from "@modules/redux/lists/actions";
 import { TextInput, NormalButton } from "@components";
 import { AuthService, ListingsService } from "@modules/services";
 import { isEmpty, validateEmail, validateLength } from "@utils/functions";
-import configs from "@constants/configs";
-import { colors } from "@constants/themes";
 
 class SignIn extends Component {
   constructor(props) {
@@ -53,19 +53,6 @@ class SignIn extends Component {
         }
       }
     })
-  }
-
-  EPSIGNIN() {
-    if (isEmpty(this.state.email)) {
-      this.setState({ errorEmail: 'Please enter email' });
-    }
-    if (isEmpty(this.state.password)) {
-      this.setState({ errorPassword: 'Please enter password' });
-    }
-    if (!isEmpty(this.state.email) && !isEmpty(this.state.password) && isEmpty(this.state.errorEmail) && isEmpty(this.state.errorPassword)) {
-      this.setState({ loading: true });
-      this.SIGNIN();
-    }
   }
 
   async FBSIGNIN() {
@@ -117,17 +104,226 @@ class SignIn extends Component {
     }
   }
 
-  SIGNIN() {
+  EPSIGNIN() {
+    if (isEmpty(this.state.email)) {
+      this.setState({ errorEmail: 'Please enter email' });
+    }
+    if (isEmpty(this.state.password)) {
+      this.setState({ errorPassword: 'Please enter password' });
+    }
+    if (!isEmpty(this.state.email) && !isEmpty(this.state.password) && isEmpty(this.state.errorEmail) && isEmpty(this.state.errorPassword)) {
+      this.setState({ loading: true });
+      this.SIGNIN();
+    }
+  }
+
+  async SIGNIN() {
+    var homeUrl = global.homeUrl;
     AuthService.getUser({
       email: this.state.email,
       password: this.state.password
     }).then(async (res) => {
-      this.setState({ loading: false });
       if (res.count > 0) {
+        this.setState({ loading: false });
         this.props.setUser(res.users[0]);
         var likes = await ListingsService.getLike(res.users[0].id);
         this.props.setLikes(likes);
         this.props.navigation.pop();
+        if (global.homeUrl.agentId !== undefined && global.homeUrl.agentId !== 'AthenaHein0916' && global.homeUrl.mlsNumber !== undefined && global.homeUrl.mlsNumber === 'Z901126S') {
+          if (res.users[0].user_role === 'regular') {
+            if (isEmpty(res.users[0].agent_unique_id)) {
+              console.log(`41`);
+              var agentName = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
+              Alert.alert(
+                'Connect with Agent',
+                `Would you connect to this Agent: ${!isEmpty(agentName.users) ? agentName.users[0].user_name : global.homeUrl.agentId} now?`,
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: () => global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined }
+                  },
+                  {
+                    text: 'OK',
+                    onPress: async () => {
+                      AuthService.updateUser({
+                        user_id: res.users[0].id,
+                        unique_id: res.users[0].unique_id,
+                        name: res.users[0].user_name,
+                        email: res.users[0].user_email,
+                        brokerage_name: res.users[0].brokerage_name,
+                        phone: res.users[0].user_phone,
+                        website: res.users[0].user_website,
+                        instagram_id: res.users[0].user_instagram_id,
+                        photo: res.users[0].user_photo,
+                        role: res.users[0].user_role,
+                        agent_unique_id: global.homeUrl.agentId
+                      }).then((res1) => {
+                        if (res1.count > 0) {
+                          this.props.setUser(res1.users[0]);
+                          global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                        }
+                      }).catch((err) => {
+                        console.log(err.message);
+                      });
+                    }
+                  }
+                ], { cancelable: false }
+              );
+            } else {
+              if (res.users[0].agent_unique_id === global.homeUrl.agentId) {
+                console.log(`42`);
+                global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+              } else {
+                console.log(`43`);
+                var oldAgent = await AuthService.getAgent({ agentId: res.users[0].agent_unique_id });
+                var newAgent = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
+                Alert.alert(
+                  'Connect with Agent',
+                  `You are already connected to agent: ${!isEmpty(oldAgent.users) ? oldAgent.users[0].user_name : res.users[0].agent_unique_id}. ${'\n'} Would you like to switch to ${!isEmpty(newAgent.users) ? newAgent.users[0].user_name : global.homeUrl.agentId}?`,
+                  [
+                    {
+                      text: `No, Stay with ${!isEmpty(oldAgent.users) ? oldAgent.users[0].user_name : res.users[0].agent_unique_id}`,
+                      onPress: () => global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined }
+                    },
+                    {
+                      text: `Yes, Switch to ${!isEmpty(newAgent.users) ? newAgent.users[0].user_name : global.homeUrl.agentId}`,
+                      onPress: async () => {
+                        AuthService.updateUser({
+                          user_id: res.users[0].id,
+                          unique_id: res.users[0].unique_id,
+                          name: res.users[0].user_name,
+                          email: res.users[0].user_email,
+                          brokerage_name: res.users[0].brokerage_name,
+                          phone: res.users[0].user_phone,
+                          website: res.users[0].user_website,
+                          instagram_id: res.users[0].user_instagram_id,
+                          photo: res.users[0].user_photo,
+                          role: res.users[0].user_role,
+                          agent_unique_id: global.homeUrl.agentId
+                        }).then((res2) => {
+                          if (res2.count > 0) {
+                            this.props.setUser(res2.users[0]);
+                            global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                          }
+                        }).catch((err) => {
+                          console.log(err.message);
+                        });
+                      }
+                    }
+                  ], { cancelable: false }
+                );
+              }
+            }
+          } else {
+            console.log(`44`);
+            global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+          }
+        } else if (global.homeUrl.agentId !== undefined && global.homeUrl.agentId !== 'AthenaHein0916' && global.homeUrl.mlsNumber !== undefined && global.homeUrl.mlsNumber !== 'Z901126S') {
+          if (res.users[0].user_role === 'regular') {
+            if (isEmpty(res.users[0].agent_unique_id)) {
+              console.log(`61`);
+              var agentName = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
+              Alert.alert(
+                'Connect with Agent',
+                `Would you connect to this Agent: ${!isEmpty(agentName.users) ? agentName.users[0].user_name : global.homeUrl.agentId} now?`,
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: async () => {
+                      global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                      var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+                      this.props.navigation.navigate('PropertiesDetail', { listing });
+                    }
+                  },
+                  {
+                    text: 'OK',
+                    onPress: async () => {
+                      AuthService.updateUser({
+                        user_id: res.users[0].id,
+                        unique_id: res.users[0].unique_id,
+                        name: res.users[0].user_name,
+                        email: res.users[0].user_email,
+                        brokerage_name: res.users[0].brokerage_name,
+                        phone: res.users[0].user_phone,
+                        website: res.users[0].user_website,
+                        instagram_id: res.users[0].user_instagram_id,
+                        photo: res.users[0].user_photo,
+                        role: res.users[0].user_role,
+                        agent_unique_id: global.homeUrl.agentId
+                      }).then(async (res1) => {
+                        if (res1.count > 0) {
+                          global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                          this.props.setUser(res1.users[0]);
+                          var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+                          this.props.navigation.navigate('PropertiesDetail', { listing });
+                        }
+                      }).catch((err) => {
+                        console.log(err.message);
+                      });
+                    }
+                  }
+                ], { cancelable: false }
+              );
+            } else {
+              if (res.users[0].agent_unique_id === global.homeUrl.agentId) {
+                console.log(`62`);
+                global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+                this.props.navigation.navigate('PropertiesDetail', { listing });
+              } else {
+                console.log(`63`);
+                var oldAgent = await AuthService.getAgent({ agentId: res.users[0].agent_unique_id });
+                var newAgent = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
+                Alert.alert(
+                  'Connect with Agent',
+                  `You are already connected to agent: ${!isEmpty(oldAgent.users) ? oldAgent.users[0].user_name : res.users[0].agent_unique_id} ${'\n'}. Would you like to switch to ${!isEmpty(newAgent.users) ? newAgent.users[0].user_name : global.homeUrl.agentId}?`,
+                  [
+                    {
+                      text: `No, Stay with ${!isEmpty(oldAgent.users) ? oldAgent.users[0].user_name : res.users[0].agent_unique_id}`,
+                      onPress: async () => {
+                        global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                        var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+                        this.props.navigation.navigate('PropertiesDetail', { listing });
+                      }
+                    },
+                    {
+                      text: `Yes, Switch to ${!isEmpty(newAgent.users) ? newAgent.users[0].user_name : global.homeUrl.agentId}`,
+                      onPress: () => {
+                        AuthService.updateUser({
+                          user_id: res.users[0].id,
+                          unique_id: res.users[0].unique_id,
+                          name: res.users[0].user_name,
+                          email: res.users[0].user_email,
+                          brokerage_name: res.users[0].brokerage_name,
+                          phone: res.users[0].user_phone,
+                          website: res.users[0].user_website,
+                          instagram_id: res.users[0].user_instagram_id,
+                          photo: res.users[0].user_photo,
+                          role: res.users[0].user_role,
+                          agent_unique_id: global.homeUrl.agentId
+                        }).then(async (res2) => {
+                          if (res2.count > 0) {
+                            global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                            this.props.setUser(res2.users[0]);
+                            var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+                            this.props.navigation.navigate('PropertiesDetail', { listing });
+                          }
+                        }).catch((err) => {
+                          console.log(err.message);
+                        });
+                      }
+                    }
+                  ], { cancelable: false }
+                )
+              }
+            }
+          } else {
+            console.log(`64`);
+            global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+            var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+            this.props.navigation.navigate('PropertiesDetail', { listing });
+          }
+        }
       } else {
         this.setState({ loading: false }, () => {
           this.setState({ errorEmail: "User email or password is wrong" });
@@ -139,10 +335,10 @@ class SignIn extends Component {
   render() {
     const { email, password } = this.state;
     return (
-      <View style={{ width: wp('100%'), height: hp('100%'), backgroundColor: '#E3E3E3' }}>
+      <View style={styles.whole}>
         <KeyboardAwareScrollView contentContainerStyle={styles.container}>
           <StatusBar hidden />
-          <View style={{ marginTop: 30, width: wp("100%"), alignItems: "flex-start", paddingLeft: 10 }}>
+          <View style={styles.view1}>
             <TouchableOpacity onPress={() => this.props.navigation.pop()}><Icon name="close" type="ant-design" size={30} /></TouchableOpacity>
           </View>
           <Text style={{ marginVertical: 10, fontSize: 34, fontWeight: 'bold' }}> Sign In</Text>
@@ -151,13 +347,13 @@ class SignIn extends Component {
             value={email} secureTextEntry={false} autoCapitalize="none"
             onChangeText={(email) => this.onValidateEmail(email)}
           />
-          <Text style={{ width: '90%', marginTop: 5, marginLeft: 100, fontSize: 12, color: colors.RED.DEFAULT }}>{this.state.errorEmail}</Text>
+          <Text style={styles.text1}>{this.state.errorEmail}</Text>
           <TextInput
             title="Password" iconName="lock" iconType="entypo" iconSize={20}
             value={password} secureTextEntry={true}
             onChangeText={(password) => this.onValidatePassword(password)}
           />
-          <Text style={{ width: '90%', marginTop: 5, marginLeft: 100, fontSize: 12, color: colors.RED.DEFAULT }}>{this.state.errorPassword}</Text>
+          <Text style={styles.text1}>{this.state.errorPassword}</Text>
           <NormalButton
             width={wp("90%")}
             height={40}
@@ -187,11 +383,11 @@ class SignIn extends Component {
             <Text style={{ fontSize: 12 }}>Don't you have account? </Text>
             <TouchableOpacity onPress={() => {
               this.props.navigation.replace("SignUp");
-            }}><Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY, textDecorationLine: "underline" }}>Sign Up</Text></TouchableOpacity>
+            }}><Text style={styles.text2}>Sign Up</Text></TouchableOpacity>
           </View>
           <Modal animationType="fade" transparent={true} visible={this.state.loading} >
-            <View style={{ flex: 1, backgroundColor: '#00000080', justifyContent: 'center', alignItems: 'center' }}>
-              <View style={{ alignItems: 'center', flexDirection: 'row', flex: 1, justifyContent: "center" }}>
+            <View style={styles.view2}>
+              <View style={styles.view3}>
                 <ActivityIndicator style={{ height: 80 }} size="large" color={colors.BLACK} />
               </View>
             </View>
@@ -203,20 +399,59 @@ class SignIn extends Component {
 }
 
 const styles = StyleSheet.create({
+  whole: {
+    width: wp('100%'),
+    height: hp('100%'),
+    backgroundColor: '#E3E3E3'
+  },
   container: {
     backgroundColor: "#E3E3E3",
     alignItems: 'center'
   },
+  view1: {
+    alignItems: "flex-start",
+    marginTop: 30,
+    width: wp("100%"),
+    paddingLeft: 10
+  },
+  view2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00000080',
+  },
+  view3: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: "center",
+    alignItems: 'center',
+  },
+  text1: {
+    marginTop: 5,
+    marginLeft: 100,
+    width: '90%',
+    fontSize: 12,
+    color: colors.RED.DEFAULT
+  },
+  text2: {
+    fontSize: 12,
+    color: colors.BLUE.PRIMARY,
+    textDecorationLine: "underline"
+  }
 });
 
-const mapDispatchToProps = dispatch => {
+
+const mapStateToProps = state => {
   return {
-    setUser: (data) => {
-      dispatch(setUser(data))
-    },
-    setLikes: (data) => {
-      dispatch(setLikes(data));
-    }
+    logged: state.auth.logged,
+    user: state.auth.user_info,
+    likes: state.lists.likes
   }
 }
-export default connect(undefined, mapDispatchToProps)(SignIn);
+const mapDispatchToProps = dispatch => {
+  return {
+    setUser: (data) => dispatch(setUser(data)),
+    setLikes: (data) => dispatch(setLikes(data))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

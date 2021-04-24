@@ -10,6 +10,13 @@ i18n.setI18nConfig();
 
 console.disableYellowBox = true;
 
+global.homeUrl = {
+	agentId: undefined,
+	address: undefined,
+	mlsNumber: undefined,
+	listingId: undefined
+}
+
 global.listings = [];
 global.details = [];
 global.zoom = 10;

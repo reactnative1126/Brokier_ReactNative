@@ -1,16 +1,13 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Image, Modal, ActivityIndicator } from "react-native";
+import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Grid from 'react-native-infinite-scroll-grid';
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { Icon } from "react-native-elements";
 import { connect } from "react-redux";
-import { Loading, Header } from "@components";
+import { Header } from "@components";
 import { colors } from "@constants/themes";
-import { images } from "@constants/assets";
-import { setUser, signOut } from "@modules/redux/auth/actions";
-import { ListingsService } from "@modules/services";
-import { isEmpty, validateMobile, validateEmail, validateLength } from "@utils/functions";
+import { setUser } from "@modules/redux/auth/actions";
 
 class ReferredConnections extends Component {
   constructor(props) {
@@ -47,10 +44,6 @@ class ReferredConnections extends Component {
               </TouchableOpacity>
             </View>
           )}
-        // refreshing={this.state.refreshing}
-        // loadingMore={this.state.loadingMore}
-        // onRefresh={() => this.loadData(global.filters, true, 0)}
-        // onEndReached={() => this.loadData(global.filters, false, this.state.offset)}
         />
       </View>
     );
@@ -86,7 +79,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 300,
     height: 240,
-    // backgroundColor: colors.WHITE,
     backgroundColor: '#E3E3E3',
     borderRadius: 10,
     zIndex: 100
@@ -133,9 +125,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    setUser: (data) => {
-      dispatch(setUser(data))
-    },
+    setUser: (data) => dispatch(setUser(data))
   }
 }
 

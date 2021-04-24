@@ -1,16 +1,16 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Share } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import GoogleStaticMap from 'react-native-google-static-map';
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import configs from "@constants/configs";
 import { Icon } from "react-native-elements";
-import { connect } from "react-redux";
+import { colors } from "@constants/themes";
 import { setLikes } from "@modules/redux/lists/actions";
 import { Loading2, Header, ActionButtons, PropertyDetail, PropertyHistory, PropertyDescription, PropertySimilar, PropertySchools, PropertyPrices, PropertyProfile, PropertyQuestions } from "@components";
 import { ListingsService } from "@modules/services";
 import { isEmpty, isCurrency } from "@utils/functions";
-import configs from "@constants/configs";
-import { colors } from "@constants/themes";
 
 class PropertiesDetail extends Component {
   constructor(props) {
@@ -69,6 +69,16 @@ class PropertiesDetail extends Component {
       });
   }
 
+  onViewing(listingId, agentUniqueId, userId) {
+    this.setState({ loading: true });
+    ListingsService.setViewings(listingId, agentUniqueId, userId).then((res) => {
+      alert('Success');
+      this.setState({ loading: false });
+    }).catch((err) => {
+      this.setState({ loading: false });
+    });
+  }
+
   onLike(id) {
     ListingsService.setLike(this.props.user.id, id).then((response) => {
       this.props.setLikes(response);
@@ -85,9 +95,9 @@ class PropertiesDetail extends Component {
       var subject = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
       var message = `${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix}: ${status}, ${isCurrency(listing.listPrice).split('.')[0]}, ${listing.neighborhood} ${listing.city}, ${listing.mlsNumber} - Brokier${'\n'}`;
       if (!isEmpty(user) && user.user_role === 'regular') {
-        message += `https://brokier.web.app/home/A11real0926queen/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/AthenaHein0916/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       } else {
-        message += `https://brokier.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       }
 
       Share.share({ message }, { subject });
@@ -97,24 +107,14 @@ class PropertiesDetail extends Component {
       var title = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
 
       if (!isEmpty(user) && user.user_role === 'regular') {
-        message += `https://brokier.web.app/home/A11real0926queen/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/AthenaHein0916/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       } else {
-        message += `https://brokier.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       }
 
       Share.share({ message, title }, { dialogTitle });
     }
   };
-
-  onViewing(listingId, agentUniqueId, userId) {
-    this.setState({ loading: true });
-    ListingsService.setViewings(listingId, agentUniqueId, userId).then((res) => {
-      alert('Success');
-      this.setState({ loading: false });
-    }).catch((err) => {
-      this.setState({ loading: false });
-    });
-  }
 
   render() {
     const { listing } = this.props.route.params;
@@ -178,14 +178,14 @@ class PropertiesDetail extends Component {
                   </Text>
               </TouchableOpacity>
             ) : (
-                <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", width: "100%", height: 35, borderRadius: 5, backgroundColor: colors.RED.PRIMARY }}
-                  onPress={() => this.onViewing(listing.id, this.props.user.agent_unique_id, this.props.user.id)}
-                >
-                  <Text style={{ fontSize: 16, fontWeight: "bold", color: colors.WHITE, }} >
-                    Schedule Viewing
+              <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", width: "100%", height: 35, borderRadius: 5, backgroundColor: colors.RED.PRIMARY }}
+                onPress={() => this.onViewing(listing.id, this.props.user.agent_unique_id, this.props.user.id)}
+              >
+                <Text style={{ fontSize: 16, fontWeight: "bold", color: colors.WHITE, }} >
+                  Schedule Viewing
                   </Text>
-                </TouchableOpacity>
-              )}
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </View>
@@ -201,18 +201,17 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    // marginTop: 10,
-    padding: 2,
     width: "100%",
     height: 35,
+    padding: 2,
   },
   topBar: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    paddingTop: 10,
     height: 50,
+    paddingTop: 10,
     backgroundColor: colors.GREY.PRIMARY,
   },
   twoButton: {
@@ -253,9 +252,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setLikes: (data) => {
-      dispatch(setLikes(data));
-    }
+    setLikes: (data) => dispatch(setLikes(data))
   }
 }
 

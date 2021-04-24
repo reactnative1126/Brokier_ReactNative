@@ -1,16 +1,16 @@
 import React from "react";
 import { useSelector } from 'react-redux'
 import { Platform, StyleSheet, View, Text, Image, TouchableOpacity, TouchableHighlight } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Swiper from "react-native-swiper";
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { Icon } from "react-native-elements";
-import { ListingsService } from "@modules/services";
-import { isEmpty, isCurrency } from "@utils/functions";
 import configs from "@constants/configs";
+import { Icon } from "react-native-elements";
 import { colors } from "@constants/themes";
 import { images } from "@constants/assets";
+import { ListingsService } from "@modules/services";
+import { isEmpty, isCurrency } from "@utils/functions";
 
 export default MarkerDetail = ({ listing, likes, navigation, onLogin, onLike, onShare }) => {
   const { logged } = useSelector(state => state.auth);

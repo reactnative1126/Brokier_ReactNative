@@ -1,14 +1,14 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, Share } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Grid from 'react-native-infinite-scroll-grid';
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { connect } from "react-redux";
+import { colors } from "@constants/themes";
 import { setLikes } from "@modules/redux/lists/actions";
 import { Loading2, Header, PickerButton, PropertyItem } from "@components";
 import { ListingsService } from "@modules/services";
 import { isEmpty, isCurrency } from "@utils/functions";
-import { colors } from "@constants/themes";
 
 const speeds = [
   { value: 0, label: 'Instant' },
@@ -93,15 +93,15 @@ class Favorite extends Component {
     const user = this.props.user;
     var listing = await ListingsService.getListingDetail(id);
     var status = listing.lastStatus === 'Sus' ? 'Suspended' : listing.lastStatus === 'Exp' ? 'Expires' : listing.lastStatus === 'Sld' ? 'Sold' : listing.lastStatus === 'Ter' ? 'Terminated' : listing.lastStatus === 'Dft' ? 'Deal' : listing.lastStatus === 'Lsd' ? 'Leased' : listing.lastStatus === 'Sc' ? 'Sold Con' : listing.lastStatus === 'Lc' ? 'Leased Con' : listing.lastStatus === 'Pc' ? 'Price Change' : listing.lastStatus === 'Ext' ? 'Extended' : listing.lastStatus === 'New' ? 'For Sale' : null;
-    var image = `${configs.resURL}${listing.images.split('#')[0]}`;
+    // var image = `${configs.resURL}${listing.images.split('#')[0]}`;
 
     if (Platform.OS === 'ios') {
       var subject = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
       var message = `${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix}: ${status}, ${isCurrency(listing.listPrice).split('.')[0]}, ${listing.neighborhood} ${listing.city}, ${listing.mlsNumber} - Brokier${'\n'}`;
       if (!isEmpty(user) && user.user_role === 'regular') {
-        message += `https://brokier.web.app/home/A11real0926queen/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/AthenaHein0916/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       } else {
-        message += `https://brokier.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       }
 
       Share.share({ message }, { subject });
@@ -111,9 +111,9 @@ class Favorite extends Component {
       var title = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
 
       if (!isEmpty(user) && user.user_role === 'regular') {
-        message += `https://brokier.web.app/home/A11real0926queen/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/AthenaHein0916/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       } else {
-        message += `https://brokier.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       }
 
       Share.share({ message, title }, { dialogTitle });
@@ -139,7 +139,6 @@ class Favorite extends Component {
         </Header>
         {saved === 'searches' ?
           <View style={styles.container}>
-            {/* <Text style={{ width: wp('100%'), paddingLeft: 10, fontSize: 12, fontWeight: 'bold', marginTop: 15 }}>Saved Searches:</Text> */}
             <Grid
               data={this.state.searches}
               renderItem={(search) => (
@@ -152,10 +151,6 @@ class Favorite extends Component {
                   <Text style={{ fontSize: 12 }}>Filters: {search.item.description}</Text>
                 </TouchableOpacity>
               )}
-            // refreshing={this.state.refreshing}
-            // loadingMore={this.state.loadingMore}
-            // onRefresh={() => this.loadData(true, 0)}
-            // onEndReached={() => this.loadData(false, this.state.offset)}
             />
           </View>
           : (isEmpty(this.state.listings) && !this.state.loading) ?
@@ -181,9 +176,6 @@ class Favorite extends Component {
             </View>
         }
         <Loading2 loading={this.state.loading} />
-        {/* <TouchableOpacity style={styles.mapSearchButton} onPress={() => this.props.navigation.navigate('Home')}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold', color: colors.WHITE }}>Map Search</Text>
-          </TouchableOpacity> */}
         {speedStatus ? <PickerButton data={speeds} label={speedLabel} onSelect={(label) => this.setState({ speedLabel: label, speedStatus: false })} /> : null}
       </View>
     );
@@ -235,9 +227,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setLikes: (data) => {
-      dispatch(setLikes(data));
-    }
+    setLikes: (data) => dispatch(setLikes(data))
   }
 }
 

@@ -2,8 +2,8 @@ import React from "react";
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Modal } from "react-native";
 
 import { Icon } from "react-native-elements";
-import Header from '../Header/Header';
 import { colors } from "@constants/themes";
+import Header from '../Header/Header';
 
 const sorts = [{ sort: "Price: Low to High" }, { sort: "New to market/ Most Recently Sold" }]
 
@@ -41,10 +41,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: "center",
     marginTop: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
     width: "100%",
     height: 35,
+    paddingLeft: 10,
+    paddingRight: 10,
     borderBottomWidth: 1,
     borderBottomColor: colors.GREY.SECONDARY
   },
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 15,
     marginTop: 10,
+    padding: 15,
     borderBottomWidth: 1,
     borderBottomColor: colors.GREY.SECONDARY
   }

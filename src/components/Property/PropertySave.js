@@ -1,10 +1,10 @@
 import React, { Component, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Modal } from "react-native";
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
 import { Input } from "react-native-elements";
-import { isEmpty } from "@utils/functions";
 import { colors } from "@constants/themes";
+import { isEmpty } from "@utils/functions";
 
 export default PropertySave = props => {
   const [name, setName] = useState('');
@@ -12,7 +12,7 @@ export default PropertySave = props => {
   return (
     <Modal visible={props.visible} animationType="none" swipeArea={50} transparent={true}>
       <View style={styles.modalView}>
-        <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 20 }}>Save search</Text>
+        <Text style={styles.title}>Save search</Text>
         <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Text>Name<Text style={{ color: colors.RED.DEFAULT }}>*</Text>:</Text>
           <Input
@@ -55,20 +55,25 @@ export default PropertySave = props => {
 
 const styles = StyleSheet.create({
   modalView: {
+    alignItems: 'center',
     marginLeft: wp('100') / 2 - 150,
     marginTop: hp('100%') / 2 - 200,
-    alignItems: 'center',
     width: 300,
+    padding: 30,
     backgroundColor: colors.WHITE,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    padding: 30,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
     zIndex: 1000
+  },
+  title: {
+    marginBottom: 20,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   buttonView: {
     flexDirection: 'row',
@@ -90,8 +95,8 @@ const styles = StyleSheet.create({
     zIndex: 1000
   },
   inputContainerStyle: {
-    padding: 0,
     height: 25,
+    padding: 0,
     borderBottomWidth: 1,
   },
   textInputStyle: {

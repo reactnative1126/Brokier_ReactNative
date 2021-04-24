@@ -15,7 +15,6 @@ export default ListingsService = {
             return response.data.listings;
         });
     },
-
     getListingsList: function (region, offset, sort) {
         return axios.get(`/listings/list`, {
             params: {
@@ -31,7 +30,6 @@ export default ListingsService = {
             return response.data.listings;
         });
     },
-
     getListingDetail: function (id) {
         return axios.get(`/listings/detail`, {
             params: {
@@ -41,7 +39,6 @@ export default ListingsService = {
             return response.data.listings[0];
         });
     },
-
     getDetailHistories: function (streetNumber, streetName, streetSuffix, unitNumber) {
         return axios.get(`/listings/histories`, {
             params: {
@@ -54,7 +51,6 @@ export default ListingsService = {
             return response.data.listings;
         });
     },
-
     getDetailSimilars: function (latitude, longitude, status, type, lastStatus, propertyType, numBedrooms) {
         return axios.get(`/listings/similars`, {
             params: {
@@ -70,7 +66,6 @@ export default ListingsService = {
             return response.data.listings;
         });
     },
-
     getDetailRooms: function (mlsNumber) {
         return axios.get(`/listings/rooms`, {
             params: {
@@ -80,7 +75,6 @@ export default ListingsService = {
             return response.data.listings;
         });
     },
-
     getSearch: function (search) {
         return axios.get(`/listings/search`, {
             params: {
@@ -90,7 +84,6 @@ export default ListingsService = {
             return response.data.listings;
         });
     },
-
     setSearches: function (name, coordinates, userId) {
         return axios.post(`/listings/searches`, {
             name,
@@ -104,7 +97,6 @@ export default ListingsService = {
             return response.data.listings;
         });
     },
-
     getSearches: function (userId) {
         return axios.get(`/listings/searches`, {
             params: {
@@ -114,7 +106,6 @@ export default ListingsService = {
             return response.data.searches;
         });
     },
-
     setLike: function (userId, listingId) {
         return axios.post(`/listings/like`, {
             userId: userId,
@@ -123,7 +114,6 @@ export default ListingsService = {
             return response.data.likes;
         });
     },
-
     getLike: function (userId) {
         return axios.get(`/listings/like`, {
             params: {
@@ -133,7 +123,6 @@ export default ListingsService = {
             return response.data.likes;
         });
     },
-
     getFavoriteList: function (userId, offset) {
         return axios.get(`/listings/favorite`, {
             params: {
@@ -144,7 +133,6 @@ export default ListingsService = {
             return response.data.listings;
         });
     },
-
     setViewings: function (listingId, agentUniqueId, userId) {
         return axios.post(`/listings/viewings`, {
             listingId,
@@ -154,7 +142,6 @@ export default ListingsService = {
             return response.data.listings;
         });
     },
-
     getViewings: function (agentId, userId, offset) {
         return axios.get(`/listings/viewings`, {
             params: {

@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { BarChart } from 'react-native-svg-charts';
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
 import { Icon } from "react-native-elements";
 
 export default MarketChart2 = (props) => {
@@ -23,16 +23,16 @@ export default MarketChart2 = (props) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ width: wp('100%'), flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10 }}>
+      <View style={styles.wrapper}>
         <View style={{ width: 30 }} />
-        <Text style={{ textDecorationLine: 'underline', fontSize: 12, color: '#848484' }}>Inventory and Market Temperature</Text>
+        <Text style={styles.title}>Inventory and Market Temperature</Text>
         <TouchableOpacity>
           <Icon name="share-apple" type="evilicon" size={25} />
         </TouchableOpacity>
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ fontSize: 12, transform: [{ rotate: '-90deg' }], marginRight: -40 }}>Number of Homes</Text>
-        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 10, width: 200, height: 120, borderLeftWidth: 0.5, borderRightWidth: 0.5, borderBottomWidth: 0.5 }}>
+      <View style={styles.wrapper2}>
+        <Text style={styles.title2}>Number of Homes</Text>
+        <View style={styles.homeChart}>
           <BarChart
             style={{ width: 180, height: 119 }}
             numberOfTicks={0}
@@ -44,10 +44,10 @@ export default MarketChart2 = (props) => {
           >
           </BarChart>
         </View>
-        <Text style={{ fontSize: 12, transform: [{ rotate: '90deg' }], marginLeft: -40 }}>Months of Inventory</Text>
+        <Text style={styles.title3}>Months of Inventory</Text>
       </View>
       <Text style={{ marginTop: 5 }}>Time</Text>
-      <View style={{ marginTop: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.wrapper3}>
         <View style={{ width: 5, height: 5, backgroundColor: '#7ABA80' }} />
         <Text style={{ fontSize: 8, width: 80, marginLeft: 10 }}>Active Listings</Text>
         <View style={{ width: 5, height: 5, backgroundColor: '#D95644' }} />
@@ -71,4 +71,47 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 10
   },
+  wrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: wp('100%'),
+    padding: 10
+  },
+  title: {
+    textDecorationLine: 'underline',
+    fontSize: 12,
+    color: '#848484'
+  },
+  wrapper2: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  title2: {
+    marginRight: -40,
+    fontSize: 12,
+    transform: [{ rotate: '-90deg' }],
+  },
+  homeChart: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+    width: 200,
+    height: 120,
+    borderLeftWidth: 0.5,
+    borderRightWidth: 0.5,
+    borderBottomWidth: 0.5
+  },
+  title3: {
+    marginLeft: -40,
+    fontSize: 12,
+    transform: [{ rotate: '90deg' }],
+  },
+  wrapper3: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+  }
 });

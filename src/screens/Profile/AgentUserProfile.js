@@ -1,18 +1,18 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Platform, Image, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Modal, ActivityIndicator, Share } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import * as ImagePicker from 'expo-image-picker';
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import axios from 'axios';
+import configs from "@constants/configs";
 import { Icon } from "react-native-elements";
-import { connect } from "react-redux";
+import { colors } from "@constants/themes";
 import { setTab, setUser, signOut } from "@modules/redux/auth/actions";
 import { setLikes } from "@modules/redux/lists/actions";
 import { AuthService } from "@modules/services";
 import { Loading, Header } from "@components";
-import { colors } from "@constants/themes";
 import { isEmpty, validateLength } from "@utils/functions";
-import configs from "@constants/configs";
-import axios from 'axios';
 
 class AgentUserProfile extends Component {
   constructor(props) {
@@ -78,7 +78,8 @@ class AgentUserProfile extends Component {
       website: this.state.website,
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
-      role: this.props.user.user_role
+      role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -101,7 +102,8 @@ class AgentUserProfile extends Component {
       website: this.props.user.user_website,
       instagram_id: this.state.instagram,
       photo: this.props.user.user_photo,
-      role: this.props.user.user_role
+      role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -144,7 +146,8 @@ class AgentUserProfile extends Component {
           website: this.props.user.user_website,
           instagram_id: this.state.instagram,
           photo: res.data.path,
-          role: this.props.user.user_role
+          role: this.props.user.user_role,
+          agent_unique_id: this.props.user.agent_unique_id
         }).then((res) => {
           this.setState({ loading: false });
           if (res.count > 0) {
@@ -164,13 +167,13 @@ class AgentUserProfile extends Component {
 
     if (Platform.OS === 'ios') {
       var subject = `Brokier - ${user.brokerage_name}(Agent) Unique Link`;
-      var message = `Brokier - ${user.brokerage_name}(Agent) Unique Link${'\n'}https://brokier.web.app/home/${user.unique_id}/athena-hein/19910926`;
+      var message = `Brokier - ${user.brokerage_name}(Agent) Unique Link${'\n'}https://brokier-0916.web.app/home/${user.unique_id}/926-Angel-St/Z901126S/000000`;
       // var url = `https://brokier.web.app/home/${user.unique_id}/athena-hein/19910926`;
 
       Share.share({ message }, { subject });
     } else {
       var dialogTitle = `Brokier - ${user.brokerage_name}(Agent) Unique Link`;
-      var message = `Brokier - ${user.brokerage_name}(Agent) Unique Link${'\n'}https://brokier.web.app/home/${user.unique_id}/athena-hein/19910926`;
+      var message = `Brokier - ${user.brokerage_name}(Agent) Unique Link${'\n'}https://brokier-0916.web.app/home/${user.unique_id}/926-Angel-St/Z901126S/000000`;
       var title = `Brokier - ${user.brokerage_name}(Agent) Unique Link`;
 
       Share.share({ message, title }, { dialogTitle });
@@ -262,7 +265,7 @@ class AgentUserProfile extends Component {
           <View style={styles.header}>
             <View style={{ marginLeft: 10 }}>
               <View style={{ flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                <TouchableOpacity>
                   <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{this.props.user.user_name} Agent</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('AgentViewProfile')}>
@@ -338,34 +341,34 @@ class AgentUserProfile extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <TouchableOpacity style={{ width: wp('100%'), height: 50, flexDirection: 'row', alignItems: 'center', paddingLeft: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}>
+          <TouchableOpacity style={styles.view1}>
             <Icon name="hand-holding" type="font-awesome-5" size={15} />
             <Text style={{ marginLeft: 20, fontSize: 12 }}>Edit Profile and Marketing Details</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ width: wp('100%'), height: 50, flexDirection: 'row', alignItems: 'center', paddingLeft: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}
+          <TouchableOpacity style={styles.view1}
             onPress={() => this.props.navigation.reset({ routes: [{ name: 'Favorite' }] })}
           >
             <Icon name="search" type="font-awesome" size={15} />
             <Text style={{ marginLeft: 20, fontSize: 12 }}>Saved Searches</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ width: wp('100%'), height: 50, flexDirection: 'row', alignItems: 'center', paddingLeft: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}
+          <TouchableOpacity style={styles.view1}
             onPress={() => this.props.navigation.reset({ routes: [{ name: 'Favorite' }] })}
           >
             <Icon name="heart" type="font-awesome" size={15} />
             <Text style={{ marginLeft: 20, fontSize: 12 }}>Saved Listings</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ width: wp('100%'), height: 50, flexDirection: 'row', alignItems: 'center', paddingLeft: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}
+          <TouchableOpacity style={styles.view1}
             onPress={() => this.onReferredConnections()}
           >
             <Icon name="users" type="font-awesome" size={15} />
             <Text style={{ marginLeft: 20, fontSize: 12 }}>Referred Connections</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ width: wp('100%'), height: 50, flexDirection: 'row', alignItems: 'center', paddingLeft: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}
+          <TouchableOpacity style={styles.view1}
             onPress={() => this.props.navigation.navigate('AccountSettings')}>
             <Icon name="settings" type="feather" size={15} />
             <Text style={{ marginLeft: 20, fontSize: 12 }}>Settings and Password</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ width: wp('100%'), height: 50, flexDirection: 'row', alignItems: 'center', paddingLeft: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}
+          <TouchableOpacity style={styles.view1}
             onPress={() => this.signOut()}>
             <Icon name="logout" type="material-community" size={15} />
             <Text style={{ marginLeft: 20, fontSize: 12 }}>Log Out</Text>
@@ -453,6 +456,15 @@ const styles = StyleSheet.create({
     height: 35,
     backgroundColor: '#0072DC80',
     borderBottomRightRadius: 10
+  },
+  view1: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: wp('100%'),
+    height: 50,
+    paddingLeft: 20,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#DEDEDE'
   }
 });
 const mapStateToProps = state => {
@@ -463,18 +475,10 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    setTab: (data) => {
-      dispatch(setTab(data))
-    },
-    signOut: (data) => {
-      dispatch(signOut(data))
-    },
-    setLikes: (data) => {
-      dispatch(setLikes(data));
-    },
-    setUser: (data) => {
-      dispatch(setUser(data))
-    },
+    setTab: (data) => dispatch(setTab(data)),
+    signOut: (data) => dispatch(signOut(data)),
+    setLikes: (data) => dispatch(setLikes(data)),
+    setUser: (data) => dispatch(setUser(data))
   }
 }
 

@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from 'react-redux'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet, View, Text } from "react-native";
-import { Icon } from "react-native-elements";
 
 import HomeStack from "./StackNavigators/HomeStackNavigator";
 import FavoriteStack from "./StackNavigators/FavoriteStackNavigator";
@@ -10,6 +9,7 @@ import MortgageStack from "./StackNavigators/MortgageStackNavigator";
 import MarketStack from "./StackNavigators/MarketStackNavigator";
 import ProfileStack from "./StackNavigators/ProfileStackNavigator";
 
+import { Icon } from "react-native-elements";
 import { colors } from "@constants/themes";
 
 const Tab = createBottomTabNavigator();
@@ -55,9 +55,6 @@ export default BottomTabNavigator = () => {
                 size={25}
                 color={focused ? colors.BLACK : colors.GREY.DEEP}
               />
-              {/* <View style={styles.badge}>
-                <Text style={styles.badgeText}>{3}</Text>
-              </View> */}
             </View>
           ),
         }}
@@ -131,12 +128,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: -10,
     top: 5,
-    backgroundColor: "red",
-    borderRadius: 7.5,
-    width: 15,
-    height: 15,
     justifyContent: "center",
     alignItems: "center",
+    width: 15,
+    height: 15,
+    backgroundColor: "red",
+    borderRadius: 7.5,
   },
   badgeText: {
     color: "white",

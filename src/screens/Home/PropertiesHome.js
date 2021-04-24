@@ -1,23 +1,23 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet, View, TouchableOpacity, Text, Share } from "react-native";
+import { connect } from "react-redux";
+import { Platform, StatusBar, StyleSheet, View, TouchableOpacity, Text, Share, Alert } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import MapView, { Marker, Polygon, Polyline, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from "react-native-maps";
 import Grid from 'react-native-infinite-scroll-grid';
 import SwitchSelector from "react-native-switch-selector";
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-// import * as Linking from 'expo-linking';
+import * as Linking from 'expo-linking';
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import configs from "@constants/configs";
 import { Icon } from "react-native-elements";
-import { connect } from "react-redux";
-import { setTab } from "@modules/redux/auth/actions";
+import { colors } from "@constants/themes";
+import { setTab, setUser } from "@modules/redux/auth/actions";
 import { setLikes } from "@modules/redux/lists/actions";
 import { Loading, Loading2, Header, PropertyFilter, PropertySort, PropertyMarker, PropertyItem, PropertySave } from "@components";
 import { MapStore } from '@modules/stores';
-import { ListingsService, MapService } from "@modules/services";
+import { ListingsService, MapService, AuthService } from "@modules/services";
 import { isEmpty, isNumber, isCurrency } from "@utils/functions";
-import { colors } from "@constants/themes";
-import configs from "@constants/configs";
 
 class PropertiesHome extends Component {
 
@@ -27,6 +27,13 @@ class PropertiesHome extends Component {
       loading: false,
       loading2: false,
       tab: true,
+
+      confirmVisible: false,
+      confirmTitle: '',
+      confirmDescription: '',
+      confirmCancel: 'Cancel',
+      confirmButton: 'OK',
+      confirmAction: 1,
 
       view: (global.filters.type == 'Sale' || global.filters.lastStatus == 'Sld') ? true : false,
       forSale: global.filters.type == 'Sale' ? true : false,
@@ -65,17 +72,297 @@ class PropertiesHome extends Component {
     this.props.setTab(true);
   }
 
-  onTab() {
-    if (this.state.tab) {
-      this.props.setTab(true);
-      global.marker = false;
-      this.setState({ details: [], tab: false }, () => {
-        this.loadData(global.filters, true, 0);
+  componentDidMount() {
+    var _this = this;
+    global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+    Linking.getInitialURL()
+      .then(async url => {
+        if (!url) return;
+        let { path, queryParams } = Linking.parse(url);
+        global.homeUrl = {
+          agentId: queryParams.agentId,
+          address: queryParams.address,
+          mlsNumber: queryParams.mlsNumber,
+          listingId: queryParams.listingId
+        };
+        var homeUrl = global.homeUrl;
+        if (global.homeUrl.agentId === undefined && global.homeUrl.address === undefined && global.homeUrl.mlsNumber === undefined && global.homeUrl.listingId === undefined) {
+          console.log(`1`);
+          global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+          return;
+        } else if (global.homeUrl.agentId === 'AthenaHein0916' && global.homeUrl.mlsNumber === 'Z901126S') {
+          console.log(`2`);
+          global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+          return;
+        } else if (global.homeUrl.agentId === 'AthenaHein0916' && global.homeUrl.mlsNumber !== 'Z901126S') {
+          console.log(`3`);
+          global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+          var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+          _this.props.navigation.navigate('PropertiesDetail', { listing });
+        } else if (global.homeUrl.agentId !== 'AthenaHein0916' && global.homeUrl.mlsNumber === 'Z901126S') {
+          if (_this.props.logged) {
+            console.log(`4`);
+            _this.onConnect1(homeUrl);
+          } else {
+            console.log(`5`);
+            _this.props.navigation.push("Auth");
+          }
+        } else if (global.homeUrl.agentId !== 'AthenaHein0916' && global.homeUrl.mlsNumber !== 'Z901126S') {
+          if (_this.props.logged) {
+            console.log(`6`);
+            _this.onConnect2(homeUrl);
+          } else {
+            console.log(`7`);
+            _this.props.navigation.push("Auth");
+          }
+        }
       })
+      .catch(({ message }) => {
+        alert(message);
+      });
+
+    // Linking.addEventListener('url', async (event) => {
+    //   if (!event.url) return;
+    //   let { path, queryParams } = Linking.parse(event.url);
+    //   global.homeUrl = {
+    //     agentId: queryParams.agentId,
+    //     address: queryParams.address,
+    //     mlsNumber: queryParams.mlsNumber,
+    //     listingId: queryParams.listingId
+    //   }
+    // });
+  }
+
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this.urlRedirect);
+  }
+
+  async onConnect1(homeUrl) {
+    if (this.props.user.user_role === 'regular') {
+      if (isEmpty(this.props.user.agent_unique_id)) {
+        console.log(`41`);
+        var agentName = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
+        Alert.alert(
+          'Connect with Agent',
+          `Would you connect to this Agent: ${!isEmpty(agentName.users) ? agentName.users[0].user_name : global.homeUrl.agentId} now?`,
+          [
+            {
+              text: 'Cancel',
+              onPress: () => global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined }
+            },
+            {
+              text: 'OK',
+              onPress: async () => {
+                AuthService.updateUser({
+                  user_id: this.props.user.id,
+                  unique_id: this.props.user.unique_id,
+                  name: this.props.user.user_name,
+                  email: this.props.user.user_email,
+                  brokerage_name: this.props.user.brokerage_name,
+                  phone: this.props.user.user_phone,
+                  website: this.props.user.user_website,
+                  instagram_id: this.props.user.user_instagram_id,
+                  photo: this.props.user.user_photo,
+                  role: this.props.user.user_role,
+                  agent_unique_id: global.homeUrl.agentId
+                }).then((res) => {
+                  if (res.count > 0) {
+                    this.props.setUser(res.users[0]);
+                    global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                  }
+                }).catch((err) => {
+                  console.log(err.message);
+                });
+              }
+            }
+          ], { cancelable: false }
+        );
+      } else {
+        if (this.props.user.agent_unique_id === global.homeUrl.agentId) {
+          console.log(`42`);
+          global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+        } else {
+          console.log(`43`);
+          var oldAgent = await AuthService.getAgent({ agentId: this.props.user.agent_unique_id });
+          var newAgent = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
+          Alert.alert(
+            'Connect with Agent',
+            `You are already connected to agent: ${!isEmpty(oldAgent.users) ? oldAgent.users[0].user_name : this.props.user.agent_unique_id}. ${'\n'} Would you like to switch to ${!isEmpty(newAgent.users) ? newAgent.users[0].user_name : global.homeUrl.agentId}?`,
+            [
+              {
+                text: `No, Stay with ${!isEmpty(oldAgent.users) ? oldAgent.users[0].user_name : this.props.user.agent_unique_id}`,
+                onPress: () => global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined }
+              },
+              {
+                text: `Yes, Switch to ${!isEmpty(newAgent.users) ? newAgent.users[0].user_name : global.homeUrl.agentId}`,
+                onPress: async () => {
+                  AuthService.updateUser({
+                    user_id: this.props.user.id,
+                    unique_id: this.props.user.unique_id,
+                    name: this.props.user.user_name,
+                    email: this.props.user.user_email,
+                    brokerage_name: this.props.user.brokerage_name,
+                    phone: this.props.user.user_phone,
+                    website: this.props.user.user_website,
+                    instagram_id: this.props.user.user_instagram_id,
+                    photo: this.props.user.user_photo,
+                    role: this.props.user.user_role,
+                    agent_unique_id: global.homeUrl.agentId
+                  }).then((res) => {
+                    if (res.count > 0) {
+                      this.props.setUser(res.users[0]);
+                      global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                    }
+                  }).catch((err) => {
+                    console.log(err.message);
+                  });
+                }
+              }
+            ], { cancelable: false }
+          );
+        }
+      }
     } else {
-      this.setState({ tab: true }, () => {
-        this.onRegionChangeComplete(global.region);
-      })
+      console.log(`44`);
+      global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+    }
+  }
+
+  async onConnect2(homeUrl) {
+    if (this.props.user.user_role === 'regular') {
+      if (isEmpty(this.props.user.agent_unique_id)) {
+        console.log(`61`);
+        var agentName = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
+        Alert.alert(
+          'Connect with Agent',
+          `Would you connect to this Agent: ${!isEmpty(agentName.users) ? agentName.users[0].user_name : global.homeUrl.agentId} now?`,
+          [
+            {
+              text: 'Cancel',
+              onPress: async () => {
+                global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+                this.props.navigation.navigate('PropertiesDetail', { listing });
+              }
+            },
+            {
+              text: 'OK',
+              onPress: async () => {
+                AuthService.updateUser({
+                  user_id: this.props.user.id,
+                  unique_id: this.props.user.unique_id,
+                  name: this.props.user.user_name,
+                  email: this.props.user.user_email,
+                  brokerage_name: this.props.user.brokerage_name,
+                  phone: this.props.user.user_phone,
+                  website: this.props.user.user_website,
+                  instagram_id: this.props.user.user_instagram_id,
+                  photo: this.props.user.user_photo,
+                  role: this.props.user.user_role,
+                  agent_unique_id: global.homeUrl.agentId
+                }).then(async (res) => {
+                  if (res.count > 0) {
+                    global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                    this.props.setUser(res.users[0]);
+                    var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+                    this.props.navigation.navigate('PropertiesDetail', { listing });
+                  }
+                }).catch((err) => {
+                  console.log(err.message);
+                });
+              }
+            }
+          ], { cancelable: false }
+        );
+      } else {
+        if (this.props.user.agent_unique_id === global.homeUrl.agentId) {
+          console.log(`62`);
+          global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+          var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+          this.props.navigation.navigate('PropertiesDetail', { listing });
+        } else {
+          console.log(`63`);
+          var oldAgent = await AuthService.getAgent({ agentId: this.props.user.agent_unique_id });
+          var newAgent = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
+          Alert.alert(
+            'Connect with Agent',
+            `You are already connected to agent: ${!isEmpty(oldAgent.users) ? oldAgent.users[0].user_name : this.props.user.agent_unique_id} ${'\n'}. Would you like to switch to ${!isEmpty(newAgent.users) ? newAgent.users[0].user_name : global.homeUrl.agentId}?`,
+            [
+              {
+                text: `No, Stay with ${!isEmpty(oldAgent.users) ? oldAgent.users[0].user_name : this.props.user.agent_unique_id}`,
+                onPress: async () => {
+                  global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                  var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+                  this.props.navigation.navigate('PropertiesDetail', { listing });
+                }
+              },
+              {
+                text: `Yes, Switch to ${!isEmpty(newAgent.users) ? newAgent.users[0].user_name : global.homeUrl.agentId}`,
+                onPress: () => {
+                  AuthService.updateUser({
+                    user_id: this.props.user.id,
+                    unique_id: this.props.user.unique_id,
+                    name: this.props.user.user_name,
+                    email: this.props.user.user_email,
+                    brokerage_name: this.props.user.brokerage_name,
+                    phone: this.props.user.user_phone,
+                    website: this.props.user.user_website,
+                    instagram_id: this.props.user.user_instagram_id,
+                    photo: this.props.user.user_photo,
+                    role: this.props.user.user_role,
+                    agent_unique_id: global.homeUrl.agentId
+                  }).then(async (res) => {
+                    if (res.count > 0) {
+                      global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                      this.props.setUser(res.users[0]);
+                      var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+                      this.props.navigation.navigate('PropertiesDetail', { listing });
+                    }
+                  }).catch((err) => {
+                    console.log(err.message);
+                  });
+                }
+              }
+            ], { cancelable: false }
+          )
+        }
+      }
+    } else {
+      console.log(`64`);
+      global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+      var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+      this.props.navigation.navigate('PropertiesDetail', { listing });
+    }
+  }
+
+  async loadData(filters, refresh, offset) {
+    if (this.state.isLoading) return;
+
+    if (refresh) {
+      this.setState({ refreshing: true });
+    } else {
+      this.setState({ loadingMore: true });
+    }
+
+    try {
+      this.setState({ isLoading: true });
+      filters.type = this.state.view ? this.state.forSale ? "Sale" : null : this.state.forRent ? "Lease" : null;
+      filters.lastStatus = this.state.view ? this.state.sold ? "Sld" : null : this.state.rented ? "Lsd" : null;
+      var sort = this.state.sortValue == 0 ? 'Price' : this.state.forSale || this.state.forRent ? 'List' : 'Sold';
+      global.filters = filters;
+      var region = !this.state.drawing ? global.region : await MapStore.getRegion(this.state.coordinates);
+      var listings = await ListingsService.getListingsList(region, offset, sort);
+      var likes = await ListingsService.getLike(isEmpty(this.props.user) ? 0 : this.props.user.id);
+      this.props.setLikes(likes);
+      if (!this.state.drawing) {
+        this.setState({ listings2: refresh ? listings : [...this.state.listings2, ...listings], loadingMore: false, offset: offset + 1, filter: false, loading: false });
+      } else {
+        this.setState({ listings2: refresh ? await MapStore.getRegionMarkers(2, this.state.coordinates, listings) : [...this.state.listings2, ...await MapStore.getRegionMarkers(2, this.state.coordinates, listings)], loadingMore: false, offset: offset + 1, filter: false, loading: false });
+      }
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      this.setState({ isLoading: false, loadingMore: false, refreshing: false, filter: false, loading: false, loading2: false });
     }
   }
 
@@ -120,34 +407,17 @@ class PropertiesHome extends Component {
     });
   }
 
-  async loadData(filters, refresh, offset) {
-    if (this.state.isLoading) return;
-
-    if (refresh) {
-      this.setState({ refreshing: true });
+  onTab() {
+    if (this.state.tab) {
+      this.props.setTab(true);
+      global.marker = false;
+      this.setState({ details: [], tab: false }, () => {
+        this.loadData(global.filters, true, 0);
+      })
     } else {
-      this.setState({ loadingMore: true });
-    }
-
-    try {
-      this.setState({ isLoading: true });
-      filters.type = this.state.view ? this.state.forSale ? "Sale" : null : this.state.forRent ? "Lease" : null;
-      filters.lastStatus = this.state.view ? this.state.sold ? "Sld" : null : this.state.rented ? "Lsd" : null;
-      var sort = this.state.sortValue == 0 ? 'Price' : this.state.forSale || this.state.forRent ? 'List' : 'Sold';
-      global.filters = filters;
-      var region = !this.state.drawing ? global.region : await MapStore.getRegion(this.state.coordinates);
-      var listings = await ListingsService.getListingsList(region, offset, sort);
-      var likes = await ListingsService.getLike(isEmpty(this.props.user) ? 0 : this.props.user.id);
-      this.props.setLikes(likes);
-      if (!this.state.drawing) {
-        this.setState({ listings2: refresh ? listings : [...this.state.listings2, ...listings], loadingMore: false, offset: offset + 1, filter: false, loading: false });
-      } else {
-        this.setState({ listings2: refresh ? await MapStore.getRegionMarkers(2, this.state.coordinates, listings) : [...this.state.listings2, ...await MapStore.getRegionMarkers(2, this.state.coordinates, listings)], loadingMore: false, offset: offset + 1, filter: false, loading: false });
-      }
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      this.setState({ isLoading: false, loadingMore: false, refreshing: false, filter: false, loading: false, loading2: false });
+      this.setState({ tab: true }, () => {
+        this.onRegionChangeComplete(global.region);
+      })
     }
   }
 
@@ -171,6 +441,7 @@ class PropertiesHome extends Component {
       });
     }
   }
+
   onForRent() {
     if (this.state.forRent && !this.state.rented) {
       return;
@@ -180,6 +451,7 @@ class PropertiesHome extends Component {
       });
     }
   }
+
   onSold() {
     if (!this.state.forSale && this.state.sold) {
       return;
@@ -189,6 +461,7 @@ class PropertiesHome extends Component {
       });
     }
   }
+
   onRented() {
     if (!this.state.forRent && this.state.rented) {
       return;
@@ -203,6 +476,14 @@ class PropertiesHome extends Component {
     this.setState({ sortValue, sort: false }, () => {
       this.loadData(filters, true, 0);
     });
+  }
+
+  onApply() {
+    if (this.state.coordinates.length > 2) {
+      this.setState({ polygon: false, coordinates: [...this.state.coordinates, this.state.coordinates[0]] }, () => {
+        this.onStatus(global.filters)
+      });
+    }
   }
 
   async onSaveSearch() {
@@ -249,14 +530,6 @@ class PropertiesHome extends Component {
     }
   }
 
-  onApply() {
-    if (this.state.coordinates.length > 2) {
-      this.setState({ polygon: false, coordinates: [...this.state.coordinates, this.state.coordinates[0]] }, () => {
-        this.onStatus(global.filters)
-      });
-    }
-  }
-
   async onSave(name) {
     this.mapRef.animateToRegion(global.region, 100);
     await ListingsService.setSearches(name, this.state.coordinates, this.props.user.id);
@@ -265,9 +538,6 @@ class PropertiesHome extends Component {
 
 
   onMap(e) {
-    // if (this.state.drawing && this.state.polygon) {
-    //   this.setState({ coordinates: [...this.state.coordinates, e.nativeEvent.coordinate] });
-    // } else {
     setTimeout(() => {
       if (!global.marker) {
         this.props.setTab(true);
@@ -275,15 +545,9 @@ class PropertiesHome extends Component {
       }
       global.marker = false;
     }, 100)
-    // }
   }
 
   async onMarker(e) {
-    // if (this.state.drawing && this.state.polygon) {
-    //   if (this.state.coordinates.length > 1 && e.nativeEvent.coordinate.latitude == this.state.coordinates[0].latitude && e.nativeEvent.coordinate.longitude == this.state.coordinates[0].longitude) {
-    //     this.setState({ polygon: false });
-    //   }
-    // } else {
     if (global.details[0].count <= 1) {
       global.marker = true;
       this.props.setTab(false);
@@ -297,7 +561,6 @@ class PropertiesHome extends Component {
       }
       this.mapRef.animateToRegion(global.region, 100);
     }
-    // }
   }
 
   onPanDrag(e) {
@@ -344,9 +607,9 @@ class PropertiesHome extends Component {
       var subject = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
       var message = `${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix}: ${status}, ${isCurrency(listing.listPrice).split('.')[0]}, ${listing.neighborhood} ${listing.city}, ${listing.mlsNumber} - Brokier${'\n'}`;
       if (!isEmpty(user) && user.user_role === 'regular') {
-        message += `https://brokier.web.app/home/A11real0926queen/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/AthenaHein0916/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       } else {
-        message += `https://brokier.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       }
 
       Share.share({ message }, { subject });
@@ -356,9 +619,9 @@ class PropertiesHome extends Component {
       var title = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
 
       if (!isEmpty(user) && user.user_role === 'regular') {
-        message += `https://brokier.web.app/home/A11real0926queen/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/AthenaHein0916/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       } else {
-        message += `https://brokier.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       }
 
       Share.share({ message, title }, { dialogTitle });
@@ -448,15 +711,7 @@ class PropertiesHome extends Component {
               clusterColor={"#140c98"}
               spiderLineColor={"#140c98"}
               onPanDrag={(e) => this.onPanDrag(e)}
-            // onMarkerDragEnd={() => alert("OK")}
             >
-              {/* {(this.state.drawing && !isEmpty(this.state.coordinates)) ? (
-                this.state.coordinates.map((marker, key) => (
-                  <Marker key={key} coordinate={{ latitude: parseFloat(marker.latitude), longitude: parseFloat(marker.longitude) }}>
-                    <View style={styles.polygonMarker} />
-                  </Marker>
-                ))
-              ) : null} */}
               {(this.state.drawing && !isEmpty(this.state.coordinates)) ? (
                 <React.Fragment>
                   <Polyline coordinates={this.state.coordinates} strokeColor={colors.BLUE.PRIMARY} strokeWidth={5} fillColor="rgba(0,0,255,0.3)" />
@@ -644,17 +899,16 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    // marginTop: 10,
-    padding: 2,
     width: "100%",
     height: 35,
+    padding: 2,
   },
   searchBar: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 2,
     width: wp("100%") - 90,
     height: 30,
+    padding: 2,
     borderWidth: 0,
     borderRadius: 5,
     backgroundColor: colors.GREY.SECONDARY
@@ -692,9 +946,9 @@ const styles = StyleSheet.create({
   statusBar: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
     width: wp("100%"),
     height: 40,
+    padding: 10,
     backgroundColor: colors.GREY.SECONDARY,
   },
   greenButton: {
@@ -976,12 +1230,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setTab: (data) => {
-      dispatch(setTab(data));
-    },
-    setLikes: (data) => {
-      dispatch(setLikes(data));
-    }
+    setTab: (data) => dispatch(setTab(data)),
+    setUser: (data) => dispatch(setUser(data)),
+    setLikes: (data) => dispatch(setLikes(data))
   }
 }
 

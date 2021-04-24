@@ -1,6 +1,6 @@
 import React from "react";
-import { View } from "react-native";
 import { useSelector } from 'react-redux'
+import { StyleSheet, View } from "react-native";
 
 import { Icon } from "react-native-elements";
 import { colors } from "@constants/themes";
@@ -8,14 +8,7 @@ import { colors } from "@constants/themes";
 export default ActionButtons = (props) => {
   const { logged } = useSelector(state => state.auth);
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "space-around",
-        alignItems: "center",
-        width: 80,
-      }}
-    >
+    <View style={styles.main}>
       <Icon
         name={props.like ? "heart" : "heart-outline"}
         type="material-community"
@@ -34,3 +27,12 @@ export default ActionButtons = (props) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  main: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    width: 80,
+  },
+});

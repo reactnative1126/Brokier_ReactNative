@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { LineChart } from 'react-native-svg-charts';
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
 import { Icon } from "react-native-elements";
 
 export default MarketChart1 = (props) => {
@@ -21,16 +21,16 @@ export default MarketChart1 = (props) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ width: wp('100%'), flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10 }}>
+      <View style={styles.wrapper}>
         <View style={{ width: 30 }} />
-        <Text style={{ textDecorationLine: 'underline', fontSize: 12, color: '#848484' }}>Price Change and time on market</Text>
+        <Text style={styles.title}>Price Change and time on market</Text>
         <TouchableOpacity>
           <Icon name="share-apple" type="evilicon" size={25} />
         </TouchableOpacity>
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.price}>
         <Text style={{ fontSize: 12, transform: [{ rotate: '-90deg' }] }}>Price</Text>
-        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 10, width: 200, height: 80, borderLeftWidth: 0.5, borderRightWidth: 0.5, borderBottomWidth: 0.5 }}>
+        <View style={styles.priceChart}>
           <LineChart
             style={{ width: 180, height: 80 }}
             data={data}
@@ -38,10 +38,10 @@ export default MarketChart1 = (props) => {
           >
           </LineChart>
         </View>
-        <Text style={{ fontSize: 12, transform: [{ rotate: '90deg' }] }}>Days</Text>
+        <Text style={styles.days}>Days</Text>
       </View>
       <Text style={{ marginTop: 5 }}>Time</Text>
-      <View style={{ marginTop: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.priceWrapper}>
         <View style={{ width: 20, height: 3, backgroundColor: '#D12F2F' }} />
         <Text style={{ fontSize: 8, width: 100, marginLeft: 10 }}>Median Price</Text>
         <View style={{ width: 20, height: 3, backgroundColor: '#FF782D' }} />
@@ -53,14 +53,51 @@ export default MarketChart1 = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: wp('100%'),
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 2,
+    width: wp('100%'),
+    paddingBottom: 10,
     borderTopWidth: 0.5,
     borderTopColor: '#C0C0C0',
     borderBottomWidth: 0.5,
-    borderBottomColor: '#C0C0C0',
+    borderBottomColor: '#C0C0C0'
+  },
+  wrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: wp('100%'),
+    padding: 10
+  },
+  title: {
+    fontSize: 12,
+    color: '#848484',
+    textDecorationLine: 'underline',
+  },
+  price: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  priceChart: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 10
+    marginTop: 10,
+    width: 200,
+    height: 80,
+    borderLeftWidth: 0.5,
+    borderRightWidth: 0.5,
+    borderBottomWidth: 0.5
   },
+  days: {
+    fontSize: 12,
+    transform: [{ rotate: '90deg' }]
+  },
+  priceWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+  }
 });

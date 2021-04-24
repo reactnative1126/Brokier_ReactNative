@@ -1,16 +1,16 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Modal, ActivityIndicator, Image } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import * as ImagePicker from 'expo-image-picker';
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { connect } from "react-redux";
+import axios from 'axios';
+import configs from "@constants/configs";
+import { colors } from "@constants/themes";
 import { setTab, setUser } from "@modules/redux/auth/actions";
 import { Loading, Header } from "@components";
-import { colors } from "@constants/themes";
 import { AuthService } from "@modules/services";
 import { isEmpty, validateEmail, validateMobile, validateLength, generateKey } from "@utils/functions";
-import configs from "@constants/configs";
-import axios from 'axios';
 
 class AgentEditProfile extends Component {
   constructor(props) {
@@ -120,6 +120,7 @@ class AgentEditProfile extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -143,6 +144,7 @@ class AgentEditProfile extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -166,6 +168,7 @@ class AgentEditProfile extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -188,7 +191,8 @@ class AgentEditProfile extends Component {
       website: this.state.website,
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
-      role: this.props.user.user_role
+      role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -211,7 +215,8 @@ class AgentEditProfile extends Component {
       website: this.props.user.user_website,
       instagram_id: this.state.instagram,
       photo: this.props.user.user_photo,
-      role: this.props.user.user_role
+      role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -254,7 +259,8 @@ class AgentEditProfile extends Component {
           website: this.props.user.user_website,
           instagram_id: this.state.instagram,
           photo: res.data.path,
-          role: this.props.user.user_role
+          role: this.props.user.user_role,
+          agent_unique_id: this.props.user.agent_unique_id
         }).then((res) => {
           this.setState({ loading: false });
           if (res.count > 0) {
@@ -523,11 +529,6 @@ class AgentEditProfile extends Component {
             </View>
           </View>
         </ScrollView>
-        {/* <TouchableOpacity style={styles.applyButton} onPress={() => {
-          this.props.navigation.navigate('AgentViewProfile')
-        }}>
-          <Text style={{ fontSize: 16, fontWeight: 'bold', color: colors.WHITE }}>SAVE AGENT PROFILE</Text>
-        </TouchableOpacity> */}
 
         {this.renderBroker()}
         {this.renderPhone()}
@@ -552,10 +553,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    marginTop: 10,
   },
   linkButton: {
     justifyContent: 'center',
@@ -566,12 +567,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   applyButton: {
-    alignItems: 'center',
-    paddingTop: 10,
     position: 'absolute',
     bottom: 0,
+    alignItems: 'center',
     width: wp('100%'),
     height: 40,
+    paddingTop: 10,
     backgroundColor: '#DC4646'
   },
   overlay: {
@@ -586,7 +587,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 300,
     height: 230,
-    // backgroundColor: colors.WHITE,
     backgroundColor: '#E3E3E3',
     borderRadius: 10,
     zIndex: 100
@@ -633,12 +633,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    setTab: (data) => {
-      dispatch(setTab(data))
-    },
-    setUser: (data) => {
-      dispatch(setUser(data))
-    },
+    setTab: (data) => dispatch(setTab(data)),
+    setUser: (data) => dispatch(setUser(data))
   }
 }
 

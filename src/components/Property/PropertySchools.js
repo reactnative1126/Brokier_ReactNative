@@ -1,15 +1,15 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import Card from '../Card/Card';
+
 import { colors } from "@constants/themes";
+import Card from '../Card/Card';
 
 export default PropertySchools = ({ school, onSchool }) => {
   return (
     <Card index="similar" style={styles.similar}>
       <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-        Schools <Text style={{ fontWeight: 'bold', color: colors.RED.PRIMARY }}>(IGNORE FOR NOW)</Text>
+        Schools <Text style={styles.title}>(IGNORE FOR NOW)</Text>
       </Text>
       <View style={styles.toggleButton}>
         <TouchableOpacity key="All" onPress={() => onSchool('All')}
@@ -39,54 +39,22 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 10,
   },
-  smallDetails: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    width: "100%",
-  },
-  smallDetailTop: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    width: "100%",
-    height: 50,
-  },
-  smallStatus: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 5,
-    width: 80,
-    height: 15,
-    borderWidth: 0.2,
-    borderColor: colors.RED.PRIMARY,
-    borderRadius: 3,
-  },
-  smallDay: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 5,
-    width: 80,
-    height: 15,
-    backgroundColor: colors.GREY.PRIMARY,
-    borderRadius: 3,
-  },
-  detailBottom: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-    height: 30,
+  title: {
+    fontWeight: 'bold',
+    color: colors.RED.PRIMARY
   },
   toggleButton: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: wp('100%') - 20,
-    height: 25,
-    backgroundColor: colors.GREY.PRIMARY,
-    borderRadius: 5,
     marginTop: 10,
     marginBottom: 10,
+    width: wp('100%') - 20,
+    height: 25,
     paddingLeft: 5,
-    paddingRight: 5
+    paddingRight: 5,
+    backgroundColor: colors.GREY.PRIMARY,
+    borderRadius: 5,
   },
   oneButton: {
     justifyContent: 'center',

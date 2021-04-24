@@ -1,7 +1,7 @@
 import React from "react";
 import {  StyleSheet, View, Text } from "react-native";
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
 import { Icon, Input } from "react-native-elements"; 
 import { colors } from "@constants/themes"; 
 

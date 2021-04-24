@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
 import { Icon } from "react-native-elements";
-import MarkerDetail from './MarkerDetail';
 import { colors } from "@constants/themes";
+import MarkerDetail from './MarkerDetail';
 
 export default PropertyMarker = (props) => {
   const [unitsAll, setUnitAll] = useState(false);

@@ -1,14 +1,14 @@
 import React from "react";
-import {  StyleSheet, View, Text, ScrollView } from "react-native";
-
+import { StyleSheet, View, Text, ScrollView } from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
 import { colors } from "@constants/themes";
 
 export default MortgageRates = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.statusBar}>
-        <Text style={{ fontWeight: 'bold', color: colors.WHITE }}>Total Monthly Cost</Text>
+        <Text style={styles.statusTitle}>Total Monthly Cost</Text>
         <Text style={{ fontSize: 20, color: colors.WHITE }}>$1,882/Month</Text>
       </View>
       <ScrollView contentContainerStyle={styles.main}>
@@ -63,6 +63,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#EA6969',
     borderTopWidth: 1,
     borderTopColor: '#BCBCBC'
+  },
+  statusTitle: {
+    fontWeight: 'bold',
+    color: colors.WHITE
   },
   main: {
     alignItems: 'center',

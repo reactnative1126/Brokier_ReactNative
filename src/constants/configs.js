@@ -1,11 +1,15 @@
 export default {
     // apiURL: "http://brokier.com/api",
-    apiURL: "https://prozim.kwikbookings.com/api",
+    // apiURL: "http://brokier.vidnab.com/api",
+    // resURL: "https://cdn.repliers.io/",
+    // avatarURL: "http://brokier.vidnab.com/storage/public/",
+    apiURL: "https://68.183.200.36/api",
     resURL: "https://cdn.repliers.io/",
-    avatarURL: "https://prozim.kwikbookings.com/storage/public/",
+    avatarURL: "https://68.183.200.36/storage/public/",
 
     // google_map_key: 'AIzaSyAU54vgtYyzf4gUDXFALWt5vYTJsnGZraM',
-    google_map_key: 'AIzaSyAeJJDLz3XwOJcU7gwzBp0756V5j3d_YqM',
+    // google_map_key: 'AIzaSyAeJJDLz3XwOJcU7gwzBp0756V5j3d_YqM',
+    google_map_key: 'AIzaSyA8EWQFs6DxdpVM433_WVF9DilTKpEfHx4',
     facebookID: '220105416074930',
     google_auth_config: {
         androidClientId: '453223822262-voug1g7ukvr725tqu1t4461vr9umvab8.apps.googleusercontent.com',

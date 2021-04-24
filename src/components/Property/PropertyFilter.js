@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, TouchableHighlight, Modal, Alert } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import RangeSelector from 'reactnative-range-selector';
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { Icon } from "react-native-elements";
+import { colors } from "@constants/themes";
+import { isCurrency } from "@utils/functions";
 import Header from '../Header/Header';
 import Card from '../Card/Card';
 import PickerButton from '../Buttons/PickerButton';
 import PropertyQuestions from './PropertyQuestions';
-import { isCurrency, isNumber } from "@utils/functions";
-import { colors } from "@constants/themes";
 
 const days = [
   { value: 0, label: 'Any' },
@@ -35,42 +35,7 @@ const questions = [
   { question: "Fully renovated" },
 ]
 
-export default PropertyFilter =(props) => {
-  // const [loading, setLoading] = useState(false);
-  // const [allTypes, setAllTypes] = useState(false);
-  // const [condoApartment, setCondoApartment] = useState(false);
-  // const [condoTown, setCondoTown] =useState(false);
-  // const [detached, setDetached] = useState(false);
-  // const [duplex, setDuplex] = useState(false);
-  // const [freeholdTown, setFreeholdTown] = useState(false);
-  // const [land, setLand] = useState(false);
-  // const [multiFamily, setMultiFamily] = useState(false);
-  // const [semiDetached, setSemiDetached] = useState(false);
-  // const [minPrice, setMinPrice] = useState(0);
-  // const [maxPrice, setMaxPrice] = useState(5000000);
-  // const [dayStatus, setDayStatus] = useState(false);
-  // const [daysOnMarket, setDaysOnMarket] = useState({
-  //   value: 0,
-  //   label: 'Any'
-  // });
-  // const [soldStatus, setSoldStatus] = useState(false);
-  // const [soldInLast, setSoldInLast] = useState({
-  //   value: 90,
-  //   label: '3 Months'
-  // });
-  // const [bed, setBed] = useState(0);
-  // const [bath, setBath] = useState(0);
-  // const [garage, setGarage] = useState(0);
-  // const [parking, setParking] = useState(0);
-  // const [minSize, setMinSize] = useState(0);
-  // const [maxSize, setMaxSize] = useState(5000);
-  // const [minAge, setMinAge] = useState(0);
-  // const [maxAge, setMaxAge] = useState(100);
-  // const [minCondo, setMinCondo] = useState(0);
-  // const [maxCondo, setMaxCondo] = useState(5000);
-  // const [locker, setLocker] = useState('Any');
-
-  const [loading, setLoading] = useState(false);
+export default PropertyFilter = (props) => {
   const [allTypes, setAllTypes] = useState(global.filters.propertyType.allTypes);
   const [condoApartment, setCondoApartment] = useState(global.filters.propertyType.condoApartment);
   const [condoTown, setCondoTown] = useState(global.filters.propertyType.condoTown);

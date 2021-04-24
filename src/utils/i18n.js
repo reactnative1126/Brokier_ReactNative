@@ -54,16 +54,16 @@ const getLocales = async () => {
 const isRTL = () => {
   const currLocale = i18n.locale
   let count = 0
-  for(let i = 0; i < 12; i++){
-    if(rtlLanguages[i] == currLocale){
+  for (let i = 0; i < 12; i++) {
+    if (rtlLanguages[i] == currLocale) {
       count = 1;
       break;
     }
   }
-  if(count == 0){
+  if (count == 0) {
     // I18nManager.forceRTL(false);
     return false;
-  } else{
+  } else {
     // I18nManager.forceRTL(true);
     return true;
   }

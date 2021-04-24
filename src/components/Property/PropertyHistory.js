@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Clipboard } from "react-native";
-import moment from 'moment';
-import { Tooltip } from 'react-native-elements';
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { Tooltip } from 'react-native-elements';
+import moment from 'moment';
+
+import { colors } from "@constants/themes";
+import { isEmpty, isCurrency } from "@utils/functions";
+import { ListingsService } from "@modules/services";
 import Card from '../Card/Card';
 import Loading2 from '../Athena/Loading2';
-import { ListingsService } from "@modules/services";
-import { isEmpty, isCurrency } from "@utils/functions";
-import { colors } from "@constants/themes";
 
 export default PropertyHistory = ({ navigation, histories }) => {
   const [loading, setLoading] = useState(false);
@@ -32,16 +32,16 @@ export default PropertyHistory = ({ navigation, histories }) => {
       </View>
       <View style={styles.historyHeader}>
         <View style={{ width: "35%" }}>
-          <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center" }}>Property History</Text>
+          <Text style={styles.title1}>Property History</Text>
         </View>
         <View style={{ width: "20%" }}>
-          <Text style={{ fontSize: 12, fontWeight: "500", textAlign: "center" }}>List Price</Text>
+          <Text style={styles.title2}>List Price</Text>
         </View>
         <View style={{ width: "20%" }}>
-          <Text style={{ fontSize: 12, fontWeight: "500", textAlign: "center" }}>Sold Price</Text>
+          <Text style={styles.title2}>Sold Price</Text>
         </View>
         <View style={{ width: "20%" }}>
-          <Text style={{ fontSize: 12, fontWeight: "500", textAlign: "center" }}>MLS #</Text>
+          <Text style={styles.title2}>MLS #</Text>
         </View>
       </View>
       {isEmpty(histories) ?
@@ -90,7 +90,7 @@ export default PropertyHistory = ({ navigation, histories }) => {
                     </View>
                     {(listing.status === 'U' && listing.lastStatus === 'Sld') ? null : (
                       <TouchableOpacity onPress={() => onDetail(listing.id)}>
-                        <Text style={{ fontSize: 12, fontWeight: '500', color: colors.BLUE.PRIMARY, textDecorationLine: 'underline', marginLeft: 10 }}>View</Text>
+                        <Text style={styles.view}>View</Text>
                       </TouchableOpacity>
                     )}
                   </View>
@@ -113,7 +113,6 @@ export default PropertyHistory = ({ navigation, histories }) => {
                     containerStyle={{ padding: 0 }}
                     onOpen={() => {
                       Clipboard.setString(listing.mlsNumber);
-                      // Toast.show('Copied');
                     }}
                   >
                     <Text
@@ -174,5 +173,22 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.3,
     borderColor: '#C6C6C6'
   },
+  title1: {
+    fontSize: 15,
+    fontWeight: "500",
+    textAlign: "center"
+  },
+  title2: {
+    fontSize: 12,
+    fontWeight: "500",
+    textAlign: "center"
+  },
+  view: {
+    marginLeft: 10,
+    fontSize: 12,
+    fontWeight: '500',
+    color: colors.BLUE.PRIMARY,
+    textDecorationLine: 'underline',
+  }
 });
 

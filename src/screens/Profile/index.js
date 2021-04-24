@@ -74,6 +74,7 @@ class Profile extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -97,6 +98,7 @@ class Profile extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: 'agent',
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
-
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { connect } from "react-redux";
-import { Loading, Header, PaymentCalculator, MortgageRates, PickerButton } from "@components";
+import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
 import { colors } from "@constants/themes";
 import { images } from "@constants/assets";
+import { Loading, Header, PaymentCalculator, MortgageRates, PickerButton } from "@components";
 
 const purposes = [
   { value: 0, label: 'Purpose' },
@@ -50,7 +50,6 @@ class Mortgage extends Component {
     const { tab, purposeStatus, purpose, termStatus, term, typeStatus, type, depositStatus, deposit } = this.state;
     return (
       <View style={styles.container}>
-        {/* <StatusBar hidden /> */}
         <Loading loading={this.state.loading} />
         <Header style={{ backgroundColor: colors.GREY.PRIMARY, paddingLeft: 10, paddingRight: 10 }}>
           <View style={styles.header}>
@@ -120,9 +119,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.WHITE
   },
   header: {
-    marginTop: 20,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    marginTop: 20,
   },
   oneButton: {
     justifyContent: 'center',

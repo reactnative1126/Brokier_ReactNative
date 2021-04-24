@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import Swiper from "react-native-swiper";
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import Card from '../Card/Card';
-import Loading2 from '../Athena/Loading2';
-import { ListingsService } from "@modules/services";
-import { isEmpty, isCurrency } from "@utils/functions";
+
 import configs from "@constants/configs";
 import { colors } from "@constants/themes";
 import { images } from "@constants/assets";
+import { ListingsService } from "@modules/services";
+import { isEmpty, isCurrency } from "@utils/functions";
+import Card from '../Card/Card';
+import Loading2 from '../Athena/Loading2';
 
 const renderPagination = (index, total) => {
   return (
@@ -63,16 +62,16 @@ export default SimilarDetail = ({ navigation, listing }) => {
             </View>
           </View>
           <View style={styles.detailBottom}>
-            <Text style={{ fontSize: 8, fontWeight: "500", color: colors.GREY.DEFAULT, marginRight: 5 }}>
+            <Text style={styles.text}>
               {listing.numBedrooms}{!isEmpty(listing.numBedroomsPlus) && '+' + listing.numBedroomsPlus} Br
             </Text>
-            <Text style={{ fontSize: 8, fontWeight: "500", color: colors.GREY.DEFAULT, marginRight: 5 }} >
+            <Text style={styles.text} >
               {listing.numBathrooms}{!isEmpty(listing.numBathroomsPlus) && '+' + listing.numBathroomsPlus} Bath
             </Text>
-            <Text style={{ fontSize: 8, fontWeight: "500", color: colors.GREY.DEFAULT, marginRight: 5 }}>
+            <Text style={styles.text}>
               {listing.numParkingSpaces} Parking
             </Text>
-            <Text style={{ fontSize: 8, fontWeight: "500", color: colors.GREY.DEFAULT, marginRight: 5 }}>
+            <Text style={styles.text}>
               {listing.type}
             </Text>
           </View>
@@ -84,28 +83,28 @@ export default SimilarDetail = ({ navigation, listing }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 230,
-    height: 150,
     marginRight: 10,
     marginBottom: 5,
+    width: 230,
+    height: 150,
     borderRadius: 5,
   },
   imageContainer: {
-    borderRadius: 5,
     width: "100%",
     height: 100,
     overflow: "hidden",
+    borderRadius: 5,
   },
   image: {
     width: "100%",
     height: "100%",
   },
   details: {
+    width: "100%",
+    height: 100,
     paddingTop: 5,
     paddingLeft: 10,
     paddingRight: 10,
-    width: "100%",
-    height: 100,
   },
   detailTop: {
     flexDirection: "row",
@@ -144,5 +143,11 @@ const styles = StyleSheet.create({
   paginationText2: {
     color: 'white',
     fontSize: 14
+  },
+  text: {
+    marginRight: 5,
+    fontSize: 8,
+    fontWeight: "500",
+    color: colors.GREY.DEFAULT,
   }
 });

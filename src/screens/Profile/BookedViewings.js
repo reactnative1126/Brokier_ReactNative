@@ -1,20 +1,14 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, Share } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Grid from 'react-native-infinite-scroll-grid';
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { connect } from "react-redux";
+import { colors } from "@constants/themes";
 import { setLikes } from "@modules/redux/lists/actions";
 import { Loading2, Header, PickerButton, PropertyItem } from "@components";
 import { ListingsService } from "@modules/services";
 import { isEmpty, isCurrency } from "@utils/functions";
-import { colors } from "@constants/themes";
-
-const speeds = [
-  { value: 0, label: 'Instant' },
-  { value: 1, label: 'Fast' },
-  { value: 2, label: 'Slow' },
-]
 
 class BookedViewings extends Component {
   constructor(props) {
@@ -84,9 +78,9 @@ class BookedViewings extends Component {
       var subject = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
       var message = `${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix}: ${status}, ${isCurrency(listing.listPrice).split('.')[0]}, ${listing.neighborhood} ${listing.city}, ${listing.mlsNumber} - Brokier${'\n'}`;
       if (!isEmpty(user) && user.user_role === 'regular') {
-        message += `https://brokier.web.app/home/A11real0926queen/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/AthenaHein0916/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       } else {
-        message += `https://brokier.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       }
 
       Share.share({ message }, { subject });
@@ -96,9 +90,9 @@ class BookedViewings extends Component {
       var title = `Brokier - ${listing.streetNumber} ${listing.streetName} ${listing.streetSuffix} Home Detail`;
 
       if (!isEmpty(user) && user.user_role === 'regular') {
-        message += `https://brokier.web.app/home/A11real0926queen/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/AthenaHein0916/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       } else {
-        message += `https://brokier.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}`;
+        message += `https://brokier-0916.web.app/home/${user.unique_id}/${listing.streetNumber}-${listing.streetName.replace(' ', '-')}-${listing.streetSuffix}/${listing.mlsNumber}/${id}`;
       }
 
       Share.share({ message, title }, { dialogTitle });
@@ -186,9 +180,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setLikes: (data) => {
-      dispatch(setLikes(data));
-    }
+    setLikes: (data) => dispatch(setLikes(data))
   }
 }
 

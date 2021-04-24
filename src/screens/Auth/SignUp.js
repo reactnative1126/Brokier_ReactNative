@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, Modal, ActivityIndicator } from "react-native";
+import { connect } from "react-redux";
+import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, Modal, ActivityIndicator, Alert } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as Facebook from 'expo-facebook';
 import * as Google from 'expo-google-app-auth';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import configs from "@constants/configs";
 import { Icon } from "react-native-elements";
-import { connect } from "react-redux";
+import { colors } from "@constants/themes";
 import { setUser } from "@modules/redux/auth/actions";
 import { setLikes } from "@modules/redux/lists/actions";
 import { TextInput, NormalButton } from "@components";
 import { AuthService, ListingsService } from "@modules/services";
 import { isEmpty, validateEmail, validateLength, generateKey } from "@utils/functions";
-import configs from "@constants/configs";
-import { colors } from "@constants/themes";
 
 class SignUp extends Component {
   constructor(props) {
@@ -71,22 +71,6 @@ class SignUp extends Component {
     })
   }
 
-  EPSIGNUP() {
-    if (isEmpty(this.state.name)) {
-      this.setState({ errorName: 'Please enter name' });
-    }
-    if (isEmpty(this.state.email)) {
-      this.setState({ errorEmail: 'Please enter email' });
-    }
-    if (isEmpty(this.state.password)) {
-      this.setState({ errorPassword: 'Please enter password' });
-    }
-    if (!isEmpty(this.state.name) && !isEmpty(this.state.email) && !isEmpty(this.state.password) && isEmpty(this.state.errorName) && isEmpty(this.state.errorEmail) && isEmpty(this.state.errorPassword)) {
-      this.setState({ loading: true });
-      this.SIGNUP();
-    }
-  }
-
   async FBSIGNUP() {
     try {
       await Facebook.initializeAsync(configs.facebookID);
@@ -137,7 +121,24 @@ class SignUp extends Component {
     }
   }
 
+  EPSIGNUP() {
+    if (isEmpty(this.state.name)) {
+      this.setState({ errorName: 'Please enter name' });
+    }
+    if (isEmpty(this.state.email)) {
+      this.setState({ errorEmail: 'Please enter email' });
+    }
+    if (isEmpty(this.state.password)) {
+      this.setState({ errorPassword: 'Please enter password' });
+    }
+    if (!isEmpty(this.state.name) && !isEmpty(this.state.email) && !isEmpty(this.state.password) && isEmpty(this.state.errorName) && isEmpty(this.state.errorEmail) && isEmpty(this.state.errorPassword)) {
+      this.setState({ loading: true });
+      this.SIGNUP();
+    }
+  }
+
   async SIGNUP() {
+    var homeUrl = global.homeUrl;
     AuthService.getEmail(this.state.email).then(async (response) => {
       if (response.count == 0) {
         AuthService.setUser({
@@ -146,12 +147,100 @@ class SignUp extends Component {
           email: this.state.email,
           password: this.state.password
         }).then(async (res) => {
-          this.setState({ loading: false });
           if (res.count > 0) {
+            this.setState({ loading: false });
             this.props.setUser(res.users[0]);
             var likes = await ListingsService.getLike(res.users[0].id);
             this.props.setLikes(likes);
             this.props.navigation.pop();
+
+            if (global.homeUrl.agentId !== undefined && global.homeUrl.agentId !== 'AthenaHein0916' && global.homeUrl.mlsNumber !== undefined && global.homeUrl.mlsNumber === 'Z901126S') {
+              console.log(`41`);
+              var agentName = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
+              Alert.alert(
+                'Connect with Agent',
+                `Would you connect to this Agent: ${!isEmpty(agentName.users) ? agentName.users[0].user_name : global.homeUrl.agentId} now?`,
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: () => global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined }
+                  },
+                  {
+                    text: 'OK',
+                    onPress: async () => {
+                      AuthService.updateUser({
+                        user_id: res.users[0].id,
+                        unique_id: res.users[0].unique_id,
+                        name: res.users[0].user_name,
+                        email: res.users[0].user_email,
+                        brokerage_name: res.users[0].brokerage_name,
+                        phone: res.users[0].user_phone,
+                        website: res.users[0].user_website,
+                        instagram_id: res.users[0].user_instagram_id,
+                        photo: res.users[0].user_photo,
+                        role: res.users[0].user_role,
+                        agent_unique_id: global.homeUrl.agentId
+                      }).then((res1) => {
+                        if (res1.count > 0) {
+                          this.props.setUser(res1.users[0]);
+                          global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                        }
+                      }).catch((err) => {
+                        console.log(err.message);
+                      });
+                    }
+                  }
+                ], { cancelable: false }
+              );
+            } else if (global.homeUrl.agentId !== undefined && global.homeUrl.agentId !== 'AthenaHein0916' && global.homeUrl.mlsNumber !== undefined && global.homeUrl.mlsNumber !== 'Z901126S') {
+              console.log(`61`);
+              var agentName = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
+              Alert.alert(
+                'Connect with Agent',
+                `Would you connect to this Agent: ${!isEmpty(agentName.users) ? agentName.users[0].user_name : global.homeUrl.agentId} now?`,
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: async () => {
+                      global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                      var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+                      this.props.navigation.navigate('PropertiesDetail', { listing });
+                    }
+                  },
+                  {
+                    text: 'OK',
+                    onPress: async () => {
+                      AuthService.updateUser({
+                        user_id: res.users[0].id,
+                        unique_id: res.users[0].unique_id,
+                        name: res.users[0].user_name,
+                        email: res.users[0].user_email,
+                        brokerage_name: res.users[0].brokerage_name,
+                        phone: res.users[0].user_phone,
+                        website: res.users[0].user_website,
+                        instagram_id: res.users[0].user_instagram_id,
+                        photo: res.users[0].user_photo,
+                        role: res.users[0].user_role,
+                        agent_unique_id: global.homeUrl.agentId
+                      }).then(async (res1) => {
+                        if (res1.count > 0) {
+                          global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
+                          this.props.setUser(res1.users[0]);
+                          var listing = await ListingsService.getListingDetail(homeUrl.listingId);
+                          this.props.navigation.navigate('PropertiesDetail', { listing });
+                        }
+                      }).catch((err) => {
+                        console.log(err.message);
+                      });
+                    }
+                  }
+                ], { cancelable: false }
+              );
+            }
+          } else {
+            this.setState({ loading: false }, () => {
+              this.setState({ errorEmail: "Email is restricted" });
+            });
           }
         })
       } else {
@@ -162,13 +251,60 @@ class SignUp extends Component {
     });
   }
 
+
+  onConfirm1() {
+    AuthService.updateUser({
+      user_id: this.props.user.id,
+      unique_id: this.props.user.unique_id,
+      name: this.props.user.user_name,
+      email: this.props.user.user_email,
+      brokerage_name: this.props.user.brokerage_name,
+      phone: this.props.user.user_phone,
+      website: this.props.user.user_website,
+      instagram_id: this.props.user.user_instagram_id,
+      photo: this.props.user.user_photo,
+      role: this.props.user.user_role,
+      agent_unique_id: global.homeUrl.agentId
+    }).then((res) => {
+      if (res.count > 0) {
+        this.props.setUser(res.users[0]);
+      }
+    }).catch((err) => {
+      console.log(err.message);
+    });
+  }
+
+  onConfirm2() {
+    AuthService.updateUser({
+      user_id: this.props.user.id,
+      unique_id: this.props.user.unique_id,
+      name: this.props.user.user_name,
+      email: this.props.user.user_email,
+      brokerage_name: this.props.user.brokerage_name,
+      phone: this.props.user.user_phone,
+      website: this.props.user.user_website,
+      instagram_id: this.props.user.user_instagram_id,
+      photo: this.props.user.user_photo,
+      role: this.props.user.user_role,
+      agent_unique_id: global.homeUrl.agentId
+    }).then(async (res) => {
+      if (res.count > 0) {
+        this.props.setUser(res.users[0]);
+        var listing = await ListingsService.getListingDetail(global.homeUrl.listingId);
+        this.props.navigation.navigate('PropertiesDetail', { listing });
+      }
+    }).catch((err) => {
+      console.log(err.message);
+    });
+  }
+
   render() {
     const { name, email, password } = this.state;
     return (
-      <View style={{ width: wp('100%'), height: hp('100%'), backgroundColor: '#E3E3E3' }}>
+      <View style={styles.whole}>
         <KeyboardAwareScrollView contentContainerStyle={styles.container}>
           <StatusBar hidden />
-          <View style={{ marginTop: 30, width: wp("100%"), alignItems: "flex-start", paddingLeft: 10 }}>
+          <View style={styles.view1}>
             <TouchableOpacity onPress={() => this.props.navigation.pop()}><Icon name="close" type="ant-design" size={30} /></TouchableOpacity>
           </View>
           <Text style={{ marginVertical: 10, fontSize: 34, fontWeight: 'bold' }}> Create Account</Text>
@@ -177,19 +313,19 @@ class SignUp extends Component {
             value={name} secureTextEntry={false}
             onChangeText={(name) => this.onValidateName(name)}
           />
-          <Text style={{ width: '90%', marginTop: 5, marginLeft: 100, fontSize: 12, color: colors.RED.DEFAULT }}>{this.state.errorName}</Text>
+          <Text style={styles.text1}>{this.state.errorName}</Text>
           <TextInput
             title="Email" iconName="email" iconType="fontisto" iconSize={20}
             value={email} secureTextEntry={false} autoCapitalize="none"
             onChangeText={(email) => this.onValidateEmail(email)}
           />
-          <Text style={{ width: '90%', marginTop: 5, marginLeft: 100, fontSize: 12, color: colors.RED.DEFAULT }}>{this.state.errorEmail}</Text>
+          <Text style={styles.text1}>{this.state.errorEmail}</Text>
           <TextInput
             title="Password" iconName="lock" iconType="entypo" iconSize={20}
             value={password} secureTextEntry={true} autoCapitalize="none"
             onChangeText={(password) => this.onValidatePassword(password)}
           />
-          <Text style={{ width: '90%', marginTop: 5, marginLeft: 100, fontSize: 12, color: colors.RED.DEFAULT }}>{this.state.errorPassword}</Text>
+          <Text style={styles.text1}>{this.state.errorPassword}</Text>
           <NormalButton
             width={wp("90%")}
             height={40}
@@ -200,10 +336,10 @@ class SignUp extends Component {
           />
           <View style={{ flexDirection: "row", marginTop: 5 }}>
             <Text style={{ fontSize: 12 }}>by registering you accept </Text>
-            <TouchableOpacity><Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY, textDecorationLine: "underline" }}>our terms of you</Text></TouchableOpacity>
+            <TouchableOpacity><Text style={styles.text2}>our terms of you</Text></TouchableOpacity>
             <Text style={{ fontSize: 12 }}> and</Text>
           </View>
-          <TouchableOpacity><Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY, textDecorationLine: "underline" }}>privacy policy</Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.text2}>privacy policy</Text></TouchableOpacity>
           <NormalButton
             width={wp("90%")}
             height={40}
@@ -222,12 +358,12 @@ class SignUp extends Component {
           />
           <View style={{ flexDirection: "row", marginTop: 5 }}>
             <Text style={{ fontSize: 12 }}>Do you have already account? </Text>
-            <TouchableOpacity onPress={() => this.props.navigation.replace('SignIn')}><Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY, textDecorationLine: "underline" }}>Sign In</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.replace('SignIn')}><Text style={styles.text2}>Sign In</Text></TouchableOpacity>
           </View>
           <View style={{ height: 50 }} />
           <Modal animationType="fade" transparent={true} visible={this.state.loading} >
-            <View style={{ flex: 1, backgroundColor: '#00000080', justifyContent: 'center', alignItems: 'center' }}>
-              <View style={{ alignItems: 'center', flexDirection: 'row', flex: 1, justifyContent: "center" }}>
+            <View style={styles.view2}>
+              <View style={styles.view3}>
                 <ActivityIndicator style={{ height: 80 }} size="large" color={colors.BLACK} />
               </View>
             </View>
@@ -239,21 +375,61 @@ class SignUp extends Component {
 }
 
 const styles = StyleSheet.create({
+  whole: {
+    width: wp('100%'),
+    height: hp('100%'),
+    backgroundColor: '#E3E3E3'
+  },
   container: {
     backgroundColor: '#E3E3E3',
     alignItems: 'center'
   },
+  view1: {
+    alignItems: "flex-start",
+    marginTop: 30,
+    width: wp("100%"),
+    paddingLeft: 10
+  },
+  view2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00000080',
+  },
+  view3: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: "center",
+    alignItems: 'center',
+  },
+  text1: {
+    marginTop: 5,
+    marginLeft: 100,
+    width: '90%',
+    fontSize: 12,
+    color: colors.RED.DEFAULT
+  },
+  text2: {
+    fontSize: 12,
+    color: colors.BLUE.PRIMARY,
+    textDecorationLine: "underline"
+  }
 });
 
-const mapDispatchToProps = dispatch => {
+
+const mapStateToProps = state => {
   return {
-    setUser: (data) => {
-      dispatch(setUser(data))
-    },
-    setLikes: (data) => {
-      dispatch(setLikes(data));
-    }
+    logged: state.auth.logged,
+    user: state.auth.user_info,
+    likes: state.lists.likes
   }
 }
 
-export default connect(undefined, mapDispatchToProps)(SignUp);
+const mapDispatchToProps = dispatch => {
+  return {
+    setUser: (data) => dispatch(setUser(data)),
+    setLikes: (data) => dispatch(setLikes(data))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

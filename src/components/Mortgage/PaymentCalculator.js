@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-native";
-
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
 import { Icon } from "react-native-elements";
 import { colors } from "@constants/themes";
 
@@ -42,10 +42,10 @@ export default PaymentCalculator = (props) => {
                         <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
                     </View>
                     <View style={{ width: 130 }}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3 }}>
+                        <View style={styles.textView1}>
                             <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
                         </View>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3, marginTop: 5 }}>
+                        <View style={styles.textView2}>
                             <Text>Get This Rate</Text>
                         </View>
                     </View>
@@ -57,10 +57,10 @@ export default PaymentCalculator = (props) => {
                         <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
                     </View>
                     <View style={{ width: 130 }}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3 }}>
+                        <View style={styles.textView1}>
                             <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
                         </View>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3, marginTop: 5 }}>
+                        <View style={styles.textView2}>
                             <Text>Get This Rate</Text>
                         </View>
                     </View>
@@ -72,10 +72,10 @@ export default PaymentCalculator = (props) => {
                         <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
                     </View>
                     <View style={{ width: 130 }}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3 }}>
+                        <View style={styles.textView1}>
                             <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
                         </View>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3, marginTop: 5 }}>
+                        <View style={styles.textView2}>
                             <Text>Get This Rate</Text>
                         </View>
                     </View>
@@ -87,10 +87,10 @@ export default PaymentCalculator = (props) => {
                         <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
                     </View>
                     <View style={{ width: 130 }}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3 }}>
+                        <View style={styles.textView1}>
                             <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
                         </View>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3, marginTop: 5 }}>
+                        <View style={styles.textView2}>
                             <Text>Get This Rate</Text>
                         </View>
                     </View>
@@ -102,10 +102,10 @@ export default PaymentCalculator = (props) => {
                         <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
                     </View>
                     <View style={{ width: 130 }}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3 }}>
+                        <View style={styles.textView1}>
                             <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
                         </View>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3, marginTop: 5 }}>
+                        <View style={styles.textView2}>
                             <Text>Get This Rate</Text>
                         </View>
                     </View>
@@ -117,10 +117,10 @@ export default PaymentCalculator = (props) => {
                         <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
                     </View>
                     <View style={{ width: 130 }}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3 }}>
+                        <View style={styles.textView1}>
                             <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
                         </View>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3, marginTop: 5 }}>
+                        <View style={styles.textView2}>
                             <Text>Get This Rate</Text>
                         </View>
                     </View>
@@ -132,10 +132,10 @@ export default PaymentCalculator = (props) => {
                         <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
                     </View>
                     <View style={{ width: 130 }}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3 }}>
+                        <View style={}>
                             <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
                         </View>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', width: 120, height: 20, borderWidth: 0.5, borderRadius: 3, marginTop: 5 }}>
+                        <View style={styles.textView2}>
                             <Text>Get This Rate</Text>
                         </View>
                     </View>
@@ -188,5 +188,22 @@ const styles = StyleSheet.create({
         height: 70,
         borderBottomWidth: 0.5,
         borderBottomColor: '#DEDEDE'
+    },
+    textView1: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 120,
+        height: 20,
+        borderWidth: 0.5,
+        borderRadius: 3
+    },
+    textView2: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 120,
+        height: 20,
+        borderWidth: 0.5,
+        borderRadius: 3,
+        marginTop: 5
     }
 });

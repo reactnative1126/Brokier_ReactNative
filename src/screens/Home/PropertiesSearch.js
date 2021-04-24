@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Platform, StatusBar, StyleSheet, View, TouchableOpacity, Text, ScrollView } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { CommonActions } from '@react-navigation/native';
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import configs from "@constants/configs";
 import { Icon, Input } from "react-native-elements";
+import { colors } from "@constants/themes";
 import { Header, Card } from "@components";
 import { MapService, ListingsService } from "@modules/services";
 import { isEmpty, isCurrency } from "@utils/functions";
-import configs from "@constants/configs";
-import { colors } from "@constants/themes";
 
 export default class PropertiesSearch extends Component {
   constructor(props) {
@@ -168,19 +168,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 10,
-    padding: 2,
     width: "100%",
-    height: 35
+    height: 35,
+    padding: 2,
   },
   searchBar: {
     flexDirection: "row",
     justifyContent: 'space-between',
     alignItems: "center",
     marginLeft: 10,
-    paddingLeft: 2,
-    paddingRight: 5,
     width: wp("100%") - 60,
     height: 30,
+    paddingLeft: 2,
+    paddingRight: 5,
     borderWidth: 0,
     borderRadius: 5,
     backgroundColor: colors.GREY.PRIMARY,
@@ -194,8 +194,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   inputContainerStyle: {
-    padding: 0,
     height: 30,
+    padding: 0,
     borderBottomWidth: 0,
   },
   textInputStyle: {

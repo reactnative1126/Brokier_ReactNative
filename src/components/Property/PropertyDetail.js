@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Swiper from "react-native-swiper";
 import ImageView from 'react-native-image-viewing';
 import moment from 'moment';
 
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import Card from '../Card/Card';
-import { isEmpty, isCurrency } from "@utils/functions";
 import configs from "@constants/configs";
 import { colors } from "@constants/themes";
+import { isEmpty, isCurrency } from "@utils/functions";
+import Card from '../Card/Card';
 
 const renderPagination = (index, total) => {
   return (
@@ -137,11 +137,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
     marginVertical: 5,
-    // paddingHorizontal: 5,
-    // width: 100,
     height: 20,
-    // borderWidth: 1,
-    // borderRadius: 3,
   },
   day: {
     justifyContent: "center",

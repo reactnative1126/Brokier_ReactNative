@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Modal, ActivityIndicator } from "react-native";
-
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
-import { Icon } from "react-native-elements";
 import { connect } from "react-redux";
-import { Header, PickerButton } from "@components";
+import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Modal, ActivityIndicator } from "react-native";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
+import { Icon } from "react-native-elements";
 import { colors } from "@constants/themes";
+import { Header, PickerButton } from "@components";
 import { setUser } from "@modules/redux/auth/actions";
 import { isEmpty, validateEmail, validateMobile, validateLength } from "@utils/functions";
 
@@ -116,6 +116,7 @@ class AccountSettings extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -139,6 +140,7 @@ class AccountSettings extends Component {
       instagram_id: this.props.user.user_instagram_id,
       photo: this.props.user.user_photo,
       role: this.props.user.user_role,
+      agent_unique_id: this.props.user.agent_unique_id
     }).then((res) => {
       this.setState({ loading: false });
       if (res.count > 0) {
@@ -256,7 +258,7 @@ class AccountSettings extends Component {
           </View>
         </Header>
         <ScrollView contentContainerStyle={{ width: wp('100%') }}>
-          <View style={{ width: wp('100%'), height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingLeft: 20, paddingRight: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}>
+          <View style={styles.view1}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ fontWeight: 'bold' }}>Name: </Text>
               <Text>{this.props.user.user_name}</Text>
@@ -265,7 +267,7 @@ class AccountSettings extends Component {
               <Text style={{ fontWeight: 'bold', color: colors.BLUE.PRIMARY }}>Edit</Text>
             </TouchableOpacity>
           </View>
-          <View style={{ width: wp('100%'), height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingLeft: 20, paddingRight: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}>
+          <View style={styles.view1}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ fontWeight: 'bold' }}>Email: </Text>
               <Text>{this.props.user.user_email}</Text>
@@ -274,7 +276,7 @@ class AccountSettings extends Component {
               <Text style={{ fontWeight: 'bold', color: colors.BLUE.PRIMARY }}>Edit</Text>
             </TouchableOpacity>
           </View>
-          <View style={{ width: wp('100%'), height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingLeft: 20, paddingRight: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}>
+          <View style={styles.view1}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ fontWeight: 'bold' }}>Phone: </Text>
               <Text>{this.props.user.user_phone}</Text>
@@ -414,6 +416,17 @@ const styles = StyleSheet.create({
     height: 35,
     backgroundColor: '#0072DC80',
     borderBottomRightRadius: 10
+  },
+  view1: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: wp('100%'),
+    height: 50,
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#DEDEDE'
   }
 });
 
@@ -425,9 +438,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    setUser: (data) => {
-      dispatch(setUser(data))
-    },
+    setUser: (data) => dispatch(setUser(data))
   }
 }
 
