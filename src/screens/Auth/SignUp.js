@@ -155,7 +155,6 @@ class SignUp extends Component {
             this.props.navigation.pop();
 
             if (global.homeUrl.agentId !== undefined && global.homeUrl.agentId !== 'AthenaHein0916' && global.homeUrl.mlsNumber !== undefined && global.homeUrl.mlsNumber === 'Z901126S') {
-              console.log(`41`);
               var agentName = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
               Alert.alert(
                 'Connect with Agent',
@@ -193,7 +192,6 @@ class SignUp extends Component {
                 ], { cancelable: false }
               );
             } else if (global.homeUrl.agentId !== undefined && global.homeUrl.agentId !== 'AthenaHein0916' && global.homeUrl.mlsNumber !== undefined && global.homeUrl.mlsNumber !== 'Z901126S') {
-              console.log(`61`);
               var agentName = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
               Alert.alert(
                 'Connect with Agent',

@@ -6,7 +6,7 @@ import { colors } from '@constants/themes';
 
 export default Loading = (props) => {
 	return (
-		<View style={styles.main}>
+		<View style={[styles.main, { display: props.loading ? 'flex' : 'none' }]}>
 			<ActivityIndicator size="small" color='#FFF' />
 		</View>
 	)
@@ -14,7 +14,6 @@ export default Loading = (props) => {
 
 const styles = StyleSheet.create({
 	main: {
-		display: props.loading ? 'flex' : 'none',
 		justifyContent: 'center',
 		alignItems: 'center',
 		marginLeft: wp('50%') - 20,

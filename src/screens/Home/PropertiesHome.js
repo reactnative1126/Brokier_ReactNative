@@ -87,32 +87,25 @@ class PropertiesHome extends Component {
         };
         var homeUrl = global.homeUrl;
         if (global.homeUrl.agentId === undefined && global.homeUrl.address === undefined && global.homeUrl.mlsNumber === undefined && global.homeUrl.listingId === undefined) {
-          console.log(`1`);
           global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
           return;
         } else if (global.homeUrl.agentId === 'AthenaHein0916' && global.homeUrl.mlsNumber === 'Z901126S') {
-          console.log(`2`);
           global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
           return;
         } else if (global.homeUrl.agentId === 'AthenaHein0916' && global.homeUrl.mlsNumber !== 'Z901126S') {
-          console.log(`3`);
           global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
           var listing = await ListingsService.getListingDetail(homeUrl.listingId);
           _this.props.navigation.navigate('PropertiesDetail', { listing });
         } else if (global.homeUrl.agentId !== 'AthenaHein0916' && global.homeUrl.mlsNumber === 'Z901126S') {
           if (_this.props.logged) {
-            console.log(`4`);
             _this.onConnect1(homeUrl);
           } else {
-            console.log(`5`);
             _this.props.navigation.push("Auth");
           }
         } else if (global.homeUrl.agentId !== 'AthenaHein0916' && global.homeUrl.mlsNumber !== 'Z901126S') {
           if (_this.props.logged) {
-            console.log(`6`);
             _this.onConnect2(homeUrl);
           } else {
-            console.log(`7`);
             _this.props.navigation.push("Auth");
           }
         }
@@ -140,7 +133,6 @@ class PropertiesHome extends Component {
   async onConnect1(homeUrl) {
     if (this.props.user.user_role === 'regular') {
       if (isEmpty(this.props.user.agent_unique_id)) {
-        console.log(`41`);
         var agentName = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
         Alert.alert(
           'Connect with Agent',
@@ -179,10 +171,8 @@ class PropertiesHome extends Component {
         );
       } else {
         if (this.props.user.agent_unique_id === global.homeUrl.agentId) {
-          console.log(`42`);
           global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
         } else {
-          console.log(`43`);
           var oldAgent = await AuthService.getAgent({ agentId: this.props.user.agent_unique_id });
           var newAgent = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
           Alert.alert(
@@ -223,7 +213,6 @@ class PropertiesHome extends Component {
         }
       }
     } else {
-      console.log(`44`);
       global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
     }
   }
@@ -231,7 +220,6 @@ class PropertiesHome extends Component {
   async onConnect2(homeUrl) {
     if (this.props.user.user_role === 'regular') {
       if (isEmpty(this.props.user.agent_unique_id)) {
-        console.log(`61`);
         var agentName = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
         Alert.alert(
           'Connect with Agent',
@@ -276,12 +264,10 @@ class PropertiesHome extends Component {
         );
       } else {
         if (this.props.user.agent_unique_id === global.homeUrl.agentId) {
-          console.log(`62`);
           global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
           var listing = await ListingsService.getListingDetail(homeUrl.listingId);
           this.props.navigation.navigate('PropertiesDetail', { listing });
         } else {
-          console.log(`63`);
           var oldAgent = await AuthService.getAgent({ agentId: this.props.user.agent_unique_id });
           var newAgent = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
           Alert.alert(
@@ -328,7 +314,6 @@ class PropertiesHome extends Component {
         }
       }
     } else {
-      console.log(`64`);
       global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
       var listing = await ListingsService.getListingDetail(homeUrl.listingId);
       this.props.navigation.navigate('PropertiesDetail', { listing });

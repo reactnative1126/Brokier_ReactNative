@@ -132,7 +132,7 @@ export default PaymentCalculator = (props) => {
                         <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
                     </View>
                     <View style={{ width: 130 }}>
-                        <View style={}>
+                        <View style={styles.textView1}>
                             <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
                         </View>
                         <View style={styles.textView2}>

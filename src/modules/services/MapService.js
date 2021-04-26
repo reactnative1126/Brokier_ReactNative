@@ -20,7 +20,6 @@ export default MapService = {
         let endpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${region.latitude},${region.longitude}&key=${configs.google_map_key}`;
         return axios.get(endpoint)
             .then((response) => {
-                console.log(response)
                 return response.data;
             });
     }

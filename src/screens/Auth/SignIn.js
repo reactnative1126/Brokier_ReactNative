@@ -132,7 +132,6 @@ class SignIn extends Component {
         if (global.homeUrl.agentId !== undefined && global.homeUrl.agentId !== 'AthenaHein0916' && global.homeUrl.mlsNumber !== undefined && global.homeUrl.mlsNumber === 'Z901126S') {
           if (res.users[0].user_role === 'regular') {
             if (isEmpty(res.users[0].agent_unique_id)) {
-              console.log(`41`);
               var agentName = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
               Alert.alert(
                 'Connect with Agent',
@@ -171,10 +170,8 @@ class SignIn extends Component {
               );
             } else {
               if (res.users[0].agent_unique_id === global.homeUrl.agentId) {
-                console.log(`42`);
                 global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
               } else {
-                console.log(`43`);
                 var oldAgent = await AuthService.getAgent({ agentId: res.users[0].agent_unique_id });
                 var newAgent = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
                 Alert.alert(
@@ -215,13 +212,11 @@ class SignIn extends Component {
               }
             }
           } else {
-            console.log(`44`);
             global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
           }
         } else if (global.homeUrl.agentId !== undefined && global.homeUrl.agentId !== 'AthenaHein0916' && global.homeUrl.mlsNumber !== undefined && global.homeUrl.mlsNumber !== 'Z901126S') {
           if (res.users[0].user_role === 'regular') {
             if (isEmpty(res.users[0].agent_unique_id)) {
-              console.log(`61`);
               var agentName = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
               Alert.alert(
                 'Connect with Agent',
@@ -266,12 +261,10 @@ class SignIn extends Component {
               );
             } else {
               if (res.users[0].agent_unique_id === global.homeUrl.agentId) {
-                console.log(`62`);
                 global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
                 var listing = await ListingsService.getListingDetail(homeUrl.listingId);
                 this.props.navigation.navigate('PropertiesDetail', { listing });
               } else {
-                console.log(`63`);
                 var oldAgent = await AuthService.getAgent({ agentId: res.users[0].agent_unique_id });
                 var newAgent = await AuthService.getAgent({ agentId: global.homeUrl.agentId });
                 Alert.alert(
@@ -318,7 +311,6 @@ class SignIn extends Component {
               }
             }
           } else {
-            console.log(`64`);
             global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
             var listing = await ListingsService.getListingDetail(homeUrl.listingId);
             this.props.navigation.navigate('PropertiesDetail', { listing });
