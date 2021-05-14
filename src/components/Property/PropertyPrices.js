@@ -15,22 +15,22 @@ export default listingOne = ({ listing }) => {
         <View style={styles.wrapper}>
           <View style={{ width: "65%" }}>
             <View style={styles.view1}>
-              <Text style={{ fontWeight: '500', width: '70%' }}>Total Monthly expenses</Text>
+              <Text style={{ fontWeight: '500', width: '70%' }}>{`Total Monthly expenses`}</Text>
               <Text style={{ width: '30%', fontSize: 18, textAlign: 'right', fontWeight: "500", marginRight: 5 }} >
                 {!isEmpty(listing.monthlyExpenses) && isCurrency(listing.monthlyExpenses)}
               </Text>
             </View>
             <View style={styles.view2}>
-              <Text style={{ fontSize: 12, width: "70%" }}>Mortgate Payments</Text>
+              <Text style={{ fontSize: 12, width: "70%" }}>{`Mortgate Payments`}</Text>
               <Text style={styles.text2}>
                 {!isEmpty(mortgageCalc(parseFloat(listing.listPrice), InterestRate, LengthOfLoan)) && isCurrency(mortgageCalc(parseFloat(listing.listPrice), InterestRate, LengthOfLoan))}</Text>
             </View>
             <View style={styles.view2}>
-              <Text style={{ fontSize: 12, width: "70%" }}>Property</Text>
+              <Text style={{ fontSize: 12, width: "70%" }}>{`Property`}</Text>
               <Text style={styles.text2}>{!isEmpty(listing.propertyTaxes) && isCurrency(listing.propertyTaxes)}</Text>
             </View>
             <View style={styles.view2}>
-              <Text style={{ fontSize: 12, width: "70%" }}>Maintenance Fees</Text>
+              <Text style={{ fontSize: 12, width: "70%" }}>{`Maintenance Fees`}</Text>
               <Text style={styles.text2}>{!isEmpty(listing.maintenanceFees) && isCurrency(listing.maintenanceFees)}</Text>
             </View>
           </View>
@@ -39,7 +39,7 @@ export default listingOne = ({ listing }) => {
             <Text style={{ fontSize: 20, fontWeight: "300", marginRight: 5 }}>
               {"2.5"}%
           </Text>
-            <Text style={{ fontSize: 8, textAlign: 'center' }}>View Mortgage rates and Ienders</Text>
+            <Text style={{ fontSize: 8, textAlign: 'center' }}>{`View Mortgage rates and Ienders`}</Text>
           </View>
         </View>
 
@@ -47,11 +47,11 @@ export default listingOne = ({ listing }) => {
         <View style={{ width: wp("100%"), padding: 10 }}>
           <View style={styles.twoButton}>
             <TouchableOpacity style={styles.oneButton}>
-              <Text style={{ fontSize: 10 }}>Edit Payment Calculator</Text>
+              <Text style={{ fontSize: 10 }}>{`Edit Payment Calculator`}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.oneButton}>
               <Text style={{ fontSize: 10 }}>
-                Get Pre-Qualified for Mortgage </Text>
+                {`Get Pre-Qualified for Mortgage`} </Text>
             </TouchableOpacity>
           </View>
         </View>

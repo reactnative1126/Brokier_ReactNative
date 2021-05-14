@@ -6,6 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import * as Facebook from 'expo-facebook';
 import * as Google from 'expo-google-app-auth';
 
+import styles from './SignUpStyles';
 import configs from "@constants/configs";
 import { Icon } from "react-native-elements";
 import { colors } from "@constants/themes";
@@ -305,7 +306,7 @@ class SignUp extends Component {
           <View style={styles.view1}>
             <TouchableOpacity onPress={() => this.props.navigation.pop()}><Icon name="close" type="ant-design" size={30} /></TouchableOpacity>
           </View>
-          <Text style={{ marginVertical: 10, fontSize: 34, fontWeight: 'bold' }}> Create Account</Text>
+          <Text style={{ marginVertical: 10, fontSize: 34, fontWeight: 'bold' }}>{`Create Account`}</Text>
           <TextInput
             title="Name" iconName="user" iconType="evilicon" iconSize={25}
             value={name} secureTextEntry={false}
@@ -333,11 +334,11 @@ class SignUp extends Component {
             onPress={() => this.EPSIGNUP()}
           />
           <View style={{ flexDirection: "row", marginTop: 5 }}>
-            <Text style={{ fontSize: 12 }}>by registering you accept </Text>
-            <TouchableOpacity><Text style={styles.text2}>our terms of you</Text></TouchableOpacity>
-            <Text style={{ fontSize: 12 }}> and</Text>
+            <Text style={{ fontSize: 12 }}>{`by registering you accept `}</Text>
+            <TouchableOpacity><Text style={styles.text2}>{`our terms of you`}</Text></TouchableOpacity>
+            <Text style={{ fontSize: 12 }}>{` and`}</Text>
           </View>
-          <TouchableOpacity><Text style={styles.text2}>privacy policy</Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.text2}>{`privacy policy`}</Text></TouchableOpacity>
           <NormalButton
             width={wp("90%")}
             height={40}
@@ -355,8 +356,8 @@ class SignUp extends Component {
             onPress={() => this.GGSIGNUP()}
           />
           <View style={{ flexDirection: "row", marginTop: 5 }}>
-            <Text style={{ fontSize: 12 }}>Do you have already account? </Text>
-            <TouchableOpacity onPress={() => this.props.navigation.replace('SignIn')}><Text style={styles.text2}>Sign In</Text></TouchableOpacity>
+            <Text style={{ fontSize: 12 }}>{`Do you have already account? `}</Text>
+            <TouchableOpacity onPress={() => this.props.navigation.replace('SignIn')}><Text style={styles.text2}>{`Sign In`}</Text></TouchableOpacity>
           </View>
           <View style={{ height: 50 }} />
           <Modal animationType="fade" transparent={true} visible={this.state.loading} >
@@ -371,49 +372,6 @@ class SignUp extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  whole: {
-    width: wp('100%'),
-    height: hp('100%'),
-    backgroundColor: '#E3E3E3'
-  },
-  container: {
-    backgroundColor: '#E3E3E3',
-    alignItems: 'center'
-  },
-  view1: {
-    alignItems: "flex-start",
-    marginTop: 30,
-    width: wp("100%"),
-    paddingLeft: 10
-  },
-  view2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#00000080',
-  },
-  view3: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: "center",
-    alignItems: 'center',
-  },
-  text1: {
-    marginTop: 5,
-    marginLeft: 100,
-    width: '90%',
-    fontSize: 12,
-    color: colors.RED.DEFAULT
-  },
-  text2: {
-    fontSize: 12,
-    color: colors.BLUE.PRIMARY,
-    textDecorationLine: "underline"
-  }
-});
-
 
 const mapStateToProps = state => {
   return {

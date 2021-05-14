@@ -60,18 +60,18 @@ export default PropertyDetail = ({ listing }) => {
         <View style={styles.details}>
           <View style={styles.detailTop}>
             <View style={{ width: "30%" }}>
-              <Text style={{ fontSize: 12, marginBottom: 5 }}>Listed:</Text>
+              <Text style={{ fontSize: 12, marginBottom: 5 }}>{`Listed:`}</Text>
               <Text style={[{ fontSize: 16, fontWeight: "bold" }, (listing.lastStatus == 'Sld' || listing.lastStatus == 'Lsd') && { textDecorationLine: 'line-through' }]}>{isCurrency(listing.listPrice).split('.')[0]}</Text>
             </View>
             {isCurrency(listing.soldPrice).split('.')[0] != '$0' ?
               <View style={{ width: "30%" }}>
-                <Text style={{ fontSize: 12, marginBottom: 5 }}>Sold:</Text>
+                <Text style={{ fontSize: 12, marginBottom: 5 }}>{`Sold:`}</Text>
                 <Text style={{ fontSize: 16, fontWeight: "bold", color: colors.RED.PRIMARY }}>{isCurrency(listing.soldPrice).split('.')[0]}</Text>
               </View> : <View style={{ width: "30%" }} />}
             <View style={{ width: "40%", alignItems: "center" }}>
               <View style={styles.day}>
                 <Text style={{ fontSize: 12, fontWeight: "300" }}>
-                  {listing.daysOnMarket} Days on Market
+                  {listing.daysOnMarket} {`Days on Market`}
                 </Text>
               </View>
             </View>
@@ -89,15 +89,15 @@ export default PropertyDetail = ({ listing }) => {
           </View>
           <View style={styles.detailBottom}>
             <Text style={{ fontSize: 13, fontWeight: "500", color: colors.GREY.DEFAULT, marginRight: 10 }}>
-              {listing.numBedrooms}{!isEmpty(listing.numBedroomsPlus) && ' + ' + listing.numBedroomsPlus} Beds
+              {listing.numBedrooms}{!isEmpty(listing.numBedroomsPlus) && ' + ' + listing.numBedroomsPlus} {`Beds`}
             </Text>
             <View style={{ width: 1, height: "60%", backgroundColor: colors.GREY.SECONDARY, marginRight: 10 }} />
             <Text style={{ fontSize: 13, fontWeight: "500", color: colors.GREY.DEFAULT, marginRight: 10 }} >
-              {listing.numBathrooms}{!isEmpty(listing.numBathroomsPlus) && ' + ' + listing.numBathroomsPlus} Baths
+              {listing.numBathrooms}{!isEmpty(listing.numBathroomsPlus) && ' + ' + listing.numBathroomsPlus} {`Baths`}
             </Text>
             <View style={{ width: 1, height: "60%", backgroundColor: colors.GREY.SECONDARY, marginRight: 10 }} />
             <Text style={{ fontSize: 13, fontWeight: "500", color: colors.GREY.DEFAULT, marginRight: 10 }}>
-              {listing.numParkingSpaces} Parking
+              {listing.numParkingSpaces} {`Parking`}
             </Text>
             <View style={{ width: 1, height: "60%", backgroundColor: colors.GREY.SECONDARY, marginRight: 10 }} />
             <Text style={{ fontSize: 13, fontWeight: "500", color: colors.GREY.DEFAULT, marginRight: 10 }}>

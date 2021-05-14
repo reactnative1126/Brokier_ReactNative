@@ -9,24 +9,24 @@ export default PropertySchools = ({ school, onSchool }) => {
   return (
     <Card index="similar" style={styles.similar}>
       <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-        Schools <Text style={styles.title}>(IGNORE FOR NOW)</Text>
+        {`Schools `}<Text style={styles.title}>{`(IGNORE FOR NOW)`}</Text>
       </Text>
       <View style={styles.toggleButton}>
         <TouchableOpacity key="All" onPress={() => onSchool('All')}
           style={[styles.oneButton, { width: wp('20%'), backgroundColor: school === 'All' ? colors.WHITE : colors.GREY.PRIMARY }]}>
-          <Text>All</Text>
+          <Text>{`All`}</Text>
         </TouchableOpacity>
         <TouchableOpacity key="Elementary" onPress={() => onSchool('Elementary')}
           style={[styles.oneButton, { width: wp('20%'), backgroundColor: school === 'Elementary' ? colors.WHITE : colors.GREY.PRIMARY }]}>
-          <Text>Elementary</Text>
+          <Text>{`Elementary`}</Text>
         </TouchableOpacity>
         <TouchableOpacity key="Middle" onPress={() => onSchool('Middle')}
           style={[styles.oneButton, { width: wp('20%'), backgroundColor: school === 'Middle' ? colors.WHITE : colors.GREY.PRIMARY }]}>
-          <Text>Middle</Text>
+          <Text>{`Middle`}</Text>
         </TouchableOpacity>
         <TouchableOpacity key="High" onPress={() => onSchool('High')}
           style={[styles.oneButton, { width: wp('20%'), backgroundColor: school === 'High' ? colors.WHITE : colors.GREY.PRIMARY }]}>
-          <Text>High</Text>
+          <Text>{`High`}</Text>
         </TouchableOpacity>
       </View>
 

@@ -16,7 +16,7 @@ export default PropertySort = props => {
         <View style={styles.header}>
           <Icon name="down" type="antdesign" size={25} onPress={onClose} />
           <View style={{ marginLeft: 5 }}>
-            <Text style={{ fontWeight: 'bold' }}>Sort</Text>
+            <Text style={{ fontWeight: 'bold' }}>{`Sort`}</Text>
           </View>
           <View style={{ width: 50 }} />
         </View>

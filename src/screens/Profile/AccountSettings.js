@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Modal, ActivityIndicator } from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
+import styles from './AccountSettingsStyles';
 import { Icon } from "react-native-elements";
 import { colors } from "@constants/themes";
 import { Header, PickerButton } from "@components";
@@ -253,50 +254,50 @@ class AccountSettings extends Component {
         <Header style={{ backgroundColor: colors.GREY.PRIMARY, paddingLeft: 10, paddingRight: 10 }}>
           <View style={styles.header}>
             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Account Settings</Text>
+              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{`Account Settings`}</Text>
             </TouchableOpacity>
           </View>
         </Header>
         <ScrollView contentContainerStyle={{ width: wp('100%') }}>
           <View style={styles.view1}>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontWeight: 'bold' }}>Name: </Text>
+              <Text style={{ fontWeight: 'bold' }}>{`Name: `}</Text>
               <Text>{this.props.user.user_name}</Text>
             </View>
             <TouchableOpacity onPress={() => this.setState({ name: this.props.user.user_name, visibleName: true })}>
-              <Text style={{ fontWeight: 'bold', color: colors.BLUE.PRIMARY }}>Edit</Text>
+              <Text style={{ fontWeight: 'bold', color: colors.BLUE.PRIMARY }}>{`Edit`}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.view1}>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontWeight: 'bold' }}>Email: </Text>
+              <Text style={{ fontWeight: 'bold' }}>{`Email: `}</Text>
               <Text>{this.props.user.user_email}</Text>
             </View>
             <TouchableOpacity onPress={() => this.setState({ email: this.props.user.user_email, visibleEmail: true })}>
-              <Text style={{ fontWeight: 'bold', color: colors.BLUE.PRIMARY }}>Edit</Text>
+              <Text style={{ fontWeight: 'bold', color: colors.BLUE.PRIMARY }}>{`Edit`}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.view1}>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontWeight: 'bold' }}>Phone: </Text>
+              <Text style={{ fontWeight: 'bold' }}>{`Phone: `}</Text>
               <Text>{this.props.user.user_phone}</Text>
             </View>
             <TouchableOpacity onPress={() => this.setState({ phone: this.props.user.user_phone, visiblePhone: true })}>
-              <Text style={{ fontWeight: 'bold', color: colors.BLUE.PRIMARY }}>Edit</Text>
+              <Text style={{ fontWeight: 'bold', color: colors.BLUE.PRIMARY }}>{`Edit`}</Text>
             </TouchableOpacity>
           </View>
           <View style={{ width: wp('100%'), height: 50, justifyContent: 'center', alignItems: 'center', paddingLeft: 20, paddingRight: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}>
             <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 170, height: 25, borderRadius: 3, borderWidth: 0.5, borderColor: '#898989' }}>
-              <Text style={{ fontWeight: 'bold', color: colors.BLUE.PRIMARY }}>Change Password</Text>
+              <Text style={{ fontWeight: 'bold', color: colors.BLUE.PRIMARY }}>{`Change Password`}</Text>
             </TouchableOpacity>
           </View>
           <View style={{ width: wp('100%'), alignItems: 'center', marginTop: 40 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', height: 25 }}>
-              <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 5, width: 150 }}>Notifications:</Text>
+              <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 5, width: 150 }}>{`Notifications:`}</Text>
               <View style={{ width: 100, alignItems: 'center' }} />
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', height: 25 }}>
-              <Text style={{ fontSize: 12, width: 150 }}>App Notifications</Text>
+              <Text style={{ fontSize: 12, width: 150 }}>{`App Notifications`}</Text>
               <View style={{ width: 100, alignItems: 'center' }}>
                 <TouchableOpacity onPress={() => this.setState({ appNotification: !appNotification })}>
                   <Icon name={!appNotification ? "checkbox-blank-outline" : "close-box"} type="material-community" size={20} />
@@ -304,7 +305,7 @@ class AccountSettings extends Component {
               </View>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={{ fontSize: 12, width: 150 }}>Email Notifications</Text>
+              <Text style={{ fontSize: 12, width: 150 }}>{`Email Notifications`}</Text>
               <View style={{ width: 100, alignItems: 'center' }}>
                 <TouchableOpacity onPress={() => this.setState({ emailNotification: !emailNotification })}>
                   <Icon name={!emailNotification ? "checkbox-blank-outline" : "close-box"} type="material-community" size={20} />
@@ -312,7 +313,7 @@ class AccountSettings extends Component {
               </View>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={{ fontSize: 12, width: 150 }}>Text Notifications</Text>
+              <Text style={{ fontSize: 12, width: 150 }}>{`Text Notifications`}</Text>
               <View style={{ width: 100, alignItems: 'center' }}>
                 <TouchableOpacity onPress={() => this.setState({ textNotification: !textNotification })}>
                   <Icon name={!textNotification ? "checkbox-blank-outline" : "close-box"} type="material-community" size={20} />
@@ -320,7 +321,7 @@ class AccountSettings extends Component {
               </View>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', height: 25 }}>
-              <Text style={{ fontSize: 12, width: 150 }}>Alert Speed</Text>
+              <Text style={{ fontSize: 12, width: 150 }}>{`Alert Speed`}</Text>
               <View style={{ width: 100, alignItems: 'center' }}>
                 <TouchableOpacity style={styles.inputView} onPress={() => this.setState({ speedStatus: true })}>
                   <View />
@@ -347,88 +348,6 @@ class AccountSettings extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    marginTop: 10,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'flex-end'
-  },
-  overlay: {
-    width: wp('100%'),
-    height: hp('100%'),
-    backgroundColor: '#00000080'
-  },
-  inputView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: 100,
-    height: 15,
-    paddingLeft: 5, paddingRight: 5,
-    borderRadius: 5,
-    borderWidth: 0.5,
-  },
-  wrapper: {
-    position: 'absolute',
-    top: 100,
-    left: (wp('100%') - 300) / 2,
-    alignItems: 'center',
-    width: 300,
-    height: 230,
-    // backgroundColor: colors.WHITE,
-    backgroundColor: '#E3E3E3',
-    borderRadius: 10,
-    zIndex: 100
-  },
-  buttonView: {
-    position: 'absolute',
-    bottom: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    height: 35,
-  },
-  cancelButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '50%',
-    height: 35,
-    backgroundColor: colors.RED.PRIMARY,
-    borderBottomLeftRadius: 10,
-  },
-  submitButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '50%',
-    height: 35,
-    backgroundColor: colors.BLUE.PRIMARY,
-    borderBottomRightRadius: 10
-  },
-  disableButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '50%',
-    height: 35,
-    backgroundColor: '#0072DC80',
-    borderBottomRightRadius: 10
-  },
-  view1: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: wp('100%'),
-    height: 50,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#DEDEDE'
-  }
-});
 
 const mapStateToProps = state => {
   return {

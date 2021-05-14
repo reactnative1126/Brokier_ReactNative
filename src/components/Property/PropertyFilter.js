@@ -75,7 +75,7 @@ export default PropertyFilter = (props) => {
         <View style={styles.header}>
           <View />
           <View style={styles.searchBar}>
-            <Text style={{ fontWeight: '500' }}>Filter Listings</Text>
+            <Text style={{ fontWeight: '500' }}>{`Filter Listings`}</Text>
           </View>
           <Icon name="close" type="antdesign" size={25} onPress={() => {
             Alert.alert(
@@ -101,18 +101,18 @@ export default PropertyFilter = (props) => {
             <View style={styles.toggleButton}>
               <TouchableOpacity onPress={props.onView}
                 style={[styles.oneButton, { backgroundColor: props.view ? colors.WHITE : colors.GREY.PRIMARY }]}>
-                <Text>For Sale Listings</Text>
+                <Text>{`For Sale Listings`}</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={props.onView}
                 style={[styles.oneButton, { backgroundColor: !props.view ? colors.WHITE : colors.GREY.PRIMARY }]}>
-                <Text>Rent Listings</Text>
+                <Text>{`Rent Listings`}</Text>
               </TouchableOpacity>
             </View>
           </Card>
 
           <Card index={12} style={{ width: wp('100%') - 20, marginLeft: 10 }}>
             <View style={styles.propertyType}>
-              <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Property Type</Text>
+              <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>{`Property Type`}</Text>
               <View style={styles.types}>
                 <TouchableOpacity style={[styles.typeItem, { borderColor: allTypes ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
                   setAllTypes(!allTypes);
@@ -125,19 +125,19 @@ export default PropertyFilter = (props) => {
                   setMultiFamily(false);
                   setLand(false);
                 }}>
-                  <Text style={{ fontSize: 12 }}>All Types</Text>
+                  <Text style={{ fontSize: 12 }}>{`All Types`}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.typeItem, { borderColor: detached ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
                   setAllTypes(false);
                   setDetached(!detached);
                 }}>
-                  <Text style={{ fontSize: 12 }}>Detached</Text>
+                  <Text style={{ fontSize: 12 }}>{`Detached`}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.typeItem, { borderColor: semiDetached ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
                   setAllTypes(false);
                   setSemiDetached(!semiDetached);
                 }}>
-                  <Text style={{ fontSize: 12 }}>Semi-Detached</Text>
+                  <Text style={{ fontSize: 12 }}>{`Semi-Detached`}</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.types}>
@@ -151,13 +151,13 @@ export default PropertyFilter = (props) => {
                   setAllTypes(false);
                   setCondoTown(!condoTown);
                 }}>
-                  <Text style={{ fontSize: 12 }}>Condo Town</Text>
+                  <Text style={{ fontSize: 12 }}>{`Condo Town`}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.typeItem, { borderColor: condoApartment ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
                   setAllTypes(false);
                   setCondoApartment(!condoApartment);
                 }}>
-                  <Text style={{ fontSize: 12 }}>Condo Apartment</Text>
+                  <Text style={{ fontSize: 12 }}>{`Condo Apartment`}</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.types}>
@@ -165,19 +165,19 @@ export default PropertyFilter = (props) => {
                   setAllTypes(false);
                   setDuplex(!duplex);
                 }}>
-                  <Text style={{ fontSize: 12 }}>Duplex</Text>
+                  <Text style={{ fontSize: 12 }}>{`Duplex`}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.typeItem, { borderColor: multiFamily ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
                   setAllTypes(false);
                   setMultiFamily(!multiFamily);
                 }}>
-                  <Text style={{ fontSize: 12 }}>Multi-Family</Text>
+                  <Text style={{ fontSize: 12 }}>{`Multi-Family`}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.typeItem, { borderColor: land ? colors.BLACK : colors.GREY.PRIMARY }]} onPress={() => {
                   setAllTypes(false);
                   setLand(!land);
                 }}>
-                  <Text style={{ fontSize: 12 }}>Land</Text>
+                  <Text style={{ fontSize: 12 }}>{`Land`}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -185,7 +185,7 @@ export default PropertyFilter = (props) => {
 
           <Card index={13} style={{ width: wp('100%') - 20, marginLeft: 10 }}>
             <View style={styles.propertyType}>
-              <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Price Range</Text>
+              <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>{`Price Range`}</Text>
               <View style={styles.range}>
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
                   {/* <Text style={{ fontSize: 12 }}>${isNumber(minPrice)}</Text>
@@ -225,7 +225,7 @@ export default PropertyFilter = (props) => {
           <Card index={14} style={{ width: wp('100%') - 20, marginLeft: 10 }}>
             <View style={styles.picker}>
               <View>
-                <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Days listings is on market:</Text>
+                <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>{`Days listings is on market:`}</Text>
                 <View style={styles.range1}>
                   <TouchableOpacity style={styles.inputView} onPress={() => setDayStatus(true)}>
                     <View />
@@ -249,7 +249,7 @@ export default PropertyFilter = (props) => {
 
           <Card index={15} style={{ width: wp('100%') - 20, marginLeft: 10 }}>
             <View style={styles.propertyType}>
-              <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Beds, Baths, Parking</Text>
+              <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>{`Beds, Baths, Parking`}</Text>
               <View style={styles.parking}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: wp('60%') }}>
                   <Text style={{ width: 50 }}>Beds</Text>
@@ -331,7 +331,7 @@ export default PropertyFilter = (props) => {
               <View style={styles.range}>
                 <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
                   <Text style={{ fontSize: 12 }}>{minAge < 5 ? 'New Construction' : minAge + ' years old'}</Text>
-                  <Text style={{ fontSize: 12 }}>{maxAge} years old</Text>
+                  <Text style={{ fontSize: 12 }}>{maxAge} {`years old`}</Text>
                 </View>
                 <View style={{ marginTop: -10, height: 50 }}>
                   <RangeSelector
@@ -364,13 +364,13 @@ export default PropertyFilter = (props) => {
 
           <Card index={18} style={{ width: wp('100%') - 20, marginLeft: 10 }}>
             <View style={styles.propertyType}>
-              {props.view && <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>Condo Filters</Text>}
+              {props.view && <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 10 }}>{`Condo Filters`}</Text>}
               <View style={styles.range}>
                 {props.view &&
                   <React.Fragment>
                     <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
                       <Text style={{ fontSize: 12 }}>{isCurrency(minCondo).split('.')[0]}</Text>
-                      <Text style={{ fontSize: 12 }}>Max HOA / Maintenance Fees</Text>
+                      <Text style={{ fontSize: 12 }}>{`Max HOA / Maintenance Fees`}</Text>
                       <Text style={{ fontSize: 12 }}>{isCurrency(maxCondo).split('.')[0]}{maxCondo == 5000 && '+'}</Text>
                     </View>
                     <View style={{ marginTop: -10, height: 50 }}>
@@ -399,7 +399,7 @@ export default PropertyFilter = (props) => {
                       />
                     </View>
                   </React.Fragment>}
-                <Text style={{ width: '100%', textAlign: 'center', marginBottom: 5 }}>Locker / Storage</Text>
+                <Text style={{ width: '100%', textAlign: 'center', marginBottom: 5 }}>{`Locker / Storage`}</Text>
                 <View style={[styles.toggleButton, { marginBottom: 0, marginLeft: -35 }]}>
                   <TouchableOpacity onPress={() => setLocker('Any')}
                     style={[styles.oneButton, { width: wp('30%'), backgroundColor: locker === 'Any' ? colors.WHITE : colors.GREY.PRIMARY }]}>
@@ -466,7 +466,7 @@ export default PropertyFilter = (props) => {
             }
           }, false)}
         >
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: colors.WHITE }}>CLEAR</Text>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', color: colors.WHITE }}>{`CLEAR`}</Text>
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.applyButton}
@@ -510,7 +510,7 @@ export default PropertyFilter = (props) => {
             }
           }, true)}
         >
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: colors.WHITE }}>APPLY FILTERS</Text>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', color: colors.WHITE }}>{`APPLY FILTERS`}</Text>
         </TouchableHighlight>
       </View>
       <TouchableOpacity style={{ backgroundColor: '#00000050', width: wp('100%'), height: hp('100%') }} onPress={props.onClose} />

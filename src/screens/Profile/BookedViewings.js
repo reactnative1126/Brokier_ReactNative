@@ -4,6 +4,7 @@ import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, Share } 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Grid from 'react-native-infinite-scroll-grid';
 
+import styles from './BookedViewingsStyles';
 import { colors } from "@constants/themes";
 import { setLikes } from "@modules/redux/lists/actions";
 import { Loading2, Header, PickerButton, PropertyItem } from "@components";
@@ -134,41 +135,6 @@ class BookedViewings extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: colors.WHITE
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'flex-end'
-  },
-  oneButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: wp('50%') - 16,
-    height: 25,
-    backgroundColor: colors.WHITE,
-    borderRadius: 5
-  },
-  statusBar: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 25,
-    backgroundColor: colors.WHITE
-  },
-  mapSearchButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: wp('50%'),
-    height: 30,
-    backgroundColor: '#B9B9B9',
-    borderRadius: 5
-  }
-});
 
 const mapStateToProps = state => {
   return {

@@ -11,9 +11,9 @@ export default SavedListings = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Notifications:</Text>
+      <Text style={styles.title}>{`Notifications:`}</Text>
       <View style={{ flexDirection: 'row', alignItems: 'center', height: 25 }}>
-        <Text style={{ fontSize: 12, width: 150 }}>App Notifications</Text>
+        <Text style={{ fontSize: 12, width: 150 }}>{`App Notifications`}</Text>
         <View style={{ width: 100, alignItems: 'center' }}>
           <TouchableOpacity onPress={() => setAppNotification(!appNotification)}>
             <Icon name={!appNotification ? "checkbox-blank-outline" : "close-box"} type="material-community" size={20} />
@@ -21,7 +21,7 @@ export default SavedListings = (props) => {
         </View>
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={{ fontSize: 12, width: 150 }}>Email Notifications</Text>
+        <Text style={{ fontSize: 12, width: 150 }}>{`Email Notifications`}</Text>
         <View style={{ width: 100, alignItems: 'center' }}>
           <TouchableOpacity onPress={() => setEmailNotification(!emailNotification)}>
             <Icon name={!emailNotification ? "checkbox-blank-outline" : "close-box"} type="material-community" size={20} />
@@ -29,7 +29,7 @@ export default SavedListings = (props) => {
         </View>
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', height: 25 }}>
-        <Text style={{ fontSize: 12, width: 150 }}>Alert Speed</Text>
+        <Text style={{ fontSize: 12, width: 150 }}>{`Alert Speed`}</Text>
         <View style={{ width: 100, alignItems: 'center' }}>
           <TouchableOpacity style={styles.inputView} onPress={props.setAlertSpeed}>
             <View />
@@ -39,21 +39,21 @@ export default SavedListings = (props) => {
         </View>
       </View>
 
-      <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 15 }}>Saved Searches:</Text>
+      <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 15 }}>{`Saved Searches:`}</Text>
       <View style={{ width: '100%', paddingTop: 10, paddingBottom: 5, borderBottomWidth: 1, borderBottomColor: '#DEDEDE' }}>
-        <Text style={{ fontSize: 12 }}>Name: Toronto(1)</Text>
-        <Text style={{ fontSize: 12 }}>Location: Toronto, Ontario</Text>
-        <Text style={{ fontSize: 12 }}>Filters: 4+ Bedroom | Max Price: $2,500,00</Text>
+        <Text style={{ fontSize: 12 }}>{`Name: Toronto(1)`}</Text>
+        <Text style={{ fontSize: 12 }}>{`Location: Toronto, Ontario`}</Text>
+        <Text style={{ fontSize: 12 }}>{`Filters: 4+ Bedroom | Max Price: $2,500,00`}</Text>
       </View>
       <View style={{ width: '100%', paddingTop: 10, paddingBottom: 5, borderBottomWidth: 1, borderBottomColor: '#DEDEDE' }}>
-        <Text style={{ fontSize: 12 }}>Name: Toronto affordable Condos(1)</Text>
-        <Text style={{ fontSize: 12 }}>Location: Toronto, Ontario</Text>
-        <Text style={{ fontSize: 12 }}>Filters Type: Condo | Max Price: $4,000,00</Text>
+        <Text style={{ fontSize: 12 }}>{`Name: Toronto affordable Condos(1)`}</Text>
+        <Text style={{ fontSize: 12 }}>{`Location: Toronto, Ontario`}</Text>
+        <Text style={{ fontSize: 12 }}>{`Filters Type: Condo | Max Price: $4,000,00`}</Text>
       </View>
       <View style={{ width: '100%', paddingTop: 10, paddingBottom: 5, borderBottomWidth: 0, borderBottomColor: '#DEDEDE' }}>
-        <Text style={{ fontSize: 12 }}>Name: Toronto Luxury Condos(1)</Text>
-        <Text style={{ fontSize: 12 }}>Location: Toronto, Ontario</Text>
-        <Text style={{ fontSize: 12 }}>Filters Type: Condo | Min Price: $4,000,00</Text>
+        <Text style={{ fontSize: 12 }}>{`Name: Toronto Luxury Condos(1)`}</Text>
+        <Text style={{ fontSize: 12 }}>{`Location: Toronto, Ontario`}</Text>
+        <Text style={{ fontSize: 12 }}>{`Filters Type: Condo | Min Price: $4,000,00`}</Text>
       </View>
     </View>
   );

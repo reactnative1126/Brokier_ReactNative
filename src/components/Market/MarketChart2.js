@@ -25,13 +25,13 @@ export default MarketChart2 = (props) => {
     <View style={styles.container}>
       <View style={styles.wrapper}>
         <View style={{ width: 30 }} />
-        <Text style={styles.title}>Inventory and Market Temperature</Text>
+        <Text style={styles.title}>{`Inventory and Market Temperature`}</Text>
         <TouchableOpacity>
           <Icon name="share-apple" type="evilicon" size={25} />
         </TouchableOpacity>
       </View>
       <View style={styles.wrapper2}>
-        <Text style={styles.title2}>Number of Homes</Text>
+        <Text style={styles.title2}>{`Number of Homes`}</Text>
         <View style={styles.homeChart}>
           <BarChart
             style={{ width: 180, height: 119 }}
@@ -44,16 +44,16 @@ export default MarketChart2 = (props) => {
           >
           </BarChart>
         </View>
-        <Text style={styles.title3}>Months of Inventory</Text>
+        <Text style={styles.title3}>{`Months of Inventory`}</Text>
       </View>
-      <Text style={{ marginTop: 5 }}>Time</Text>
+      <Text style={{ marginTop: 5 }}>{`Time`}</Text>
       <View style={styles.wrapper3}>
         <View style={{ width: 5, height: 5, backgroundColor: '#7ABA80' }} />
-        <Text style={{ fontSize: 8, width: 80, marginLeft: 10 }}>Active Listings</Text>
+        <Text style={{ fontSize: 8, width: 80, marginLeft: 10 }}>{`Active Listings`}</Text>
         <View style={{ width: 5, height: 5, backgroundColor: '#D95644' }} />
         <Text style={{ fontSize: 8, width: 50, marginLeft: 10 }}>Sales</Text>
         <View style={{ width: 5, height: 5, backgroundColor: '#445CD9' }} />
-        <Text style={{ fontSize: 8, width: 100, marginLeft: 10 }}>Market Temperature</Text>
+        <Text style={{ fontSize: 8, width: 100, marginLeft: 10 }}>{`Market Temperature`}</Text>
       </View>
     </View>
   );

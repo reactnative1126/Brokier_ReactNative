@@ -11,22 +11,22 @@ export default SavedSearches = (props) => {
     isEmpty(props.propertyData) ?
       <View style={[styles.container, { height: 350, paddingLeft: 10, paddingRight: 10 }]}>
         <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-          <Text style={{ fontSize: 12, marginBottom: 10 }} >You have no Favorite listings,</Text>
+          <Text style={{ fontSize: 12, marginBottom: 10 }} >{`You have no Favorite listings,`}</Text>
           <Icon name="heart" type="material-community" size={25} />
-          <Text style={{ fontSize: 12, marginTop: 10 }} >Tap the Heart on a listing to save it hear!</Text>
+          <Text style={{ fontSize: 12, marginTop: 10 }} >{`Tap the Heart on a listing to save it hear!`}</Text>
         </View>
       </View> :
       <View style={styles.container}>
-        <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 5 }}>Saved Listings:</Text>
+        <Text style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 5 }}>{`Saved Listings:`}</Text>
         <FlatList
           data={props.propertyData}
           renderItem={(propertyItem) => (
             <PropertyItem
               propertyItem={propertyItem.item}
               onPress={() => props.navigation.navigate('PropertiesDetail', { propertyItem: propertyItem.item })}
-              onLogin={()=>props.navigation.push("Auth")}
-              onShare={(id)=>props.onShare(id)}
-              onLike={(id)=>props.onLike(id)}
+              onLogin={() => props.navigation.push("Auth")}
+              onShare={(id) => props.onShare(id)}
+              onLike={(id) => props.onLike(id)}
             />
           )}
         />

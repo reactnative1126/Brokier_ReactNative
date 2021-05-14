@@ -4,6 +4,7 @@ import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, Share } 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Grid from 'react-native-infinite-scroll-grid';
 
+import styles from './styles';
 import { colors } from "@constants/themes";
 import { setLikes } from "@modules/redux/lists/actions";
 import { Loading2, Header, PickerButton, PropertyItem } from "@components";
@@ -129,11 +130,11 @@ class Favorite extends Component {
           <View style={styles.header}>
             <TouchableOpacity onPress={() => this.setState({ saved: 'listings' })}
               style={[styles.oneButton, { width: wp('48%'), backgroundColor: saved === 'listings' ? colors.WHITE : colors.GREY.PRIMARY }]}>
-              <Text>Saved Listings</Text>
+              <Text>{`Saved Listings`}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.setState({ saved: 'searches' })}
               style={[styles.oneButton, { width: wp('48%'), backgroundColor: saved === 'searches' ? colors.WHITE : colors.GREY.PRIMARY }]}>
-              <Text>Saved Searches</Text>
+              <Text>{`Saved Searches`}</Text>
             </TouchableOpacity>
           </View>
         </Header>
@@ -146,9 +147,9 @@ class Favorite extends Component {
                   style={{ width: wp('100%'), paddingTop: 10, paddingLeft: 10, paddingRight: 10, paddingBottom: 5, borderBottomWidth: 1, borderBottomColor: '#DEDEDE' }}
                   onPress={() => this.onMap(search.item)}
                 >
-                  <Text style={{ fontSize: 12 }}>Name: {search.item.name}</Text>
-                  <Text style={{ fontSize: 12 }}>Location: {search.item.location}</Text>
-                  <Text style={{ fontSize: 12 }}>Filters: {search.item.description}</Text>
+                  <Text style={{ fontSize: 12 }}>{`Name: `}{search.item.name}</Text>
+                  <Text style={{ fontSize: 12 }}>{`Location: `}{search.item.location}</Text>
+                  <Text style={{ fontSize: 12 }}>{`Filters: `}{search.item.description}</Text>
                 </TouchableOpacity>
               )}
             />
@@ -181,41 +182,6 @@ class Favorite extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: colors.WHITE
-  },
-  header: {
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  oneButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: wp('50%') - 16,
-    height: 25,
-    backgroundColor: colors.WHITE,
-    borderRadius: 5
-  },
-  statusBar: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 25,
-    backgroundColor: colors.WHITE
-  },
-  mapSearchButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: wp('50%'),
-    height: 30,
-    backgroundColor: '#B9B9B9',
-    borderRadius: 5
-  }
-});
 
 const mapStateToProps = state => {
   return {

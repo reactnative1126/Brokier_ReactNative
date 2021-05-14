@@ -3,6 +3,7 @@ import { Platform, StatusBar, StyleSheet, View, TouchableOpacity, Text, ScrollVi
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import { CommonActions } from '@react-navigation/native';
 
+import styles from './SearchStyles';
 import configs from "@constants/configs";
 import { Icon, Input } from "react-native-elements";
 import { colors } from "@constants/themes";
@@ -101,14 +102,14 @@ export default class PropertiesSearch extends Component {
             <TouchableOpacity style={styles.nearbyButton} >
               <View style={{ width: 5 }} />
               <Icon name="location-searching" type="material" size={18} />
-              <Text>Nearby</Text>
+              <Text>{`Nearby`}</Text>
               <View style={{ width: 5 }} />
             </TouchableOpacity>
           </View>
           {!isEmpty(search) &&
             <Card index={21} style={styles.location}>
               <View style={{ width: '100%', marginTop: 10 }}>
-                <Text style={{ fontWeight: 'bold' }}>Locations</Text>
+                <Text style={{ fontWeight: 'bold' }}>{`Locations`}</Text>
                 {!isEmpty(locations) ? locations.map((location, key) => {
                   return (
                     <TouchableOpacity key={key} style={{ marginTop: 10, borderBottomWidth: 0.5, borderBottomColor: colors.GREY.PRIMARY }}
@@ -124,7 +125,7 @@ export default class PropertiesSearch extends Component {
           {!isEmpty(search) &&
             <Card index={22} style={styles.listings}>
               <View style={{ width: '100%' }}>
-                <Text style={{ fontWeight: 'bold' }}>Listings</Text>
+                <Text style={{ fontWeight: 'bold' }}>{`Listings`}</Text>
                 {!isEmpty(listings) ? listings.map((listing, key) => {
                   return (
                     <TouchableOpacity key={key} style={{ marginTop: 10, borderBottomWidth: 0.5, borderBottomColor: colors.GREY.PRIMARY }}
@@ -158,81 +159,3 @@ export default class PropertiesSearch extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.WHITE
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 10,
-    width: "100%",
-    height: 35,
-    padding: 2,
-  },
-  searchBar: {
-    flexDirection: "row",
-    justifyContent: 'space-between',
-    alignItems: "center",
-    marginLeft: 10,
-    width: wp("100%") - 60,
-    height: 30,
-    paddingLeft: 2,
-    paddingRight: 5,
-    borderWidth: 0,
-    borderRadius: 5,
-    backgroundColor: colors.GREY.PRIMARY,
-  },
-  searchIcon: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 26,
-    height: 26,
-    backgroundColor: colors.WHITE,
-    borderRadius: 5,
-  },
-  inputContainerStyle: {
-    height: 30,
-    padding: 0,
-    borderBottomWidth: 0,
-  },
-  textInputStyle: {
-    margin: 0,
-    height: 30,
-    width: wp("100%") - 120,
-  },
-  inputTextStyle: {
-    height: 30,
-    fontSize: 14,
-  },
-  nearby: {
-    backgroundColor: colors.WHITE,
-    paddingTop: 20,
-    paddingLeft: 20,
-  },
-  nearbyButton: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    width: 100,
-    height: 25,
-    backgroundColor: colors.GREY.PRIMARY,
-    borderRadius: 5,
-    borderWidth: 0.5,
-    borderColor: colors.GREY.SECONDARY
-  },
-  location: {
-    padding: 20,
-    borderBottomWidth: 0
-  },
-  listings: {
-    padding: 20,
-    borderBottomWidth: 0
-  },
-  recent: {
-    padding: 20,
-    borderBottomWidth: 0
-  },
-});

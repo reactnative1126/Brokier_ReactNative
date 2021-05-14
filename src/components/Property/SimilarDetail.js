@@ -51,7 +51,7 @@ export default SimilarDetail = ({ navigation, listing }) => {
             <View style={{ alignItems: "flex-start" }}>
               <View style={styles.day}>
                 <Text style={{ fontSize: 8, fontWeight: "normal" }}>
-                  {listing.daysOnMarket} Days on Market
+                  {listing.daysOnMarket}{` Days on Market`}
                 </Text>
               </View>
             </View>
@@ -69,7 +69,7 @@ export default SimilarDetail = ({ navigation, listing }) => {
               {listing.numBathrooms}{!isEmpty(listing.numBathroomsPlus) && '+' + listing.numBathroomsPlus} Bath
             </Text>
             <Text style={styles.text}>
-              {listing.numParkingSpaces} Parking
+              {listing.numParkingSpaces}{` Parking`}
             </Text>
             <Text style={styles.text}>
               {listing.type}

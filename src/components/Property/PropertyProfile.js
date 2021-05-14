@@ -13,8 +13,8 @@ export default PropertyProfile = ({ navigation }) => {
 
   return (
     <TouchableOpacity onPress={() => {
-        navigation.reset({ index: 1, routes: [{ name: 'App' }] });
-        navigation.navigate('AgentUserProfile');
+      navigation.reset({ index: 1, routes: [{ name: 'App' }] });
+      navigation.navigate('AgentUserProfile');
     }}>
       <Card index={54} style={styles.profile}>
         <Text style={{ fontSize: 14, marginBottom: 5 }}>{!isEmpty(user_info) && user_info.user_name}</Text>
@@ -25,11 +25,11 @@ export default PropertyProfile = ({ navigation }) => {
         <Text style={{ fontSize: 12, marginVertical: 5 }}>{!isEmpty(user_info) && user_info.brokerage_name}</Text>
         <View style={{ width: '60%', flexDirection: 'row', justifyContent: 'space-around' }}>
           <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 100, height: 30, borderWidth: 0.5, borderRadius: 3 }}>
-            <Text style={{ fontSize: 12, }}>Call Agent</Text>
+            <Text style={{ fontSize: 12, }}>{`Call Agent`}</Text>
           </TouchableOpacity>
           <View style={{ width: 50 }} />
           <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', width: 100, height: 30, borderWidth: 0.5, borderRadius: 3 }}>
-            <Text style={{ fontSize: 12, }}>Message Agent</Text>
+            <Text style={{ fontSize: 12, }}>{`Message Agent`}</Text>
           </TouchableOpacity>
         </View>
       </Card>

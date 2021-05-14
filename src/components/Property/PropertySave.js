@@ -12,9 +12,9 @@ export default PropertySave = props => {
   return (
     <Modal visible={props.visible} animationType="none" swipeArea={50} transparent={true}>
       <View style={styles.modalView}>
-        <Text style={styles.title}>Save search</Text>
+        <Text style={styles.title}>{`Save search`}</Text>
         <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Text>Name<Text style={{ color: colors.RED.DEFAULT }}>*</Text>:</Text>
+          <Text>{`Name`}<Text style={{ color: colors.RED.DEFAULT }}>*</Text>:</Text>
           <Input
             editable={true}
             autoFocus={true}
@@ -28,11 +28,11 @@ export default PropertySave = props => {
           />
         </View>
         <View style={{ marginTop: 15, width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <Text>Location: </Text>
+          <Text>{`Location: `}</Text>
           <Text style={{ width: 180, fontSize: 13, color: colors.BLUE.PRIMARY }}>{global.location}</Text>
         </View>
         <View style={{ marginTop: 15, width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Text>Current map filters: </Text>
+          <Text>{`Current map filters: `}</Text>
         </View>
         <View style={{ marginTop: 5, width: '100%' }}>
           <Text style={{ color: colors.BLUE.PRIMARY, fontSize: 13 }}>{global.description}</Text>
@@ -42,10 +42,10 @@ export default PropertySave = props => {
         <TouchableOpacity style={[styles.button, { borderBottomLeftRadius: 10, backgroundColor: colors.RED.PRIMARY }]} onPress={() => {
           isEmpty(name) ? alert('Please enter name') : props.onSave(name)
         }}>
-          <Text style={{ fontSize: 15, fontWeight: 'bold', color: colors.WHITE }}>SAVE SEARCH</Text>
+          <Text style={{ fontSize: 15, fontWeight: 'bold', color: colors.WHITE }}>{`SAVE SEARCH`}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, { borderBottomRightRadius: 10, backgroundColor: colors.GREY.PRIMARY }]} onPress={props.onClose} >
-          <Text style={{ fontSize: 15, fontWeight: 'bold', color: colors.BLACK }}>CANCEL</Text>
+          <Text style={{ fontSize: 15, fontWeight: 'bold', color: colors.BLACK }}>{`CANCEL`}</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={{ zIndex: 500, position: 'absolute', backgroundColor: '#00000080', width: wp('100%'), height: hp('100%') }} onPress={props.onClose} />

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
+import styles from './styles';
 import { colors } from "@constants/themes";
 import { images } from "@constants/assets";
 import { Loading, Header, PaymentCalculator, MortgageRates, PickerButton } from "@components";
@@ -55,11 +56,11 @@ class Mortgage extends Component {
           <View style={styles.header}>
             <TouchableOpacity onPress={() => this.setState({ tab: 'Payment Calculator' })}
               style={[styles.oneButton, { width: wp('48%'), backgroundColor: tab === 'Payment Calculator' ? colors.WHITE : colors.GREY.PRIMARY }]}>
-              <Text>Payment Calculator</Text>
+              <Text>{`Payment Calculator`}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.setState({ tab: 'Mortgage Rates' })}
               style={[styles.oneButton, { width: wp('48%'), backgroundColor: tab === 'Mortgage Rates' ? colors.WHITE : colors.GREY.PRIMARY }]}>
-              <Text>Mortgage Rates</Text>
+              <Text>{`Mortgage Rates`}</Text>
             </TouchableOpacity>
           </View>
         </Header>
@@ -98,8 +99,8 @@ class Mortgage extends Component {
                 color: colors.WHITE,
               }}
             >
-              Get Pre-Qualified For a Mortgage
-              </Text>
+              {`Get Pre-Qualified For a Mortgage`}
+            </Text>
           </TouchableOpacity>
         </View>
 
@@ -111,43 +112,5 @@ class Mortgage extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: colors.WHITE
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
-  },
-  oneButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: wp('50%') - 16,
-    height: 25,
-    backgroundColor: colors.WHITE,
-    borderRadius: 5
-  },
-  statusBar: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 25,
-    backgroundColor: colors.WHITE
-  },
-  bottomBar: {
-    position: "absolute",
-    bottom: 0,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: wp("100%"),
-    height: 80,
-    backgroundColor: colors.GREY.PRIMARY,
-    padding: 20,
-  },
-});
 
 export default connect(undefined, undefined)(Mortgage);

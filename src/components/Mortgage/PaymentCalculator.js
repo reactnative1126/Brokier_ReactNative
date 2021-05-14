@@ -9,7 +9,7 @@ export default PaymentCalculator = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.statusBar}>
-                <Text>Browse Mortgages</Text>
+                <Text>{`Browse Mortgages`}</Text>
                 <View style={styles.topButton}>
                     <TouchableOpacity style={styles.inputView} onPress={props.purposeStatus}>
                         <Icon name='down' type='antdesign' size={14} color={colors.BLACK} />
@@ -37,106 +37,106 @@ export default PaymentCalculator = (props) => {
             <ScrollView contentContainerStyle={styles.main}>
                 <View style={styles.item}>
                     <View style={{ alignItems: 'center', width: wp('100%') - 150 }}>
-                        <Text style={{ fontSize: 20 }}>MCAP Mortgage Corp</Text>
+                        <Text style={{ fontSize: 20 }}>{`MCAP Mortgage Corp`}</Text>
                         <Text style={{ fontSize: 20 }}>2.5%</Text>
                         <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
                     </View>
                     <View style={{ width: 130 }}>
                         <View style={styles.textView1}>
-                            <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
+                            <Text style={{ fontSize: 12 }}>{`Calculate Payment`}</Text>
                         </View>
                         <View style={styles.textView2}>
-                            <Text>Get This Rate</Text>
+                            <Text>{`Get This Rate`}</Text>
                         </View>
                     </View>
                 </View>
                 <View style={styles.item}>
                     <View style={{ alignItems: 'center', width: wp('100%') - 150 }}>
-                        <Text style={{ fontSize: 20 }}>MCAP Mortgage Corp</Text>
+                        <Text style={{ fontSize: 20 }}>{`MCAP Mortgage Corp`}</Text>
                         <Text style={{ fontSize: 20 }}>2.5%</Text>
-                        <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
+                        <Text style={{ fontSize: 12, color: '#999' }}>{`Fixed 4 Year`}</Text>
                     </View>
                     <View style={{ width: 130 }}>
                         <View style={styles.textView1}>
-                            <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
+                            <Text style={{ fontSize: 12 }}>{`Calculate Payment`}</Text>
                         </View>
                         <View style={styles.textView2}>
-                            <Text>Get This Rate</Text>
+                            <Text>{`Get This Rate`}</Text>
                         </View>
                     </View>
                 </View>
                 <View style={styles.item}>
                     <View style={{ alignItems: 'center', width: wp('100%') - 150 }}>
-                        <Text style={{ fontSize: 20 }}>MCAP Mortgage Corp</Text>
+                        <Text style={{ fontSize: 20 }}>{`MCAP Mortgage Corp`}</Text>
                         <Text style={{ fontSize: 20 }}>2.5%</Text>
-                        <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
+                        <Text style={{ fontSize: 12, color: '#999' }}>{`Fixed 4 Year`}</Text>
                     </View>
                     <View style={{ width: 130 }}>
                         <View style={styles.textView1}>
-                            <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
+                            <Text style={{ fontSize: 12 }}>{`Calculate Payment`}</Text>
                         </View>
                         <View style={styles.textView2}>
-                            <Text>Get This Rate</Text>
+                            <Text>{`Get This Rate`}</Text>
                         </View>
                     </View>
                 </View>
                 <View style={styles.item}>
                     <View style={{ alignItems: 'center', width: wp('100%') - 150 }}>
-                        <Text style={{ fontSize: 20 }}>MCAP Mortgage Corp</Text>
+                        <Text style={{ fontSize: 20 }}>{`MCAP Mortgage Corp`}</Text>
                         <Text style={{ fontSize: 20 }}>2.5%</Text>
-                        <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
+                        <Text style={{ fontSize: 12, color: '#999' }}>{`Fixed 4 Year`}</Text>
                     </View>
                     <View style={{ width: 130 }}>
                         <View style={styles.textView1}>
-                            <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
+                            <Text style={{ fontSize: 12 }}>{`Calculate Payment`}</Text>
                         </View>
                         <View style={styles.textView2}>
-                            <Text>Get This Rate</Text>
+                            <Text>{`Get This Rate`}</Text>
                         </View>
                     </View>
                 </View>
                 <View style={styles.item}>
                     <View style={{ alignItems: 'center', width: wp('100%') - 150 }}>
-                        <Text style={{ fontSize: 20 }}>MCAP Mortgage Corp</Text>
+                        <Text style={{ fontSize: 20 }}>{`MCAP Mortgage Corp`}</Text>
                         <Text style={{ fontSize: 20 }}>2.5%</Text>
-                        <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
+                        <Text style={{ fontSize: 12, color: '#999' }}>{`Fixed 4 Year`}</Text>
                     </View>
                     <View style={{ width: 130 }}>
                         <View style={styles.textView1}>
-                            <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
+                            <Text style={{ fontSize: 12 }}>{`Calculate Payment`}</Text>
                         </View>
                         <View style={styles.textView2}>
-                            <Text>Get This Rate</Text>
+                            <Text>{`Get This Rate`}</Text>
                         </View>
                     </View>
                 </View>
                 <View style={styles.item}>
                     <View style={{ alignItems: 'center', width: wp('100%') - 150 }}>
-                        <Text style={{ fontSize: 20 }}>MCAP Mortgage Corp</Text>
+                        <Text style={{ fontSize: 20 }}>{`MCAP Mortgage Corp`}</Text>
                         <Text style={{ fontSize: 20 }}>2.5%</Text>
                         <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
                     </View>
                     <View style={{ width: 130 }}>
                         <View style={styles.textView1}>
-                            <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
+                            <Text style={{ fontSize: 12 }}>{`Calculate Payment`}</Text>
                         </View>
                         <View style={styles.textView2}>
-                            <Text>Get This Rate</Text>
+                            <Text>{`Get This Rate`}</Text>
                         </View>
                     </View>
                 </View>
                 <View style={styles.item}>
                     <View style={{ alignItems: 'center', width: wp('100%') - 150 }}>
-                        <Text style={{ fontSize: 20 }}>MCAP Mortgage Corp</Text>
+                        <Text style={{ fontSize: 20 }}>{`MCAP Mortgage Corp`}</Text>
                         <Text style={{ fontSize: 20 }}>2.5%</Text>
-                        <Text style={{ fontSize: 12, color: '#999' }}>Fixed 4 Year</Text>
+                        <Text style={{ fontSize: 12, color: '#999' }}>{`Fixed 4 Year`}</Text>
                     </View>
                     <View style={{ width: 130 }}>
                         <View style={styles.textView1}>
-                            <Text style={{ fontSize: 12 }}>Calculate Payment</Text>
+                            <Text style={{ fontSize: 12 }}>{`Calculate Payment`}</Text>
                         </View>
                         <View style={styles.textView2}>
-                            <Text>Get This Rate</Text>
+                            <Text>{`Get This Rate`}</Text>
                         </View>
                     </View>
                 </View>

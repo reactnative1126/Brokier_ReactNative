@@ -62,14 +62,14 @@ export default PropertyItem = ({ listing, likes, onPress, onLogin, onLike, onSha
         <TouchableOpacity style={styles.details} onPress={onPress}>
           <View style={styles.detailTop}>
             <View style={{ width: "30%" }}>
-              <Text style={{ fontSize: 12, marginBottom: 5 }}>Listed:</Text>
+              <Text style={{ fontSize: 12, marginBottom: 5 }}>{`Listed:`}</Text>
               <Text style={[{ fontSize: 16, fontWeight: "bold" }, (listing.lastStatus === 'Sld' || listing.lastStatus === 'Lsd') && { textDecorationLine: 'line-through' }]}>
                 {isCurrency(listing.listPrice).split('.')[0]}
               </Text>
             </View>
             {isCurrency(listing.soldPrice).split('.')[0] != '$0' ?
               <View style={{ width: "30%" }}>
-                <Text style={{ fontSize: 12, marginBottom: 5 }}>Sold:</Text>
+                <Text style={{ fontSize: 12, marginBottom: 5 }}>{`Sold:`}</Text>
                 <Text
                   style={{
                     fontSize: 16,
@@ -82,7 +82,7 @@ export default PropertyItem = ({ listing, likes, onPress, onLogin, onLike, onSha
               </View> : <View style={{ width: "30%" }} />}
             <View style={{ width: "40%", alignItems: "center" }}>
               <View style={styles.day}>
-                <Text style={{ fontSize: 12 }} >{listing.daysOnMarket} Days on Market</Text>
+                <Text style={{ fontSize: 12 }} >{listing.daysOnMarket} {`Days on Market`}</Text>
               </View>
             </View>
           </View>

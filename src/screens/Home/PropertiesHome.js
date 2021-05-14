@@ -9,6 +9,7 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import * as Linking from 'expo-linking';
 
+import styles from './HomeStyles';
 import configs from "@constants/configs";
 import { Icon } from "react-native-elements";
 import { colors } from "@constants/themes";
@@ -635,41 +636,41 @@ class PropertiesHome extends Component {
             <View style={[styles.statusBar, { justifyContent: "space-between" }]}>
               {this.state.view ?
                 <TouchableOpacity style={this.state.forSale ? styles.greenButton : styles.whiteButton} onPress={() => this.onForSale()}>
-                  <Text style={this.state.forSale ? { fontSize: 12, fontWeight: "500", color: colors.WHITE, fontWeight: 'bold' } : { fontSize: 12, color: colors.BLACK }}>FOR SALE</Text>
+                  <Text style={this.state.forSale ? { fontSize: 12, fontWeight: "500", color: colors.WHITE, fontWeight: 'bold' } : { fontSize: 12, color: colors.BLACK }}>{`FOR SALE`}</Text>
                 </TouchableOpacity> :
                 <TouchableOpacity style={this.state.forRent ? styles.blueButton : styles.whiteButton} onPress={() => this.onForRent()}>
-                  <Text style={this.state.forRent ? { fontSize: 12, fontWeight: "500", color: colors.WHITE, fontWeight: 'bold' } : { fontSize: 12, color: colors.BLACK }}>FOR RENT</Text>
+                  <Text style={this.state.forRent ? { fontSize: 12, fontWeight: "500", color: colors.WHITE, fontWeight: 'bold' } : { fontSize: 12, color: colors.BLACK }}>{`FOR RENT`}</Text>
                 </TouchableOpacity>}
               {this.state.view ?
                 <TouchableOpacity style={this.state.sold ? styles.redButton : styles.white2Button} onPress={() => this.onSold()}>
-                  <Text style={this.state.sold ? { fontSize: 12, fontWeight: "500", color: colors.WHITE, fontWeight: 'bold' } : { fontSize: 12, color: colors.BLACK }}>SOLD</Text>
+                  <Text style={this.state.sold ? { fontSize: 12, fontWeight: "500", color: colors.WHITE, fontWeight: 'bold' } : { fontSize: 12, color: colors.BLACK }}>{`SOLD`}</Text>
                 </TouchableOpacity> :
                 <TouchableOpacity style={this.state.rented ? styles.orangeButton : styles.white2Button} onPress={() => this.onRented()}>
-                  <Text style={this.state.rented ? { fontSize: 12, fontWeight: "500", color: colors.WHITE, fontWeight: 'bold' } : { fontSize: 12, color: colors.BLACK }}>RENTED</Text>
+                  <Text style={this.state.rented ? { fontSize: 12, fontWeight: "500", color: colors.WHITE, fontWeight: 'bold' } : { fontSize: 12, color: colors.BLACK }}>{`RENTED`}</Text>
                 </TouchableOpacity>}
               <TouchableOpacity style={styles.filters} onPress={() => this.setState({ filter: true })}>
                 <Icon name="keyboard-arrow-down" type="material" size={20} />
-                <Text style={{ fontSize: 12, color: colors.BLACK }}>Filters</Text>
+                <Text style={{ fontSize: 12, color: colors.BLACK }}>{`Filters`}</Text>
                 {this.state.badge > 0 ? <View style={styles.badge}><Text style={styles.badgeText}>{this.state.badge}</Text></View> : <View style={{ width: 10 }} />}
               </TouchableOpacity>
               <TouchableOpacity style={styles.save} onPress={() => this.onSaveSearch()}>
-                <Text style={{ fontSize: 12, color: colors.BLACK }}>Save Search</Text>
+                <Text style={{ fontSize: 12, color: colors.BLACK }}>{`Save Search`}</Text>
                 <Icon name="heart" type="material-community" size={15} />
               </TouchableOpacity>
             </View> :
             <View style={[styles.statusBar, { justifyContent: "space-around" }]}>
               <TouchableOpacity style={styles.sort} onPress={() => this.setState({ sort: true })}>
                 <Icon name="keyboard-arrow-down" type="material" size={20} />
-                <Text style={{ fontSize: 12, color: colors.BLACK }}>Sort</Text>
+                <Text style={{ fontSize: 12, color: colors.BLACK }}>{`Sort`}</Text>
                 <Icon name="sort" type="material-community" size={15} />
               </TouchableOpacity>
               <TouchableOpacity style={styles.filters} onPress={() => this.setState({ filter: true })}>
                 <Icon name="keyboard-arrow-down" type="material" size={20} />
-                <Text style={{ fontSize: 12, color: colors.BLACK }}>Filters</Text>
+                <Text style={{ fontSize: 12, color: colors.BLACK }}>{`Filters`}</Text>
                 {this.state.badge > 0 ? <View style={styles.badge}><Text style={styles.badgeText}>{this.state.badge}</Text></View> : <View style={{ width: 10 }} />}
               </TouchableOpacity>
               <TouchableOpacity style={styles.save} onPress={() => this.onSaveSearch()}>
-                <Text style={{ fontSize: 12, color: colors.BLACK }}>Save Search</Text>
+                <Text style={{ fontSize: 12, color: colors.BLACK }}>{`Save Search`}</Text>
                 <Icon name="heart" type="material-community" size={15} />
               </TouchableOpacity>
             </View>
@@ -793,7 +794,7 @@ class PropertiesHome extends Component {
               this.props.logged ? this.setState({ drawing: true, polygon: true, coordinates: [], listings3: [] }) : this.props.navigation.push("Auth")
             }}>
               <Icon name="vector-polyline" type="material-community" size={15} color={colors.BLACK} />
-              <Text style={{ fontSize: 12 }}>Draw Border</Text>
+              <Text style={{ fontSize: 12 }}>{`Draw Border`}</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -801,12 +802,12 @@ class PropertiesHome extends Component {
           <View style={styles.drawView}>
             <TouchableOpacity style={styles.applyButton} onPress={() => this.onApply()}>
               <Icon name="check" type="feather" size={12} color='#45AB62' />
-              <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#45AB62' }}>Apply</Text>
+              <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#45AB62' }}>{`Apply`}</Text>
             </TouchableOpacity>
             <View style={{ width: 10 }} />
             <TouchableOpacity style={styles.cancelButton} onPress={() => this.setState({ drawing: false, polygon: false, coordinates: [], listings3: [] })}>
               <Icon name="close" type="evil-icons" size={12} color='#EA4A4A' />
-              <Text style={{ fontSize: 10, fontWeight: 'normal', color: '#EA4A4A' }}>Cancel</Text>
+              <Text style={{ fontSize: 10, fontWeight: 'normal', color: '#EA4A4A' }}>{`Cancel`}</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -876,334 +877,6 @@ class PropertiesHome extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-    height: 35,
-    padding: 2,
-  },
-  searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: wp("100%") - 90,
-    height: 30,
-    padding: 2,
-    borderWidth: 0,
-    borderRadius: 5,
-    backgroundColor: colors.GREY.SECONDARY
-  },
-  searchIcon: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 26,
-    height: 26,
-    backgroundColor: colors.WHITE,
-    borderRadius: 5,
-  },
-  inputContainerStyle: {
-    height: 30,
-    borderBottomWidth: 0,
-  },
-  textInputStyle: {
-    height: 30,
-    width: wp("100%") - 120,
-  },
-  inputTextStyle: {
-    height: 30,
-    fontSize: 14,
-  },
-  listButton: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginLeft: 10,
-    width: 50,
-    height: 30,
-    borderWidth: 0,
-    borderRadius: 5,
-    backgroundColor: colors.GREY.PRIMARY,
-  },
-  statusBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: wp("100%"),
-    height: 40,
-    padding: 10,
-    backgroundColor: colors.GREY.SECONDARY,
-  },
-  greenButton: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 80,
-    height: 20,
-    borderRadius: 5,
-    backgroundColor: colors.GREEN.PRIMARY,
-  },
-  blueButton: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 80,
-    height: 20,
-    borderRadius: 5,
-    backgroundColor: '#4E9EE9',
-  },
-  orangeButton: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 70,
-    height: 20,
-    borderRadius: 5,
-    backgroundColor: '#FF9900',
-  },
-  whiteButton: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 80,
-    height: 20,
-    borderRadius: 5,
-    borderWidth: 0.5,
-    backgroundColor: colors.WHITE,
-  },
-  redButton: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 70,
-    height: 20,
-    borderRadius: 5,
-    backgroundColor: colors.RED.PRIMARY,
-  },
-  white2Button: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 70,
-    height: 20,
-    borderRadius: 5,
-    borderWidth: 0.5,
-    backgroundColor: colors.WHITE,
-  },
-  sort: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: 85,
-    height: 20,
-    paddingLeft: 5,
-    paddingRight: 5,
-    borderWidth: 0.5,
-    borderRadius: 5,
-    backgroundColor: colors.WHITE,
-  },
-  filters: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: 90,
-    height: 20,
-    paddingLeft: 5,
-    paddingRight: 5,
-    borderWidth: 0.5,
-    borderRadius: 5,
-    backgroundColor: colors.WHITE,
-  },
-  badge: {
-    backgroundColor: colors.RED.PRIMARY,
-    borderRadius: 7,
-    width: 14,
-    height: 14,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  badgeText: {
-    color: "white",
-    fontSize: 10,
-    fontWeight: "bold",
-  },
-  save: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: 100,
-    height: 20,
-    paddingLeft: 5,
-    paddingRight: 5,
-    borderWidth: 0.5,
-    borderRadius: 5,
-    backgroundColor: colors.WHITE,
-  },
-  touch: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  locationButton: {
-    position: "absolute",
-    bottom: 60,
-    right: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    width: 30,
-    height: 30,
-    backgroundColor: colors.WHITE,
-    borderRadius: 15,
-    shadowColor: colors.BLACK,
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 1,
-    elevation: 1,
-  },
-  drawView: {
-    position: "absolute",
-    top: 140,
-    right: 20,
-    flexDirection: 'row',
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  drawButton: {
-    flexDirection: 'row',
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: 100,
-    height: 25,
-    padding: 5,
-    backgroundColor: colors.WHITE,
-    borderRadius: 5,
-    borderWidth: 0.5,
-    shadowColor: colors.BLACK,
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 1,
-    elevation: 1,
-  },
-  applyButton: {
-    flexDirection: 'row',
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingLeft: 5,
-    paddingRight: 5,
-    paddingTop: 3,
-    paddingBottom: 3,
-    backgroundColor: colors.WHITE,
-    borderRadius: 5,
-    borderWidth: 0.9,
-    borderColor: '#45AB62',
-    shadowColor: colors.BLACK,
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 1,
-    elevation: 1,
-  },
-  cancelButton: {
-    flexDirection: 'row',
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingLeft: 5,
-    paddingRight: 5,
-    paddingTop: 3,
-    paddingBottom: 3,
-    backgroundColor: colors.WHITE,
-    borderRadius: 5,
-    borderWidth: 0.9,
-    borderColor: '#EA4A4A',
-    shadowColor: colors.BLACK,
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 1,
-    elevation: 1,
-  },
-  satButton: {
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    width: 30,
-    height: 30,
-    backgroundColor: colors.WHITE,
-    borderRadius: 15,
-    shadowColor: colors.BLACK,
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 1,
-    elevation: 1,
-  },
-  viewButton: {
-    position: "absolute",
-    bottom: 20,
-    left: wp('100%') / 2 - 80,
-    justifyContent: "center",
-    alignItems: "center",
-    width: 160,
-    height: 25,
-    borderRadius: 5,
-    shadowColor: colors.BLACK,
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1,
-    elevation: 1,
-  },
-  customMarker: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingLeft: 5,
-    paddingRight: 5,
-    height: 20,
-    borderRadius: 4,
-    borderWidth: 2
-  },
-  triangle: {
-    transform: [
-      { rotate: '180deg' }
-    ],
-    width: 0,
-    height: 0,
-    backgroundColor: 'transparent',
-    borderStyle: 'solid',
-    borderLeftWidth: 6,
-    borderRightWidth: 6,
-    borderBottomWidth: 6,
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: '#549E65'
-  },
-  clusterMarker: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  polygonMarker: {
-    width: 20,
-    height: 20,
-    backgroundColor: colors.BLUE.PRIMARY,
-    borderColor: colors.WHITE,
-    borderWidth: 3,
-    shadowColor: colors.BLACK,
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1,
-    elevation: 1,
-  },
-  loading: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: wp('50%') - 20,
-    marginBottom: 10,
-    width: 40,
-    height: 40,
-    borderRadius: 5,
-    backgroundColor: '#00000080',
-    shadowColor: colors.BLACK,
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1,
-    elevation: 1,
-  }
-});
 
 const mapStateToProps = state => {
   return {

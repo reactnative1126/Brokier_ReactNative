@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
+import styles from './styles';
 import { Icon } from "react-native-elements";
-import {  colors } from "@constants/themes";
+import { colors } from "@constants/themes";
 import { images } from "@constants/assets";
 import { Loading, Header, PickerButton, PropertyQuestions, MarketSummary, MarketChart1, MarketChart2 } from "@components";
 
@@ -52,7 +53,7 @@ class Market extends Component {
         <Loading loading={this.state.loading} />
         <Header style={{ backgroundColor: colors.GREY.PRIMARY, paddingLeft: 10, paddingRight: 10, height: 100 }}>
           <View style={{ alignItems: 'center' }}>
-            <Text>Filter Market Stats</Text>
+            <Text>{`Filter Market Stats`}</Text>
             <View style={styles.topButton}>
               <TouchableOpacity style={styles.inputView} onPress={() => this.setState({ cityStatus: true })}>
                 <Icon name='down' type='antdesign' size={14} color={colors.BLACK} />
@@ -76,7 +77,7 @@ class Market extends Component {
           <MarketSummary />
           <MarketChart1 />
           <MarketChart2 />
-          <View style={{height: 10}} />
+          <View style={{ height: 10 }} />
           <PropertyQuestions
             title="Ask John Doer about the market:"
             questions={questions} />
@@ -88,7 +89,7 @@ class Market extends Component {
               style={{ width: 60, height: 60, borderRadius: 30 }}
               source={images.avatar}
             />
-            <Text>John Doer</Text>
+            <Text>{`John Doer`}</Text>
           </View>
           <View style={{ width: wp("100%") - 150, height: 80 }}>
             <TouchableOpacity
@@ -108,14 +109,14 @@ class Market extends Component {
                   color: colors.WHITE,
                 }}
               >
-                Questions?
+                {`Questions?`}
               </Text>
             </TouchableOpacity>
             <Text style={{ fontSize: 10, marginTop: 5 }}>
-              Sales Representative
+              {`Sales Representative`}
             </Text>
             <Text style={{ fontSize: 10 }}>
-              Re/max Realty Specialists Inc. Brokerage
+              {`Re/max Realty Specialists Inc. Brokerage`}
             </Text>
           </View>
         </View>
@@ -126,39 +127,5 @@ class Market extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.WHITE
-  },
-  topButton: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginTop: 10
-  },
-  inputView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: wp('90%') / 3,
-    height: 20,
-    paddingLeft: 5, paddingRight: 5,
-    borderRadius: 5,
-    borderWidth: 0.5,
-  },
-  bottomBar: {
-    position: "absolute",
-    bottom: 0,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: wp("100%"),
-    height: 100,
-    backgroundColor: colors.GREY.PRIMARY,
-    padding: 20,
-  },
-});
 
 export default connect(undefined, undefined)(Market);

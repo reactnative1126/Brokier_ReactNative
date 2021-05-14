@@ -23,13 +23,13 @@ export default MarketChart1 = (props) => {
     <View style={styles.container}>
       <View style={styles.wrapper}>
         <View style={{ width: 30 }} />
-        <Text style={styles.title}>Price Change and time on market</Text>
+        <Text style={styles.title}>{`Price Change and time on market`}</Text>
         <TouchableOpacity>
           <Icon name="share-apple" type="evilicon" size={25} />
         </TouchableOpacity>
       </View>
       <View style={styles.price}>
-        <Text style={{ fontSize: 12, transform: [{ rotate: '-90deg' }] }}>Price</Text>
+        <Text style={{ fontSize: 12, transform: [{ rotate: '-90deg' }] }}>{`Price`}</Text>
         <View style={styles.priceChart}>
           <LineChart
             style={{ width: 180, height: 80 }}
@@ -38,14 +38,14 @@ export default MarketChart1 = (props) => {
           >
           </LineChart>
         </View>
-        <Text style={styles.days}>Days</Text>
+        <Text style={styles.days}>{`Days`}</Text>
       </View>
-      <Text style={{ marginTop: 5 }}>Time</Text>
+      <Text style={{ marginTop: 5 }}>{`Time`}</Text>
       <View style={styles.priceWrapper}>
         <View style={{ width: 20, height: 3, backgroundColor: '#D12F2F' }} />
-        <Text style={{ fontSize: 8, width: 100, marginLeft: 10 }}>Median Price</Text>
+        <Text style={{ fontSize: 8, width: 100, marginLeft: 10 }}>{`Median Price`}</Text>
         <View style={{ width: 20, height: 3, backgroundColor: '#FF782D' }} />
-        <Text style={{ fontSize: 8, width: 100, marginLeft: 10 }}>Avg. Days On Market</Text>
+        <Text style={{ fontSize: 8, width: 100, marginLeft: 10 }}>{`Avg. Days On Market`}</Text>
       </View>
     </View>
   );

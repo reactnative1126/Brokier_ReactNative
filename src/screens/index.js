@@ -16,7 +16,8 @@ import BookedViewings from '@screens/Profile/BookedViewings';
 
 
 export {
-    SignIn, SignUp,
+    SignIn, 
+    SignUp,
     PropertiesHome,
     PropertiesDetail,
     PropertiesSearch,

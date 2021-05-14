@@ -52,16 +52,11 @@ export const isCurrency = (param) => {
 
 export const isNumber = (param) => {
     var SI_SYMBOL = ["", "K", "M", "G", "T", "P", "E"];
-    // what tier? (determines SI symbol)
     var tier = Math.log10(param) / 3 | 0;
-    // if zero, we don't need a suffix
     if (tier == 0) return param;
-    // get suffix and determine scale
     var suffix = SI_SYMBOL[tier];
     var scale = Math.pow(10, tier * 3);
-    // scale the number
     var scaled = param / scale;
-    // format number and add suffix
     return scaled.toFixed(1) + suffix;
 }
 
@@ -74,13 +69,11 @@ export const isTimer = (minTime) => {
 }
 
 export const mortgageCalc = (principal, rate, term) => {
-
     if (rate > 1) {
         rate = rate * 0.01;
     } else {
         rate = rate;
     }
-    //Can accept term in years or months
     if (term <= 30) {
         term = term * 12;
     } else {

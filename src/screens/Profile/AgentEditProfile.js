@@ -4,6 +4,7 @@ import { Platform, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollVi
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 import * as ImagePicker from 'expo-image-picker';
 
+import styles from './AgentEditProfileStyles';
 import axios from 'axios';
 import configs from "@constants/configs";
 import { colors } from "@constants/themes";
@@ -438,50 +439,50 @@ class AgentEditProfile extends Component {
         <Header style={{ backgroundColor: colors.GREY.PRIMARY, paddingLeft: 10, paddingRight: 10 }}>
           <View style={styles.header}>
             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Edit Agent Profile</Text>
+              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{`Edit Agent Profile`}</Text>
             </TouchableOpacity>
           </View>
         </Header>
         <ScrollView contentContainerStyle={{ width: wp('100%') }}>
           <View style={{ width: wp('100%'), padding: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Name:{'\n'}{this.props.user.user_name}</Text>
+              <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{`Name:`}{'\n'}{this.props.user.user_name}</Text>
               <TouchableOpacity onPress={() => this.onAvatar()}>
                 <Image style={{ width: 60, height: 60, borderRadius: 30 }} source={isEmpty(this.props.user.user_photo) ? require('@assets/images/addphoto.jpg') : { uri: configs.avatarURL + this.props.user.user_photo }} />
               </TouchableOpacity>
 
             </View>
-            <Text style={{ fontSize: 12, fontWeight: 'bold' }}>Brokerage Name:</Text>
+            <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{`Brokerage Name:`}</Text>
             <View style={{ flexDirection: 'row' }}>
               <Text style={{ fontSize: 12 }}>{this.props.user.brokerage_name}</Text>
               <TouchableOpacity onPress={() => this.setState({ broker: this.props.user.brokerage_name, visibleBroker: true })}>
-                <Text style={{ marginLeft: 5, fontSize: 12, color: colors.BLUE.PRIMARY }}>(Edit)</Text>
+                <Text style={{ marginLeft: 5, fontSize: 12, color: colors.BLUE.PRIMARY }}>{`(Edit)`}</Text>
               </TouchableOpacity>
             </View>
           </View>
           <View style={{ width: wp('100%'), padding: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}>
-            <Text style={{ fontSize: 12, fontWeight: 'bold' }}>Contact Details:</Text>
+            <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{`Contact Details:`}</Text>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontSize: 12 }}>Phone: {this.props.user.user_phone}</Text>
+              <Text style={{ fontSize: 12 }}>{`Phone: `}{this.props.user.user_phone}</Text>
               <TouchableOpacity onPress={() => this.setState({ phone: this.props.user.user_phone, visiblePhone: true })}>
-                <Text style={{ marginLeft: 5, fontSize: 12, color: colors.BLUE.PRIMARY }}>(Edit)</Text>
+                <Text style={{ marginLeft: 5, fontSize: 12, color: colors.BLUE.PRIMARY }}>{`(Edit)`}</Text>
               </TouchableOpacity>
             </View>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontSize: 12 }}>Email: {this.props.user.user_email}</Text>
+              <Text style={{ fontSize: 12 }}>{`Email: `}{this.props.user.user_email}</Text>
               <TouchableOpacity onPress={() => this.setState({ email: this.props.user.user_email, visibleEmail: true })}>
-                <Text style={{ marginLeft: 5, fontSize: 12, color: colors.BLUE.PRIMARY }}>(Edit)</Text>
+                <Text style={{ marginLeft: 5, fontSize: 12, color: colors.BLUE.PRIMARY }}>{`(Edit)`}</Text>
               </TouchableOpacity>
             </View>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontSize: 12 }}>Website: </Text>
+              <Text style={{ fontSize: 12 }}>{`Website: `}</Text>
               <Text style={{ fontSize: 12, color: colors.BLACK }}>{this.props.user.user_website}</Text>
               <TouchableOpacity onPress={() => this.setState({ website: this.props.user.user_website, visibleWebsite: true })}>
                 <Text style={{ marginLeft: 5, fontSize: 12, color: colors.BLUE.PRIMARY }}>{isEmpty(this.props.user.user_website) ? '(Add)' : '(Edit)'}</Text>
               </TouchableOpacity>
             </View>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontSize: 12 }}>Instagram: </Text>
+              <Text style={{ fontSize: 12 }}>{`Instagram: `}</Text>
               <Text style={{ fontSize: 12, color: colors.BLACK }}>{this.props.user.user_instagram_id}</Text>
               <TouchableOpacity onPress={() => this.setState({ instagram: this.props.user.user_instagram_id, visibleInstagram: true })}>
                 <Text style={{ marginLeft: 5, fontSize: 12, color: colors.BLUE.PRIMARY }}>{isEmpty(this.props.user.user_instagram_id) ? '(Add)' : '(Edit)'}</Text>
@@ -489,42 +490,42 @@ class AgentEditProfile extends Component {
             </View>
           </View>
           <View style={{ width: wp('100%'), padding: 20, borderBottomWidth: 0.5, borderBottomColor: '#DEDEDE' }}>
-            <Text style={{ fontSize: 12, fontWeight: 'bold' }}>Marketing Profile:</Text>
-            <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 10 }}>Listing Service offerings:</Text>
+            <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{`Marketing Profile:`}</Text>
+            <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 10 }}>{`Listing Service offerings:`}</Text>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontSize: 12, width: 250 }}>1% full service listings with free staging consultation, 3D virtual Tours. </Text>
+              <Text style={{ fontSize: 12, width: 250 }}>{`1% full service listings with free staging consultation, 3D virtual Tours. `}</Text>
               <TouchableOpacity>
-                <Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY }}>{'\n'}(Edit)</Text>
+                <Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY }}>{'\n'}{`(Edit)`}</Text>
               </TouchableOpacity>
             </View>
-            <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 10 }}>Buyer Service offerings:</Text>
-            <Text style={{ fontSize: 12 }}>Offers 50% of agents commission as cash back </Text>
+            <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 10 }}>{`Buyer Service offerings:`}</Text>
+            <Text style={{ fontSize: 12 }}>{`Offers 50% of agents commission as cash back `}</Text>
             <TouchableOpacity>
-              <Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY }}>(Edit)</Text>
+              <Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY }}>{`(Edit)`}</Text>
             </TouchableOpacity>
-            <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 10 }}>Area of specialty:</Text>
+            <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 10 }}>{`Area of specialty:`}</Text>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontSize: 12 }}>Chesterfield and Surounding areas </Text>
+              <Text style={{ fontSize: 12 }}>{`Chesterfield and Surounding areas `}</Text>
               <TouchableOpacity>
-                <Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY }}>(Edit)</Text>
+                <Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY }}>{`(Edit)`}</Text>
               </TouchableOpacity>
             </View>
-            <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 10 }}>Designations:</Text>
+            <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 10 }}>{`Designations:`}</Text>
             <TouchableOpacity>
-              <Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY }}>Add Designations to stand out</Text>
+              <Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY }}>{`Add Designations to stand out`}</Text>
             </TouchableOpacity>
-            <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 10 }}>Awards and Achievements:</Text>
+            <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 10 }}>{`Awards and Achievements:`}</Text>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontSize: 12 }}>#1 agent in remax office 2017, 2018 </Text>
+              <Text style={{ fontSize: 12 }}>{`#1 agent in remax office 2017, 2018 `}</Text>
               <TouchableOpacity>
-                <Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY }}>(Edit)</Text>
+                <Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY }}>{`(Edit)`}</Text>
               </TouchableOpacity>
             </View>
-            <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 10 }}>Languages Spoken:</Text>
+            <Text style={{ fontSize: 12, fontWeight: 'bold', marginTop: 10 }}>{`Languages Spoken:`}</Text>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontSize: 12 }}>English, French, Arabic </Text>
+              <Text style={{ fontSize: 12 }}>{`English, French, Arabic `}</Text>
               <TouchableOpacity>
-                <Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY }}>(Edit)</Text>
+                <Text style={{ fontSize: 12, color: colors.BLUE.PRIMARY }}>{`(Edit)`}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -547,83 +548,6 @@ class AgentEditProfile extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    marginTop: 10,
-  },
-  linkButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: wp('60%'),
-    height: 25,
-    backgroundColor: '#DC4646',
-    borderRadius: 5,
-  },
-  applyButton: {
-    position: 'absolute',
-    bottom: 0,
-    alignItems: 'center',
-    width: wp('100%'),
-    height: 40,
-    paddingTop: 10,
-    backgroundColor: '#DC4646'
-  },
-  overlay: {
-    width: wp('100%'),
-    height: hp('100%'),
-    backgroundColor: '#00000080'
-  },
-  wrapper: {
-    position: 'absolute',
-    top: 100,
-    left: (wp('100%') - 300) / 2,
-    alignItems: 'center',
-    width: 300,
-    height: 230,
-    backgroundColor: '#E3E3E3',
-    borderRadius: 10,
-    zIndex: 100
-  },
-  buttonView: {
-    position: 'absolute',
-    bottom: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    height: 35,
-  },
-  cancelButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '50%',
-    height: 35,
-    backgroundColor: colors.RED.PRIMARY,
-    borderBottomLeftRadius: 10,
-  },
-  submitButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '50%',
-    height: 35,
-    backgroundColor: colors.BLUE.PRIMARY,
-    borderBottomRightRadius: 10
-  },
-  disableButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '50%',
-    height: 35,
-    backgroundColor: '#0072DC80',
-    borderBottomRightRadius: 10
-  }
-});
 
 const mapStateToProps = state => {
   return {

@@ -35,22 +35,22 @@ import MarketChart1 from "./Market/MarketChart1";
 import MarketChart2 from "./Market/MarketChart2";
 
 export {
-    Loading, 
+    Loading,
     Loading2,
-    Header, 
-    
-    ActionButtons, 
-    PickerButton, 
+    Header,
+
+    ActionButtons,
+    PickerButton,
     NormalButton,
 
     TextInput,
     TextInput2,
-    Card, 
-    PropertyItem, 
-    PropertyFilter, 
+    Card,
+    PropertyItem,
+    PropertyFilter,
     PropertySort,
-    PropertyDetail, 
-    PropertyHistory, 
+    PropertyDetail,
+    PropertyHistory,
     PropertyDescription,
     PropertySimilar,
     PropertyPrices,

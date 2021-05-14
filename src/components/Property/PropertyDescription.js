@@ -23,70 +23,70 @@ export default PropertyDescription = ({ listing, loading }) => {
 
   return (
     <Card index='propertyDetail' style={styles.description}>
-      <Text style={{ fontSize: 14, fontWeight: "bold" }}>Property Details:</Text>
+      <Text style={{ fontSize: 14, fontWeight: "bold" }}>{`Property Details:`}</Text>
       <View key='propertyDetail1' style={{ marginTop: 10 }} >
         <View key="neighborhood" style={{ flexDirection: "row", marginTop: 5 }} >
-          <Text style={{ width: '40%', fontSize: 14 }}>Neighbourhood:</Text>
+          <Text style={{ width: '40%', fontSize: 14 }}>{`Neighbourhood:`}</Text>
           <Text style={{ fontSize: 14 }}>{!isEmpty(listing.neighborhood) && listing.neighborhood}</Text>
         </View>
         <View key="type" style={{ flexDirection: "row", marginTop: 5 }} >
-          <Text style={{ width: '40%', fontSize: 14 }}>Type:</Text>
+          <Text style={{ width: '40%', fontSize: 14 }}>{`Type:`}</Text>
           <Text style={{ fontSize: 14 }}>{!isEmpty(listing.propertyType) && listing.propertyType}</Text>
         </View>
         <View key="style" style={{ flexDirection: "row", marginTop: 5 }} >
-          <Text style={{ width: '40%', fontSize: 14 }}>Style:</Text>
+          <Text style={{ width: '40%', fontSize: 14 }}>{`Style:`}</Text>
           <Text style={{ fontSize: 14 }}>{!isEmpty(listing.style) && listing.style}</Text>
         </View>
         <View key="lotSize" style={{ flexDirection: "row", marginTop: 5 }} >
-          <Text style={{ width: '40%', fontSize: 14 }}>Lot Size:</Text>
+          <Text style={{ width: '40%', fontSize: 14 }}>{`Lot Size:`}</Text>
           <Text style={{ fontSize: 14 }}>---</Text>
         </View>
         <View key="yearBuilt" style={{ flexDirection: "row", marginTop: 5 }} >
-          <Text style={{ width: '40%', fontSize: 14 }}>Year Built:</Text>
+          <Text style={{ width: '40%', fontSize: 14 }}>{`Year Built:`}</Text>
           <Text style={{ fontSize: 14 }}>{!isEmpty(listing.detail.yearBuilt) && listing.detail.yearBuilt}</Text>
         </View>
         <View key="taxes" style={{ flexDirection: "row", marginTop: 5 }} >
-          <Text style={{ width: '40%', fontSize: 14 }}>Taxes:</Text>
+          <Text style={{ width: '40%', fontSize: 14 }}>{`Taxes:`}</Text>
           <Text style={{ fontSize: 14 }}>{!isEmpty(listing.tax.annualAmount) && isCurrency(parseFloat(listing.tax.annualAmount) / 12)}</Text>
         </View>
         <View key="size" style={{ flexDirection: "row", marginTop: 5 }} >
-          <Text style={{ width: '40%', fontSize: 14 }}>Size:</Text>
+          <Text style={{ width: '40%', fontSize: 14 }}>{`Size:`}</Text>
           <Text style={{ fontSize: 14 }}>{!isEmpty(listing.detail.sqft) && listing.detail.sqft + 'sqft'}</Text>
         </View>
         <View key="basement" style={{ flexDirection: "row", marginTop: 5 }} >
-          <Text style={{ width: '40%', fontSize: 14 }}>Basement:</Text>
+          <Text style={{ width: '40%', fontSize: 14 }}>{`Basement:`}</Text>
           <Text style={{ fontSize: 14 }}>---</Text>
         </View>
         <View key="laundry" style={{ flexDirection: "row", marginTop: 5 }} >
-          <Text style={{ width: '40%', fontSize: 14 }}>Laundry:</Text>
+          <Text style={{ width: '40%', fontSize: 14 }}>{`Laundry:`}</Text>
           <Text style={{ fontSize: 14 }}>---</Text>
         </View>
       </View>
       {listing.propertyType === 'Condo Apt' || listing.propertyType === 'Condo Townhouse' ?
         <View key={20} style={{ marginTop: 10 }} >
           <View key="condo" style={{ flexDirection: "row", marginTop: 5 }} >
-            <Text style={{ fontSize: 14, textDecorationLine: 'underline' }}>Condo</Text>
+            <Text style={{ fontSize: 14, textDecorationLine: 'underline' }}>{`Condo`}</Text>
           </View>
           <View key="maintenance" style={{ flexDirection: "row", marginTop: 5 }} >
-            <Text style={{ width: '40%', fontSize: 14 }}>Maintenance:</Text>
+            <Text style={{ width: '40%', fontSize: 14 }}>{`Maintenance:`}</Text>
             <Text style={{ fontSize: 14 }}>{!isEmpty(listing.maintenance) && '$' + listing.maintenance}</Text>
           </View>
           <View key="exposure" style={{ flexDirection: "row", marginTop: 5 }} >
-            <Text style={{ width: '40%', fontSize: 14 }}>Exposure:</Text>
+            <Text style={{ width: '40%', fontSize: 14 }}>{`Exposure:`}</Text>
             <Text style={{ fontSize: 14 }}>{!isEmpty(listing.condominium.exposure) && (
               listing.condominium.exposure == 'E' ? 'East' : listing.condominium.exposure == 'W' ? 'West' : listing.condominium.exposure == 'N' ? 'North' : listing.condominium.exposure == 'Ne' ? 'North East' : listing.condominium.exposure == 'Nw' ? 'North West' : listing.condominium.exposure == 'S' ? 'South' : listing.condominium.exposure == 'Se' ? 'South East' : listing.condominium.exposure == 'Sw' ? 'South West' : null
             )}</Text>
           </View>
           <View key="Locker" style={{ flexDirection: "row", marginTop: 5 }} >
-            <Text style={{ width: '40%', fontSize: 14 }}>Locker:</Text>
+            <Text style={{ width: '40%', fontSize: 14 }}>{`Locker:`}</Text>
             <Text style={{ fontSize: 14 }}>{!isEmpty(listing.condominium.locker) && listing.condominium.locker}</Text>
           </View>
           <View key="Balcony" style={{ flexDirection: "row", marginTop: 5 }} >
-            <Text style={{ width: '40%', fontSize: 14 }}>Balcony:</Text>
+            <Text style={{ width: '40%', fontSize: 14 }}>{`Balcony:`}</Text>
             <Text style={{ fontSize: 14 }}>{!isEmpty(listing.detail.patio) && listing.detail.patio}</Text>
           </View>
           <View key="Amenlties" style={{ flexDirection: "row", marginTop: 5 }} >
-            <Text style={{ width: '40%', fontSize: 14 }}>Amenlties:</Text>
+            <Text style={{ width: '40%', fontSize: 14 }}>{`Amenlties:`}</Text>
             {listing.condominium.ammenities.split('#').map((item, key) => {
               !isEmpty(item) && <Text key={key} style={{ fontSize: 14, width: '30%' }}>{item}</Text>
             })}
@@ -98,47 +98,47 @@ export default PropertyDescription = ({ listing, loading }) => {
         <React.Fragment>
           <View key='propertyDetail2' style={{ marginTop: 10 }} >
             <View key="Utilities" style={{ flexDirection: "row", marginTop: 5 }} >
-              <Text style={{ fontSize: 14, textDecorationLine: 'underline' }}>Utilities</Text>
+              <Text style={{ fontSize: 14, textDecorationLine: 'underline' }}>{`Utilities`}</Text>
             </View>
             <View key="Heat" style={{ flexDirection: "row", marginTop: 5 }} >
-              <Text style={{ width: '40%', fontSize: 14 }}>Heat:</Text>
+              <Text style={{ width: '40%', fontSize: 14 }}>{`Heat:`}</Text>
               <Text style={{ fontSize: 14 }}>{!isEmpty(listing.detail.heating) && listing.detail.heating}</Text>
             </View>
             <View key="Hydro" style={{ flexDirection: "row", marginTop: 5 }} >
-              <Text style={{ width: '40%', fontSize: 14 }}>Hydro:</Text>
+              <Text style={{ width: '40%', fontSize: 14 }}>{`Hydro:`}</Text>
               <Text style={{ fontSize: 14 }}>{!isEmpty(listing.hydroIncl) && (listing.hydroIncl == 'N' ? 'No' : 'Yes')}</Text>
             </View>
             <View key="AC" style={{ flexDirection: "row", marginTop: 5 }} >
-              <Text style={{ width: '40%', fontSize: 14 }}>A/C:</Text>
+              <Text style={{ width: '40%', fontSize: 14 }}>{`A/C:`}</Text>
               <Text style={{ fontSize: 14 }}>{!isEmpty(listing.detail.airConditioning) && listing.detail.airConditioning}</Text>
             </View>
             <View key="Water" style={{ flexDirection: "row", marginTop: 5 }} >
-              <Text style={{ width: '40%', fontSize: 14 }}>Water:</Text>
+              <Text style={{ width: '40%', fontSize: 14 }}>{`Water:`}</Text>
               <Text style={{ fontSize: 14 }}>{!isEmpty(listing.waterIncl) && listing.waterIncl}</Text>
             </View>
           </View>
           <View key={20} style={{ marginTop: 10 }} >
             <View key="Building" style={{ flexDirection: "row", marginTop: 5 }} >
-              <Text style={{ fontSize: 14, textDecorationLine: 'underline' }}>Building</Text>
+              <Text style={{ fontSize: 14, textDecorationLine: 'underline' }}>{`Building`}</Text>
             </View>
             <View key="Exterior" style={{ flexDirection: "row", marginTop: 5 }} >
-              <Text style={{ width: '40%', fontSize: 14 }}>Exterior:</Text>
+              <Text style={{ width: '40%', fontSize: 14 }}>{`Exterior:`}</Text>
               <Text style={{ fontSize: 14 }}>{!isEmpty(listing.detail.exteriorConstruction1) && listing.detail.exteriorConstruction1}</Text>
             </View>
             <View key="Garage" style={{ flexDirection: "row", marginTop: 5 }} >
-              <Text style={{ width: '40%', fontSize: 14 }}>Garage:</Text>
+              <Text style={{ width: '40%', fontSize: 14 }}>{`Garage:`}</Text>
               <Text style={{ fontSize: 14 }}>{!isEmpty(listing.detail.garage) && listing.detail.garage}</Text>
             </View>
             <View key="Driveway" style={{ flexDirection: "row", marginTop: 5 }} >
-              <Text style={{ width: '40%', fontSize: 14 }}>Driveway:</Text>
+              <Text style={{ width: '40%', fontSize: 14 }}>{`Driveway:`}</Text>
               <Text style={{ fontSize: 14 }}>{!isEmpty(listing.condominium.parkingType) && listing.condominium.parkingType}</Text>
             </View>
             <View key="ParkingSpaces" style={{ flexDirection: "row", marginTop: 5 }} >
-              <Text style={{ width: '40%', fontSize: 14 }}>Parking Spaces:</Text>
+              <Text style={{ width: '40%', fontSize: 14 }}>{`Parking Spaces:`}</Text>
               <Text style={{ fontSize: 14 }}>{!isEmpty(listing.numParkingSpaces) && listing.numParkingSpaces}</Text>
             </View>
             <View key="Furnished" style={{ flexDirection: "row", marginTop: 5 }} >
-              <Text style={{ width: '40%', fontSize: 14 }}>Furnished:</Text>
+              <Text style={{ width: '40%', fontSize: 14 }}>{`Furnished:`}</Text>
               <Text style={{ fontSize: 14 }}>{!isEmpty(listing.detail.furnished) && listing.detail.furnished}</Text>
             </View>
           </View>
@@ -150,7 +150,7 @@ export default PropertyDescription = ({ listing, loading }) => {
         </Text>
       </TouchableOpacity>
       <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-        Property Description:
+        {`Property Description:`}
       </Text>
       <Text style={{ fontSize: 14 }}>
         {listing.detail.description}
@@ -158,13 +158,13 @@ export default PropertyDescription = ({ listing, loading }) => {
       {(description && !isEmpty(rooms)) ?
         <View key={80}>
           <Text style={{ fontSize: 14, fontWeight: "bold", marginTop: 10 }}>
-            Extras:
+            {`Extras:`}
           </Text>
           <Text style={{ fontSize: 14, marginTop: 10 }}>
             {listing.detail.extras}
           </Text>
           <View>
-            <Text style={{ fontSize: 14, fontWeight: "bold", marginTop: 10 }}>Rooms and Sizes:</Text>
+            <Text style={{ fontSize: 14, fontWeight: "bold", marginTop: 10 }}>{`Rooms and Sizes:`}</Text>
             {!isEmpty(rooms[0].description) &&
               <View key={81} style={styles.roomWrapper}>
                 <Text style={{ width: '25%', textAlign: 'center' }}>{rooms[0].description}</Text>
@@ -239,7 +239,7 @@ export default PropertyDescription = ({ listing, loading }) => {
               </View>}
           </View>
           <Text style={{ fontSize: 14, fontWeight: "bold", marginTop: 10 }}>
-            Listed By: Re/Max Realty Services
+            {`Listed By: Re/Max Realty Services`}
           </Text>
           <Text style={{ fontSize: 14, marginTop: 10 }}>
             {'This listing data is provided under copyright by the Toronto Real Estate Board. This listing data is deemed reliable but is not gauranteed accurate by the Toronto Real Estate Board or Brokier.'}

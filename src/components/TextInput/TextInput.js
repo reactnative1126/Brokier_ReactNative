@@ -1,9 +1,9 @@
 import React from "react";
-import {  StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-import { Icon, Input } from "react-native-elements"; 
-import { colors } from "@constants/themes"; 
+import { Icon, Input } from "react-native-elements";
+import { colors } from "@constants/themes";
 
 export default TextInput = (props) => {
   return (
@@ -20,7 +20,7 @@ export default TextInput = (props) => {
           onChangeText={(text) => props.onChangeText(text)}
           inputContainerStyle={styles.inputContainerStyle}
           containerStyle={styles.textInputStyle}
-        inputStyle={styles.inputTextStyle}
+          inputStyle={styles.inputTextStyle}
         />
       </View>
     </View>

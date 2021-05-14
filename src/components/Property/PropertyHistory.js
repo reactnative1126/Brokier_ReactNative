@@ -24,21 +24,21 @@ export default PropertyHistory = ({ navigation, histories }) => {
       <Loading2 loading={loading} />
       <View style={styles.twoButton}>
         <TouchableOpacity style={styles.oneButton}>
-          <Text>Estimated Home Value</Text>
+          <Text>{`Estimated Home Value`}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.oneButton}>
-          <Text>Estimated Rental Price</Text>
+          <Text>{`Estimated Rental Price`}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.historyHeader}>
         <View style={{ width: "35%" }}>
-          <Text style={styles.title1}>Property History</Text>
+          <Text style={styles.title1}>{`Property History`}</Text>
         </View>
         <View style={{ width: "20%" }}>
-          <Text style={styles.title2}>List Price</Text>
+          <Text style={styles.title2}>{`List Price`}</Text>
         </View>
         <View style={{ width: "20%" }}>
-          <Text style={styles.title2}>Sold Price</Text>
+          <Text style={styles.title2}>{`Sold Price`}</Text>
         </View>
         <View style={{ width: "20%" }}>
           <Text style={styles.title2}>MLS #</Text>

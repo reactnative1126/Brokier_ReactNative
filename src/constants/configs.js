@@ -1,8 +1,4 @@
 export default {
-    // apiURL: "http://brokier.com/api",
-    // apiURL: "http://brokier.vidnab.com/api",
-    // resURL: "https://cdn.repliers.io/",
-    // avatarURL: "http://brokier.vidnab.com/storage/public/",
     apiURL: "https://brokier.com/app/public/api",
     resURL: "https://cdn.repliers.io/",
     avatarURL: "https://brokier.com/app/public/storage/public/",
