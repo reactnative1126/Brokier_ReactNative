@@ -1,5 +1,7 @@
 export default {
-    apiURL: "https://cors.bridged.cc/https://brokier.com/app/public/api",
+    // apiURL: "https://68.183.200.36/app/public/api",
+    apiURL: "https://cors.bridged.cc/https://houcey.com/app/public/api",
+    // apiURL: "https://cors.bridged.cc/https://brokier.com/app/public/api",
     resURL: "https://cdn.repliers.io/",
 
     // google_map_key: 'AIzaSyAU54vgtYyzf4gUDXFALWt5vYTJsnGZraM', AIzaSyDoi0kDoetjxsvsctCrRb99I5lu1GJMj_8
