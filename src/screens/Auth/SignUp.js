@@ -90,11 +90,11 @@ class SignUp extends Component {
                 });
               })
               .catch((error) => {
-                console.error(error);
+                console.log(error.message);
               });
           })
           .catch((error) => {
-            console.error(error);
+            console.log(error.message);
           });
       }
     } catch (e) {
@@ -185,8 +185,8 @@ class SignUp extends Component {
                           this.props.setUser(res1.users[0]);
                           global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
                         }
-                      }).catch((err) => {
-                        console.log(err.message);
+                      }).catch((error) => {
+                        console.log(error.message);
                       });
                     }
                   }
@@ -228,8 +228,8 @@ class SignUp extends Component {
                           var listing = await ListingsService.getListingDetail(homeUrl.listingId);
                           this.props.navigation.navigate('PropertiesDetail', { listing });
                         }
-                      }).catch((err) => {
-                        console.log(err.message);
+                      }).catch((error) => {
+                        console.log(error.message);
                       });
                     }
                   }
@@ -268,8 +268,8 @@ class SignUp extends Component {
       if (res.count > 0) {
         this.props.setUser(res.users[0]);
       }
-    }).catch((err) => {
-      console.log(err.message);
+    }).catch((error) => {
+      console.log(error.message);
     });
   }
 
@@ -292,8 +292,8 @@ class SignUp extends Component {
         var listing = await ListingsService.getListingDetail(global.homeUrl.listingId);
         this.props.navigation.navigate('PropertiesDetail', { listing });
       }
-    }).catch((err) => {
-      console.log(err.message);
+    }).catch((error) => {
+      console.log(error.message);
     });
   }
 

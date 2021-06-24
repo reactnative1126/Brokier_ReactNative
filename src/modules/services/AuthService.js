@@ -2,7 +2,6 @@ import axios from '@utils/axios';
 
 export default AuthService = {
     getEmail: function (userEmail) {
-        console.log(userEmail);
         return axios.get(`/users/validate`, {
             params: {
                 userEmail: userEmail
@@ -12,7 +11,6 @@ export default AuthService = {
         });
     },
     setUser: function (params) {
-        console.log(params);
         return axios.post(`/users/user`, {
             unique_id: params.unique_id,
             name: params.name,
@@ -24,7 +22,6 @@ export default AuthService = {
         });
     },
     getUser: function (params) {
-        console.log(params);
         return axios.get(`/users/user`, {
             params: {
                 email: params.email,
@@ -35,7 +32,6 @@ export default AuthService = {
         });
     },
     updateUser: function (params) {
-        console.log(params);
         return axios.post(`/users/updateUser`, {
             user_id: params.user_id,
             unique_id: params.unique_id,
@@ -53,7 +49,6 @@ export default AuthService = {
         });
     },
     getAgent: function (params) {
-        console.log(params);
         return axios.get(`/users/agent`, {
             params: {
                 uniqueId: params.agentId
@@ -63,7 +58,6 @@ export default AuthService = {
         });
     },
     getReferral: function (params) {
-        console.log(params);
         return axios.get(`/users/referral`, {
             params: {
                 uniqueId: params.uniqueId

@@ -1,7 +1,10 @@
 export default {
-    apiURL: "https://brokier.com/app/public/api",
+    // apiURL: "https://brokier.com/app/public/api",
+    // resURL: "https://cdn.repliers.io/",
+    // avatarURL: "https://brokier.com/app/public/storage/public/",
+    apiURL: "https://houcey.com/app/public/api",
     resURL: "https://cdn.repliers.io/",
-    avatarURL: "https://brokier.com/app/public/storage/public/",
+    avatarURL: "https://houcey.com/app/public/storage/public/",
 
     // google_map_key: 'AIzaSyAU54vgtYyzf4gUDXFALWt5vYTJsnGZraM',
     // google_map_key: 'AIzaSyAeJJDLz3XwOJcU7gwzBp0756V5j3d_YqM',

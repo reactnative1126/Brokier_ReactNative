@@ -32,7 +32,7 @@ export default PropertyDetail = ({ listing }) => {
     });
     setImages(imagesArray);
 
-    return () => console.log(images);
+    return () => console.log('');
   }, []);
 
   return (

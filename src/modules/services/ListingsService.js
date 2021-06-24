@@ -16,7 +16,6 @@ export default ListingsService = {
         });
     },
     getListingsList: function (region, offset, sort) {
-        console.log(`${region}:${offset}:${sort}`);
         return axios.get(`/listings/list`, {
             params: {
                 offset: offset,
@@ -32,7 +31,6 @@ export default ListingsService = {
         });
     },
     getListingDetail: function (id) {
-        console.log(`${id}`);
         return axios.get(`/listings/detail`, {
             params: {
                 id: id
@@ -42,7 +40,6 @@ export default ListingsService = {
         });
     },
     getDetailHistories: function (streetNumber, streetName, streetSuffix, unitNumber) {
-        console.log(`${streetNumber}:${streetName}:${streetSuffix}:${unitNumber}`);
         return axios.get(`/listings/histories`, {
             params: {
                 streetNumber,
@@ -55,7 +52,6 @@ export default ListingsService = {
         });
     },
     getDetailSimilars: function (latitude, longitude, status, type, lastStatus, propertyType, numBedrooms) {
-        console.log(`${latitude}:${longitude}:${status}:${type}:${lastStatus}:${propertyType}:${numBedrooms}`);
         return axios.get(`/listings/similars`, {
             params: {
                 latitude,
@@ -71,7 +67,6 @@ export default ListingsService = {
         });
     },
     getDetailRooms: function (mlsNumber) {
-        console.log(`${mlsNumber}`);
         return axios.get(`/listings/rooms`, {
             params: {
                 mlsNumber
@@ -81,7 +76,6 @@ export default ListingsService = {
         });
     },
     getSearch: function (search) {
-        console.log(`${search}`);
         return axios.get(`/listings/search`, {
             params: {
                 search: search
@@ -91,7 +85,6 @@ export default ListingsService = {
         });
     },
     setSearches: function (name, coordinates, userId) {
-        console.log(`${name}:${coordinates}:${userId}`);
         return axios.post(`/listings/searches`, {
             name,
             userId,
@@ -105,7 +98,6 @@ export default ListingsService = {
         });
     },
     getSearches: function (userId) {
-        console.log(`${userId}`);
         return axios.get(`/listings/searches`, {
             params: {
                 userId
@@ -115,7 +107,6 @@ export default ListingsService = {
         });
     },
     setLike: function (userId, listingId) {
-        console.log(`${userId}:${listingId}`);
         return axios.post(`/listings/like`, {
             userId: userId,
             listingId: listingId
@@ -124,7 +115,6 @@ export default ListingsService = {
         });
     },
     getLike: function (userId) {
-        console.log(`${userId}`);
         return axios.get(`/listings/like`, {
             params: {
                 userId: userId
@@ -134,7 +124,6 @@ export default ListingsService = {
         });
     },
     getFavoriteList: function (userId, offset) {
-        console.log(`${userId}:${offset}`);
         return axios.get(`/listings/favorite`, {
             params: {
                 userId: userId,
@@ -145,7 +134,6 @@ export default ListingsService = {
         });
     },
     setViewings: function (listingId, agentUniqueId, userId) {
-        console.log(`${listingId}:${agentUniqueId}:${userId}`);
         return axios.post(`/listings/viewings`, {
             listingId,
             agentUniqueId,
@@ -155,7 +143,6 @@ export default ListingsService = {
         });
     },
     getViewings: function (agentId, userId, offset) {
-        console.log(`${agentId}:${userId}:${offset}`);
         return axios.get(`/listings/viewings`, {
             params: {
                 agentId,

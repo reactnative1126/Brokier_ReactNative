@@ -59,7 +59,6 @@ exports.getListings = functions.runWith(runtimeOpts).https.onRequest(async (req,
 //         axios.get(`listings?pageNum=${currentPage}`).then(async (res) => {
 //             var batch = firestore.batch();
 //             res.data.listings.map((listingOne, key) => {
-//                 console.log(`current page: ${currentPage}, total pages: ${totalPages}, current time: ${currentTime}, mlsNumber: ${listingOne.mlsNumber}`);
 //                 var listingRef = firestore.collection('listings').doc(listingOne.mlsNumber);
 //                 batch.set(listingRef, listingOne);
 //             });
@@ -100,7 +99,6 @@ exports.getListings = functions.runWith(runtimeOpts).https.onRequest(async (req,
 //         axios.get(`listings?pageNum=${currentPage}`).then(async (res) => {
 //             var batch = firestore.batch();
 //             res.data.listings.map((listingOne, key) => {
-//                 console.log(`current page: ${currentPage}, total pages: ${totalPages}, current time: ${currentTime}, mlsNumber: ${listingOne.mlsNumber}`);
 //                 var listingRef = firestore.collection('listings').doc(listingOne.mlsNumber);
 //                 batch.set(listingRef, listingOne);
 //             });

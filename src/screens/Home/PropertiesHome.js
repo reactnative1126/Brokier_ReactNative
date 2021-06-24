@@ -163,8 +163,8 @@ class PropertiesHome extends Component {
                     this.props.setUser(res.users[0]);
                     global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
                   }
-                }).catch((err) => {
-                  console.log(err.message);
+                }).catch((error) => {
+                  console.log(error.message);
                 });
               }
             }
@@ -204,8 +204,8 @@ class PropertiesHome extends Component {
                       this.props.setUser(res.users[0]);
                       global.homeUrl = { agentId: undefined, address: undefined, mlsNumber: undefined, listingId: undefined };
                     }
-                  }).catch((err) => {
-                    console.log(err.message);
+                  }).catch((error) => {
+                    console.log(error.message);
                   });
                 }
               }
@@ -256,8 +256,8 @@ class PropertiesHome extends Component {
                     var listing = await ListingsService.getListingDetail(homeUrl.listingId);
                     this.props.navigation.navigate('PropertiesDetail', { listing });
                   }
-                }).catch((err) => {
-                  console.log(err.message);
+                }).catch((error) => {
+                  console.log(error.message);
                 });
               }
             }
@@ -305,8 +305,8 @@ class PropertiesHome extends Component {
                       var listing = await ListingsService.getListingDetail(homeUrl.listingId);
                       this.props.navigation.navigate('PropertiesDetail', { listing });
                     }
-                  }).catch((err) => {
-                    console.log(err.message);
+                  }).catch((error) => {
+                    console.log(error.message);
                   });
                 }
               }
