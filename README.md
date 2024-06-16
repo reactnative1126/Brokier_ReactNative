@@ -1,6 +1,7 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# HouseSigma (Brokier) Real Estates App <img src="https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/icons/icon.png" width="80">
+# HouseSigma (Brokier) Real Estates App 
+<img src="https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/icons/icon.png" width="80">
 
 ## App Preview
 
@@ -39,11 +40,13 @@ yarn start
 ## Step 2: Start your Application
 
 Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+
 ### For Expo
 
 ```bash
 # using expo
 expo start
+```
 
 ### For Android
 
