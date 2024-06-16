@@ -7,7 +7,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 Welcome to my project! Below is my favorite video related to this project:
 
-[![My Favorite Video](https://i.vimeocdn.com/video/958085780_100x75.jpg)](https://vimeo.com/958085780)
+[![My Favorite Video]([https://i.vimeocdn.com/video/958085780_100x75.jpg](https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/screens/3.png))](https://vimeo.com/958085780)
 
 <img src="https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/screens/1.png" width="500" alt="Screen 1" hspace="5">
 
