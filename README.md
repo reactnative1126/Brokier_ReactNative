@@ -5,9 +5,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 ## App Preview
 
-<a href="https://vimeo.com/958085780">
-	<iframe width="500" src="https://vimeo.com/958085780" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</a>
+[![My Favorite Video](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://vimeo.com/958085780)
 
 <img src="https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/screens/1.png" width="500" alt="Screen 1" hspace="5">
 
