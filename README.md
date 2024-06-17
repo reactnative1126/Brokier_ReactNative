@@ -14,6 +14,10 @@ This is a new [**React Native**](https://reactnative.dev), [**Expo**](https://ex
 
 ## Download
 
+[![Play Store Button](google-play.png "Google Play Button")](https://play.google.com/store/apps/details?id=com.borw&hl=en_US&gl=US&pli=1)
+[![App Store Button](apple-store.png "Apple Store Button")](https://apps.apple.com/ca/app/borw/id1504578577)
+[![Apk Download Button](apk-download.png "Apk Download Button")](https://play.google.com/store/apps/details?id=com.borw&hl=en_US&gl=US&pli=1)
+
 <a href="https://play.google.com/store/apps/details?id=com.borw&hl=en_US&gl=US&pli=1">
   <img alt="Download on Google Play" src="https://play.google.com/intl/en_us/badges/images/badge_new.png" height=43>
 </a>
