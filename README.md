@@ -12,7 +12,7 @@ This is a new [**React Native**](https://reactnative.dev), [**Expo**](https://ex
 
 <img src="https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/icons/icon.png" width="80">
 
-## Download
+## App Download
 
 <a href="https://play.google.com/store/apps/details?id=com.borw&hl=en_US&gl=US&pli=1">
   <img alt="Download on Google Play" src="https://play.google.com/intl/en_us/badges/images/badge_new.png" height=43>
@@ -21,7 +21,7 @@ This is a new [**React Native**](https://reactnative.dev), [**Expo**](https://ex
   <img alt="Download on App Store" src="https://user-images.githubusercontent.com/7317008/43209852-4ca39622-904b-11e8-8ce1-cdc3aee76ae9.png" height=43>
 </a>
 
-## Preview
+## App Preview
 
 Welcome to my project! Below are my favorite videos and screenshots related to this project:
 
