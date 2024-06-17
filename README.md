@@ -12,10 +12,6 @@ This is a new [**React Native**](https://reactnative.dev), [**Expo**](https://ex
 
 <img src="https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/icons/icon.png" width="80">
 
-<p align="center">
-  <img align="center" alt="Product: demo" src="./.gh-assets/crna.gif" />
-</p>
-
 ## App Preview
 
 Welcome to my project! Below are my favorite video and screenshots related to this project:
