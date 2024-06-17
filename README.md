@@ -3,6 +3,11 @@ This is a new [**React Native**](https://reactnative.dev), [**Expo**](https://ex
 # HouseSigma (Brokier) Real Estates App 
 <img src="https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/icons/icon.png" width="80">
 
+![star this repo](https://img.shields.io/github/stars/react-native-webview/react-native-webview?style=flat-square)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![NPM Version](https://img.shields.io/npm/v/react-native-webview.svg?style=flat-square)](https://www.npmjs.com/package/react-native-webview)
+![Npm Downloads](https://img.shields.io/npm/dm/react-native-webview.svg)
+
 ## App Preview
 
 Welcome to my project! Below are my favorite video and screenshots related to this project:
