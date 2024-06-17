@@ -14,12 +14,15 @@ This is a new [**React Native**](https://reactnative.dev), [**Expo**](https://ex
 
 ## Download
 
-<a href="https://play.google.com/store/search?q=house%20sigma&c=apps&hl=en_US&gl=US">
+[![App Store Button](http://imgur.com/y8PTxr9.png "App Store Button")](https://apps.apple.com/us/app/housesigma-canada-real-estate/id1255490256)
+[![Play Store Button](http://imgur.com/utWa1co.png "Play Store Button")](https://play.google.com/store/search?q=house%20sigma&c=apps&hl=en_US&gl=US)
+
+<!-- <a href="https://play.google.com/store/search?q=house%20sigma&c=apps&hl=en_US&gl=US">
   <img alt="Download on Google Play" src="https://play.google.com/intl/en_us/badges/images/badge_new.png" height=43>
 </a>
 <a href="https://apps.apple.com/us/app/housesigma-canada-real-estate/id1255490256">
   <img alt="Download on App Store" src="https://user-images.githubusercontent.com/7317008/43209852-4ca39622-904b-11e8-8ce1-cdc3aee76ae9.png" height=43>
-</a>
+</a> -->
 
 ## Preview
 
