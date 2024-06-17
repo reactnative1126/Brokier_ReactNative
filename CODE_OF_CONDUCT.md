@@ -55,7 +55,7 @@ a project may be further defined and clarified by project maintainers.
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at <opensource-conduct@fb.com>. All
+reported by contacting the project team at <starmastar1126.github.io/portfolio>. All
 complaints will be reviewed and investigated and will result in a response that
 is deemed necessary and appropriate to the circumstances. The project team is
 obligated to maintain confidentiality with regard to the reporter of an incident.
@@ -68,10 +68,10 @@ members of the project's leadership.
 ## Attribution
 
 This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 2.1,
-available at https://www.contributor-covenant.org/version/2/1/code_of_conduct/
+available at https://starmastar1126.github.io/portfolio
 
-[homepage]: https://www.contributor-covenant.org
+[homepage]: https://starmastar1126.github.io/portfolio
 
 For answers to common questions about this code of conduct, see
-https://www.contributor-covenant.org/faq
+https://starmastar1126.github.io/portfolio
 
