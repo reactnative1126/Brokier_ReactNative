@@ -59,6 +59,9 @@ Welcome to my project! Below are my favorite videos and screenshots related to t
   </tr>
 </table>
 
+## License
+
+[License 2.0](LICENSE)
 
 # Getting Started
 
@@ -144,6 +147,3 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 
-## License
-
-[License 2.0](LICENSE)
