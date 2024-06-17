@@ -22,10 +22,6 @@ Welcome to my project! Below are my favorite video and screenshots related to th
 
 ## Contributors
 
-Thanks goes to these wonderful people ([emoji key](https://github.com/all-contributors/all-contributors#emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
 <table>
   <tr>
     <td align="center"><a href="https://twitter.com/@satya164"><img src="https://avatars2.githubusercontent.com/u/1174278?v=4" width="100px;" alt="Satyajit Sahoo"/><br /><sub><b>Satyajit Sahoo</b></sub></a><br /><a href="#ideas-satya164" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/callstack/react-native-paper/commits?author=satya164" title="Code">💻</a> <a href="https://github.com/callstack/react-native-paper/commits?author=satya164" title="Documentation">📖</a></td>
