@@ -59,6 +59,14 @@ Welcome to my project! Below are my favorite videos and screenshots related to t
   </tr>
 </table>
 
+
+## Contributing
+
+Please make sure to read the [Contributing Guide](https://github.com/dooboolab-community/react-native-iap/blob/main/CONTRIBUTING.md) before making a pull request.
+Thank you to all the people who helped to maintain and upgrade this project!
+
+<a href="graphs/contributors"><img src="https://opencollective.com/react-native-iap/contributors.svg?width=890" /></a>
+
 ## License
 
 [License 2.0](LICENSE)
