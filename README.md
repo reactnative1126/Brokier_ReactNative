@@ -1,4 +1,4 @@
-This is a new [**React Native**](https://reactnative.dev) project, [`expo`](https://expo.dev/) bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+This is a new [**React Native**](https://reactnative.dev), [`Expo`](https://expo.dev/) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # HouseSigma (Brokier) Real Estates App 
 <img src="https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/icons/icon.png" width="80">
