@@ -22,7 +22,6 @@ Welcome to my project! Below are my favorite video and screenshots related to th
 
 <img src="https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/screens/1.png" width="250" alt="Screen 1" hspace="5"> <img src="https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/screens/5.png" width="250" alt="Screen 5" hspace="5"> <img src="https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/screens/4.png" width="250" alt="Screen 4" hspace="5">
 
-
 ## Contributors
 
 <table>
@@ -50,6 +49,15 @@ Welcome to my project! Below are my favorite video and screenshots related to th
     <td align="center"><a href="https://github.com/jbinda"><img src="https://avatars2.githubusercontent.com/u/21242757?v=4" width="100px;" alt="jbinda"/><br /><sub><b>jbinda</b></sub></a><br /><a href="https://github.com/callstack/react-native-paper/commits?author=jbinda" title="Code">💻</a> <a href="#ideas-jbinda" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
+
+## Download
+
+<a href="https://play.google.com/store/apps/details?id=com.borw&hl=en_US&gl=US&pli=1">
+  <img alt="Download on Google Play" src="https://play.google.com/intl/en_us/badges/images/badge_new.png" height=43>
+</a>
+<a href="https://apps.apple.com/ca/app/borw/id1504578577">
+  <img alt="Download on App Store" src="https://user-images.githubusercontent.com/7317008/43209852-4ca39622-904b-11e8-8ce1-cdc3aee76ae9.png" height=43>
+</a>
 
 # Getting Started
 
