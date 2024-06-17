@@ -148,4 +148,4 @@ To learn more about React Native, take a look at the following resources:
 
 ## License
 
-HouseSigma(Brokier) React Native mobile application is licensed under [The MIT License](LICENSE) © Silas Jones 2017-
+HouseSigma(Brokier) React Native mobile application is licensed under [The MIT License](LICENSE) © Silas Jones 2021-
