@@ -61,7 +61,7 @@ Welcome to my project! Below are my favorite videos and screenshots related to t
 
 ## License
 
-HouseSigma(Brokier) React Native mobile application is licensed under [The MIT License](LICENSE) © Silas Jones 2017-.
+HouseSigma(Brokier) React Native mobile application is licensed under [The MIT License](LICENSE) © Silas Jones 2017-
 
 # Getting Started
 
