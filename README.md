@@ -12,9 +12,18 @@ This is a new [**React Native**](https://reactnative.dev), [**Expo**](https://ex
 
 <img src="https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/icons/icon.png" width="80">
 
-## App Preview
+## Download
 
-Welcome to my project! Below are my favorite video and screenshots related to this project:
+<a href="https://play.google.com/store/apps/details?id=com.borw&hl=en_US&gl=US&pli=1">
+  <img alt="Download on Google Play" src="https://play.google.com/intl/en_us/badges/images/badge_new.png" height=43>
+</a>
+<a href="https://apps.apple.com/ca/app/borw/id1504578577">
+  <img alt="Download on App Store" src="https://user-images.githubusercontent.com/7317008/43209852-4ca39622-904b-11e8-8ce1-cdc3aee76ae9.png" height=43>
+</a>
+
+## Preview
+
+Welcome to my project! Below are my favorite videos and screenshots related to this project:
 
 <a href="https://vimeo.com/958085780">
    <img src="https://github.com/reactnative1126/Brokier_ReactNative/blob/master/src/assets/screens/3.png" width="500" alt="Screen 3" hspace="5">
@@ -50,14 +59,6 @@ Welcome to my project! Below are my favorite video and screenshots related to th
   </tr>
 </table>
 
-## Download
-
-<a href="https://play.google.com/store/apps/details?id=com.borw&hl=en_US&gl=US&pli=1">
-  <img alt="Download on Google Play" src="https://play.google.com/intl/en_us/badges/images/badge_new.png" height=43>
-</a>
-<a href="https://apps.apple.com/ca/app/borw/id1504578577">
-  <img alt="Download on App Store" src="https://user-images.githubusercontent.com/7317008/43209852-4ca39622-904b-11e8-8ce1-cdc3aee76ae9.png" height=43>
-</a>
 
 # Getting Started
 
