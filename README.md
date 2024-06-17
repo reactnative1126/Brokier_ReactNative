@@ -2,6 +2,7 @@ This is a new [**React Native**](https://reactnative.dev), [**Expo**](https://ex
 
 # HouseSigma (Brokier) Real Estates App 
 
+![platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS-brightgreen.svg?style=flat-square&colorB=191A17)
 ![star this repo](https://img.shields.io/github/stars/react-native-webview/react-native-webview?style=flat-square)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![NPM Version](https://img.shields.io/npm/v/react-native-webview.svg?style=flat-square)](https://www.npmjs.com/package/react-native-webview)
